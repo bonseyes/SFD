@@ -64,6 +64,7 @@ class SFD_NET(caffe.Net):
         """
         # Scale to standardize input dimensions.
         detections = []
+        # TODO: just do this for a single image, no need for batch processing
         for ix, in_ in enumerate(imgs):
             self.blobs[self.inputs[0]].reshape(1, 3, in_.shape[0], in_.shape[1])
             transformer = self.get_transformer(self.blobs[self.inputs[0]].data.shape)
@@ -73,7 +74,7 @@ class SFD_NET(caffe.Net):
 
         return detections
 
-    def process_detections(self, detections, width, height):
+    def process_detections(self, detections, width, height, shrink=1):
         results = []
         det_conf = detections[0, 0, :, 2]
         det_xmin = detections[0, 0, :, 3]
@@ -89,10 +90,10 @@ class SFD_NET(caffe.Net):
         det_ymax = det_ymax[keep_index]
 
         for i in range(det_conf.shape[0]):
-            xmin = det_xmin[i] * width
-            ymin = det_ymin[i] * height
-            xmax = det_xmax[i] * width
-            ymax = det_ymax[i] * height
+            xmin = det_xmin[i] * width / shrink
+            ymin = det_ymin[i] * height / shrink
+            xmax = det_xmax[i] * width / shrink
+            ymax = det_ymax[i] * height / shrink
             score = det_conf[i]
             results.append((score, xmin, ymin, xmax, ymax))
 
