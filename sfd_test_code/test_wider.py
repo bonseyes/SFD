@@ -1,76 +1,40 @@
 from sfd_detector import SFD_NET
 import argparse
+import caffe
 import cv2
 import numpy as np
-import scipy.io as sio
 import os
 import os.path
-import caffe
-
-
-def detect_face(net, image, shrink):
-    if shrink != 1:
-        image = cv2.resize(image, None, None, fx=shrink, fy=shrink, interpolation=cv2.INTER_LINEAR)
-
-    net.blobs['data'].reshape(1, 3, image.shape[0], image.shape[1])
-    transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
-    transformer.set_transpose('data', (2, 0, 1))
-    transformer.set_mean('data', np.array([104, 117, 123]))
-    transformer.set_raw_scale('data', 255)
-    transformer.set_channel_swap('data', (2, 1, 0))
-    transformed_image = transformer.preprocess('data', image)
-    net.blobs['data'].data[...] = transformed_image
-
-    detections = net.forward()['detection_out']
-    det_conf = detections[0, 0, :, 2]
-    det_xmin = image.shape[1] * detections[0, 0, :, 3] / shrink
-    det_ymin = image.shape[0] * detections[0, 0, :, 4] / shrink
-    det_xmax = image.shape[1] * detections[0, 0, :, 5] / shrink
-    det_ymax = image.shape[0] * detections[0, 0, :, 6] / shrink
-    det = np.column_stack((det_xmin, det_ymin, det_xmax, det_ymax, det_conf))
-
-    keep_index = np.where(det[:, 4] >= 0)[0]
-    det = det[keep_index, :]
-    return det
+import scipy.io as sio
 
 
 def multi_scale_test(net, image, max_im_shrink):
-    # shrink detecting and shrink only detect big face
+    # Shrink detecting and shrink only detect big face
     st = 0.5 if max_im_shrink >= 0.75 else 0.5 * max_im_shrink
-    # TODO: make a single call to SFD_DETECTOR
-    det_s = net.detect([image])
-    det_s = net.process_detections(det_s[0], image.shape[1], image.shape[0], st)
-    # TODO: return a np.array from a single detection method
-    det_s = np.array(det_s)
-    index = np.where(np.maximum(det_s[:, 3] - det_s[:, 1] + 1, det_s[:, 4] - det_s[:, 2] + 1) > 30)[0]
+    det_s = net.detect(image, st)
+    index = np.where(np.maximum(det_s[:, 2] - det_s[:, 0] + 1, det_s[:, 3] - det_s[:, 1] + 1) > 30)[0]
     det_s = det_s[index, :]
 
-    # enlarge one times
+    # Enlarge one times
     bt = min(2, max_im_shrink) if max_im_shrink > 1 else (st + max_im_shrink) / 2
-    # TODO: make a single call to SFD_DETECTOR
-    det_b = net.detect([image])
-    det_b = net.process_detections(det_b[0], image.shape[1], image.shape[0], bt)
-    # TODO: return a np.array from a single detection method
-    det_b = np.array(det_b)
+    det_b = net.detect(image, bt)
 
-    # enlarge small image x times for small face
+    # Enlarge small image x times for small face
     if max_im_shrink > 2:
         bt *= 2
         while bt < max_im_shrink:
-            det_ = net.detect([image])
-            det_ = net.process_detections(det_[0], image.shape[1], image.shape[0], bt)
+            det_ = net.detect(image, bt)
             det_b = np.row_stack((det_b, det_))
             bt *= 2
-        det_ = net.detect([image])
-        det_ = net.process_detections(det_[0], image.shape[1], image.shape[0], bt)
+        det_ = net.detect(image, bt)
         det_b = np.row_stack((det_b, det_))
 
-    # enlarge only detect small face
+    # Enlarge only detect small face
     if bt > 1:
-        index = np.where(np.minimum(det_b[:, 3] - det_b[:, 1] + 1, det_b[:, 4] - det_b[:, 2] + 1) < 100)[0]
+        index = np.where(np.minimum(det_b[:, 2] - det_b[:, 0] + 1, det_b[:, 3] - det_b[:, 1] + 1) < 100)[0]
         det_b = det_b[index, :]
     else:
-        index = np.where(np.maximum(det_b[:, 3] - det_b[:, 1] + 1, det_b[:, 4] - det_b[:, 2] + 1) > 30)[0]
+        index = np.where(np.maximum(det_b[:, 2] - det_b[:, 0] + 1, det_b[:, 3] - det_b[:, 1] + 1) > 30)[0]
         det_b = det_b[index, :]
 
     return det_s, det_b
@@ -78,15 +42,13 @@ def multi_scale_test(net, image, max_im_shrink):
 
 def flip_test(net, image, shrink):
     image_f = cv2.flip(image, 1)
-    det_f = net.detect([image_f])
-    det_f = net.process_detections(det_f[0], image_f.shape[1], image_f.shape[0], shrink)
-    det_f = np.array(det_f)
+    det_f = net.detect(image_f, shrink)
 
     det_t = np.zeros(det_f.shape)
-    det_t[:, 0] = det_f[:, 0]
-    det_t[:, 1] = image.shape[1] - det_f[:, 3]
-    det_t[:, 2] = det_f[:, 1]
-    det_t[:, 3] = image.shape[1] - det_f[:, 1]
+    det_t[:, 0] = image.shape[1] - det_f[:, 2]
+    det_t[:, 1] = det_f[:, 1]
+    det_t[:, 2] = image.shape[1] - det_f[:, 0]
+    det_t[:, 3] = det_f[:, 3]
     det_t[:, 4] = det_f[:, 4]
     return det_t
 
@@ -94,6 +56,7 @@ def flip_test(net, image, shrink):
 def bbox_vote(det):
     order = det[:, 4].ravel().argsort()[::-1]
     det = det[order, :]
+    dets = np.zeros((0, 5))
     while det.shape[0] > 0:
         # IOU
         area = (det[:, 2] - det[:, 0] + 1) * (det[:, 3] - det[:, 1] + 1)
@@ -106,7 +69,7 @@ def bbox_vote(det):
         inter = w * h
         o = inter / (area[0] + area[:] - inter)
 
-        # get needed merge det and delete these det
+        # Get needed merge det and delete these det
         merge_index = np.where(o >= 0.3)[0]
         det_accu = det[merge_index, :]
         det = np.delete(det, merge_index, 0)
@@ -168,7 +131,6 @@ if __name__ == '__main__':
             os.makedirs(save_path + event[0][0])
 
         for num, file in enumerate(filelist):
-            print("image {}".format(num))
             im_name = file[0][0]
             Image_Path = dataset_path + event[0][0] + '/' + im_name[:] + '.jpg'
             image = caffe.io.load_image(Image_Path)
@@ -176,11 +138,11 @@ if __name__ == '__main__':
             max_im_shrink = (0x7fffffff / 577.0 / (image.shape[0] * image.shape[1])) ** 0.5 # the max size of input image for caffe
             shrink = max_im_shrink if max_im_shrink < 1 else 1
 
-            det0 = detect_face(net, image, shrink)  # origin test
+            det0 = net.detect(image, shrink)
             det1 = flip_test(net, image, shrink)    # flip test
             [det2, det3] = multi_scale_test(net, image, max_im_shrink)  #multi-scale test
 
-            # merge all test results via bounding box voting
+            # Merge all test results via bounding box voting
             det = np.row_stack((det0, det1, det2, det3))
             dets = bbox_vote(det)
 

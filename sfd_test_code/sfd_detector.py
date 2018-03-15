@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 from os.path import abspath, dirname 
+import cv2
 import numpy as np
 
 import sys
@@ -7,6 +8,8 @@ sys.path.insert(0, '../../python')
 import caffe
 
 
+# Default models if none is passed to the __init__ method, assuming the `sfd_test_code` is in ${CAFFE_ROOT}/SFD/sfd_test_code
+# These models are automatically downloaded by SFD/scripts/data/download_model.sh
 MODEL_DEF = '{}/../../models/VGGNet/WIDER_FACE/SFD_trained/deploy.prototxt'.format(abspath(dirname(__file__)))
 MODEL_WEIGHTS = '{}/../../models/VGGNet/WIDER_FACE/SFD_trained/SFD.caffemodel'.format(abspath(dirname(__file__)))
 
@@ -49,52 +52,40 @@ class SFD_NET(caffe.Net):
         transformer.set_channel_swap(in_, (2, 1, 0))
         return transformer
 
-    def detect(self, imgs, is_wider=False):
+    def detect(self, img, shrink=1):
         """
-        Detect elements on inputs.
+        Detect elements on a single input image.
 
         Parameters
         ----------
-        inputs : iterable of (H x W x K) input ndarrays.
-        is_wider : boolean, True if the image comes from WIDER FACES dataset
+        inputs : (H x W x K) ndarray.
+        shrink: float, ratio to adjust output detections 
 
         Returns
         -------
-        detections: list of 4D ndarrays of detections containing confidence, xmin, ymin, xmax and ymax 
+        detections: np.array of detections containing xmin, ymin, xmax, ymax and confidence
         """
-        # Scale to standardize input dimensions.
-        detections = []
-        # TODO: just do this for a single image, no need for batch processing
-        for ix, in_ in enumerate(imgs):
-            self.blobs[self.inputs[0]].reshape(1, 3, in_.shape[0], in_.shape[1])
-            transformer = self.get_transformer(self.blobs[self.inputs[0]].data.shape)
-            transformed_image = transformer.preprocess(self.inputs[0], in_)
-            self.blobs[self.inputs[0]].data[...] = transformed_image
-            detections.append(self.forward()['detection_out'])
+        if shrink != 1:
+            img = cv2.resize(img, None, None, fx=shrink, fy=shrink, interpolation=cv2.INTER_LINEAR)
 
-        return detections
+        height = img.shape[0]
+        width = img.shape[1]
 
-    def process_detections(self, detections, width, height, shrink=1):
-        results = []
+        self.blobs[self.inputs[0]].reshape(1, 3, height, width)
+        transformer = self.get_transformer(self.blobs[self.inputs[0]].data.shape)
+        transformed_image = transformer.preprocess(self.inputs[0], img)
+        self.blobs[self.inputs[0]].data[...] = transformed_image
+        detections = self.forward()['detection_out']
+
+        # Adjust SFD output to image size
         det_conf = detections[0, 0, :, 2]
-        det_xmin = detections[0, 0, :, 3]
-        det_ymin = detections[0, 0, :, 4]
-        det_xmax = detections[0, 0, :, 5]
-        det_ymax = detections[0, 0, :, 6]
+        det_xmin = detections[0, 0, :, 3] * width / shrink
+        det_ymin = detections[0, 0, :, 4] * height / shrink
+        det_xmax = detections[0, 0, :, 5] * width / shrink
+        det_ymax = detections[0, 0, :, 6] * height / shrink
+        det = np.column_stack((det_xmin, det_ymin, det_xmax, det_ymax, det_conf))
 
-        keep_index = np.where(det_conf >= 0)[0]
-        det_conf = det_conf[keep_index]
-        det_xmin = det_xmin[keep_index]
-        det_ymin = det_ymin[keep_index]
-        det_xmax = det_xmax[keep_index]
-        det_ymax = det_ymax[keep_index]
+        keep_index = np.where(det[:, 4] >= 0)[0]
+        det = det[keep_index, :]
 
-        for i in range(det_conf.shape[0]):
-            xmin = det_xmin[i] * width / shrink
-            ymin = det_ymin[i] * height / shrink
-            xmax = det_xmax[i] * width / shrink
-            ymax = det_ymax[i] * height / shrink
-            score = det_conf[i]
-            results.append((score, xmin, ymin, xmax, ymax))
-
-        return results
+        return det

@@ -18,24 +18,21 @@ def process_imgs_list(imgs_list_file, output_file, dataset_path, origin, device=
         for i, Name in enumerate(names):
             Image_Path = os.path.join(dataset_path, Name[:-1].replace('.jpg', '') + '.jpg')
             image = caffe.io.load_image(Image_Path)
-            height = image.shape[0]
-            width = image.shape[1]
         
+            shrink = 1
             if origin in ['AFW', 'PASCAL']:
-                im_shrink = 640.0 / max(height, width)
-                image = cv2.resize(image, None, None, fx=im_shrink, fy=im_shrink, interpolation=cv2.INTER_LINEAR)
+                shrink = 640.0 / max(image.shape[0], image.shape[1])
+                #image = cv2.resize(image, None, None, fx=ratio, fy=ratio, interpolation=cv2.INTER_LINEAR)
         
-            detections = net.detect([image])
-            processed_detections = net.process_detections(detections[0], width, height)
-        
+            detections = net.detect(image, shrink=shrink)
 
             # Specific format for FDDB dataset
             if origin == 'FDDB':
                 f.write('{:s}\n'.format(Name[:-1]))
-                f.write('{:d}\n'.format(len(processed_detections)))
+                f.write('{:d}\n'.format(detections.shape[0]))
 
-            for det in processed_detections:
-                score, xmin, ymin, xmax, ymax = det
+            for det in detections:
+                xmin, ymin, xmax, ymax, score = det
                 if origin in ['AFW', 'PASCAL']:
                     # Simple fitting to AFW/PASCAL, because the gt box of training
                     # data (i.e., WIDER FACE) is longer than the gt box of AFW/PASCAL
