@@ -1,14 +1,8 @@
 import numpy as np
 import cv2
 import scipy.io as sio
-
-
-# Make sure that caffe is on the python path:
-caffe_root = '../../'  # this file is expected to be in {caffe_root}/sfd_test_code
 import os
-os.chdir(caffe_root)
 import sys
-sys.path.insert(0, 'python')
 import caffe
 
 
@@ -46,6 +40,7 @@ def multi_scale_test(net, image, max_im_shrink):
     det_s = det_s[index, :]
 
     # enlarge one times
+    import ipdb; ipdb.set_trace()
     bt = min(2, max_im_shrink) if max_im_shrink > 1 else (st + max_im_shrink) / 2
     det_b = detect_face(net, image, bt)
 
@@ -132,31 +127,30 @@ def write_to_txt(f, det):
 
 if __name__ == '__main__':
 
-    caffe.set_device(3)
     caffe.set_mode_gpu()
-    model_def = 'models/VGGNet/WIDER_FACE/SFD/deploy.prototxt'
-    model_weights = 'models/VGGNet/WIDER_FACE/SFD/SFD.caffemodel'
+    model_def = '../../../models/VGGNet/WIDER_FACE/SFD_trained/deploy.prototxt'
+    model_weights = '../../../models/VGGNet/WIDER_FACE/SFD_trained/SFD.caffemodel'
     net = caffe.Net(model_def, model_weights, caffe.TEST)
 
     subset = 'val' # val or test
     if subset is 'val':
-        wider_face = sio.loadmat('./sfd_test_code/WIDER_FACE/wider_face_val.mat')    # Val set
+        wider_face = sio.loadmat('./wider_face_val.mat')    # Val set
     else:
-        wider_face = sio.loadmat('./sfd_test_code/WIDER_FACE/wider_face_test.mat')   # Test set
+        wider_face = sio.loadmat('./wider_face_test.mat')   # Test set
     event_list = wider_face['event_list']
     file_list = wider_face['file_list']
     del wider_face
 
-    Path = 'Path to the images of WIDER FACE'
-    save_path = './sfd_test_code/WIDER_FACE/eval_tools_old-version/sfd' + '_' + subset + '/'
+    Path = '../../datasets/WIDER/WIDER_val/images/'
+    save_path = './eval_tools_old-version/sfd' + '_' + subset + '/'
     for index, event in enumerate(event_list):
         filelist = file_list[index][0]
-        if not os.path.exists(save_path + event[0][0].encode('utf-8')):
-            os.makedirs(save_path + event[0][0].encode('utf-8'))
+        if not os.path.exists(save_path + event[0][0]):
+            os.makedirs(save_path + event[0][0])
 
         for num, file in enumerate(filelist):
-            im_name = file[0][0].encode('utf-8')
-            Image_Path = Path + im_name[:] + '.jpg'
+            im_name = file[0][0]
+            Image_Path = Path + event[0][0] + '/' + im_name[:] + '.jpg'
             image = caffe.io.load_image(Image_Path)
 
             max_im_shrink = (0x7fffffff / 577.0 / (image.shape[0] * image.shape[1])) ** 0.5 # the max size of input image for caffe
@@ -164,10 +158,10 @@ if __name__ == '__main__':
 
             det0 = detect_face(net, image, shrink)  # origin test
             det1 = flip_test(net, image, shrink)    # flip test
-            [det2, det3] = multi_scale_test(net, image, max_im_shrink)  #multi-scale test
+            #[det2, det3] = multi_scale_test(net, image, max_im_shrink)  #multi-scale test
 
             # merge all test results via bounding box voting
-            det = np.row_stack((det0, det1, det2, det3))
+            det = np.row_stack((det0, det1))#, det2, det3))
             dets = bbox_vote(det)
 
             f = open(save_path + event[0][0].encode('utf-8') + '/' + im_name + '.txt', 'w')

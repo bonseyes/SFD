@@ -168,6 +168,7 @@ if __name__ == '__main__':
             os.makedirs(save_path + event[0][0])
 
         for num, file in enumerate(filelist):
+            print("image {}".format(num))
             im_name = file[0][0]
             Image_Path = dataset_path + event[0][0] + '/' + im_name[:] + '.jpg'
             image = caffe.io.load_image(Image_Path)
