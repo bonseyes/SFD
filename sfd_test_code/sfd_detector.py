@@ -52,7 +52,7 @@ class SFD_NET(caffe.Net):
         transformer.set_channel_swap(in_, (2, 1, 0))
         return transformer
 
-    def detect(self, img, shrink=1):
+    def detect(self, img, shrink=(1, 1)):
         """
         Detect elements on a single input image.
 
@@ -65,8 +65,8 @@ class SFD_NET(caffe.Net):
         -------
         detections: np.array of detections containing xmin, ymin, xmax, ymax and confidence
         """
-        if shrink != 1:
-            img = cv2.resize(img, None, None, fx=shrink, fy=shrink, interpolation=cv2.INTER_LINEAR)
+        if shrink[0] != 1 or shrink[1] != 1:
+            img = cv2.resize(img, None, None, fx=shrink[0], fy=shrink[1], interpolation=cv2.INTER_LINEAR)
 
         height = img.shape[0]
         width = img.shape[1]
@@ -79,10 +79,10 @@ class SFD_NET(caffe.Net):
 
         # Adjust SFD output to image size
         det_conf = detections[0, 0, :, 2]
-        det_xmin = detections[0, 0, :, 3] * width / shrink
-        det_ymin = detections[0, 0, :, 4] * height / shrink
-        det_xmax = detections[0, 0, :, 5] * width / shrink
-        det_ymax = detections[0, 0, :, 6] * height / shrink
+        det_xmin = detections[0, 0, :, 3] * width / shrink[0]
+        det_ymin = detections[0, 0, :, 4] * height / shrink[1]
+        det_xmax = detections[0, 0, :, 5] * width / shrink[0]
+        det_ymax = detections[0, 0, :, 6] * height / shrink[1]
         det = np.column_stack((det_xmin, det_ymin, det_xmax, det_ymax, det_conf))
 
         keep_index = np.where(det[:, 4] >= 0)[0]

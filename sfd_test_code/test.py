@@ -8,8 +8,8 @@ sys.path.insert(0, '../../python')
 import caffe
 
 
-def process_imgs_list(imgs_list_file, output_file, dataset_path, origin, device=0):
-    net = SFD_NET(device=device)
+def process_imgs_list(imgs_list_file, output_file, dataset_path, origin, model, weights, device=0):
+    net = SFD_NET(model_file=model, pretrained_file=weights, device=device)
     with open(imgs_list_file, 'r') as img_names:
         names = img_names.readlines()
 
@@ -19,11 +19,14 @@ def process_imgs_list(imgs_list_file, output_file, dataset_path, origin, device=
             Image_Path = os.path.join(dataset_path, Name[:-1].replace('.jpg', '') + '.jpg')
             image = caffe.io.load_image(Image_Path)
         
-            shrink = 1
+            shrink = (1, 1)
             if origin in ['AFW', 'PASCAL']:
                 shrink = 640.0 / max(image.shape[0], image.shape[1])
+                shrink = (shrink, shrink)
                 #image = cv2.resize(image, None, None, fx=ratio, fy=ratio, interpolation=cv2.INTER_LINEAR)
         
+            shrink = 1024.0 / min(image.shape[0], image.shape[1])
+            shrink = (shrink, shrink)
             detections = net.detect(image, shrink=shrink)
 
             # Specific format for FDDB dataset
@@ -55,6 +58,8 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--dataset', type=str, choices=['AFW', 'PASCAL', 'FDDB'],
         help='Dataset name to test. Options: AFW, PASCAL, FDDB', required=True)
     parser.add_argument('-p', '--path', type=str, help='Dataset path', required=True)
+    parser.add_argument('-m', '--model-file', type=str, default=None, help='.prototxt of Caffe model to load')
+    parser.add_argument('-w', '--model-weights', type=str, default=None, help='.caffemodel weights')
     parser.add_argument('--device', type=int, default=0, help="GPU device to use, default is 0")
     args = parser.parse_args()
 
@@ -62,6 +67,12 @@ if __name__ == "__main__":
     dataset_path = args.path
     device = args.device
 
+    if (args.model_file is None) != (args.model_weights is None):
+        raise Exception("You must provide both model definition and weights (or none of them) by using -m and -w.")
+
+    model = args.model_file
+    weights = args.model_weights
+
     imgs_list = '{}/{}_img_list.txt'.format(dataset_name, dataset_name.lower())
     dets_file = '{}/sfd_{}_dets.txt'.format(dataset_name, dataset_name.lower())
-    process_imgs_list(imgs_list, dets_file, dataset_path, dataset_name, device)
+    process_imgs_list(imgs_list, dets_file, dataset_path, dataset_name, model, weights, device)
