@@ -37,8 +37,8 @@ venv/
 # Datasets
 AFW/
 FDDB/
-PASCAL_FACE/
-WIDER_FACE/
+PASCAL/
+WIDER/
 datasets/
 
 # Third party projects
