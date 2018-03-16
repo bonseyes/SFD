@@ -7,8 +7,8 @@ S³FD is a real-time face detector, which performs superiorly on various scales 
 ### Documentation
 
 1. [Preparation](#preparation)
-2. [Download of datasets](#download-datasets)
-3. [Compile and Run SFD detector](#test-sfd-detector)
+2. [Datasets](#datasets)
+3. [Test SFD detector](#test-sfd-detector)
 4. [Running evaluation benchmarks](#running-evaluation-benchmark)
 5. [Reproduced Results](#reproduced-results)
 6. [Reference Results](#reference-results)
@@ -28,7 +28,7 @@ S³FD is a real-time face detector, which performs superiorly on various scales 
 
 3. Clone this repository [SFD](https://github.com/bonseyes/SFD) in `$CAFFE/SFD`. Make sure that the folder `$CAFFE/SFD/sfd_test_code` exists.
 
-### Download datasets
+### Datasets
 
 To automatically download the datasets, you can execute
 
@@ -71,12 +71,15 @@ matlab -nodesktop -nosplash -nojvm -r "run fitting.m;quit;"
   ```
 
 #### Test SFD on WIDER FACE
-```Shell
-cd $SFD_ROOT/sfd_test_code/WIDER_FACE
-# You must modify the path in the wider_test.py to your WIDERFACE path. 
-# It will create detection results in the "eval_tools_old-version" folder.
-python wider_test.py
-# If you want to get the results of val set in our paper, you should use the provided "eval_tools_old-version". 
+```
+cd $SFD_ROOT/sfd_test_code/
+# Example:
+python2.7 test_wider.py -p ../datasets/WIDER/WIDER_val/images/ -s val --device 0
+# Run test_wider.py -h in oder to receive a list of valid arguments
+```
+
+```
+# If you want to get the results of val set in the original paper, you should use the provided "eval_tools_old-version". 
 # Or you can use latest eval_tools of WIDER FACE.
 # There is a slight difference between them, since the annotation used for the evaluation is slightly change around March 2017.
 ```
@@ -103,7 +106,7 @@ Download the [EVALUATION TOOLBOX](https://bitbucket.org/marcopede/face-eval) for
 
 #### Plotting Precision-Recall curve for FDDB
 
-The generated file by `test.py` has this format for FDDB:
+The generated file by `test.py` using FDDB dataset has this format:
 
 ```
 <image name i>
@@ -125,8 +128,8 @@ In order to feed these results to `face-eval`, we need to transform them into th
 
 2. Get the original [evaluation code for FDDB](http://vis-www.cs.umass.edu/fddb/evaluation.tgz). Download it somewhere and compile it. If you are using a newer version of OpenCV (you should have it installed if you compiled Caffe), you will have to modify the `Makefile` in order to link the code correctly:
 
-    - Check where your OpenCV pkg is with `pkg-config --cflags opencv`. Set the variable `INCS` of the Makefile to that path.
-    - Check your OpenCV libs with `pkg-config --libs opencv`. Set the variable `LIBS` with those values.
+    - Check where your OpenCV pkg is with `pkg-config --cflags opencv`. Set the variable `INCS` of the Makefile to `-I<that path>`.
+    - Check your OpenCV libs with `pkg-config --libs opencv`. Set the variable `LIBS` of the Makefile to `-L/usr/local/lib <the previous libs discovered with pkg-config>`.
     - Modify the `evaluate` rule: 
         ```
         evaluate: $(OBJS)
@@ -140,7 +143,7 @@ In order to feed these results to `face-eval`, we need to transform them into th
     ./evaluate -a path/to/all_faces_ellipse_list -d path/to/generated/detections/by/testpy/ -f 0 -i path/where/FDDB/images/are/ -l image/list/to/test/ -r <prefix of output files> 
 
     # For example
-    ./evaluate -a ../sfd_test_code/FDDB/all_folds_ellipseList.label -d ../sfd_test_code/FDDB/sfd_fddb_dets.txt -f 0 -i ../datasets/FDDB/ -l ../sfd_test_code/FDDB/fddb_img_list.txt -r roc_results
+    ./evaluate -a ../paper/FDDB_annotation_ellipseList_new.txt -d ../sfd_test_code/FDDB/sfd_fddb_dets.txt -f 0 -i ../datasets/FDDB/ -l ../sfd_test_code/FDDB/fddb_img_list.txt -r roc_results
     ```
    To check what each argument means, run `./evaluate -h`
 
@@ -171,15 +174,23 @@ Results from the original paper
 ### Issues encountered
 
 #### 1. While testing on pascal dataset, some images listed in "sfd_test_code/PASCAL_face/pascal_img_list.txt" are not found.
-    I used PASCAL dataset from VOCtrainval_11-May-2012.tar (VOCdevkit/VOC2012/JPEGImages).
-    for example "2008_000216.jpg" image in pascal_img_list.txt is not in dataset. <br />
 
-    Solution: Mix training-validation dataset with test dataset from pascal 2012 cahallenge. After mixing [training/validation data](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html) with [test data](http://host.robots.ox.ac.uk:8080/eval/challenges/voc2012/), all the pascal images listed in "sfd_test_code/PASCAL_face/pascal_img_list.txt" are available in merged folder. 
-    This is now done automatically by the dataset downloading scripts.
+Using PASCAL dataset (`VOCtrainval_11-May-2012.tar`), some images in `pascal_img_list.txt` are not present in the dataset.
+
+
+*Solution*: Mix training-validation dataset with test dataset from pascal 2012 cahallenge. After mixing [training/validation data](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html) with [test data](http://host.robots.ox.ac.uk:8080/eval/challenges/voc2012/), all the pascal images listed in "sfd_test_code/PASCAL_face/pascal_img_list.txt" are available in merged folder. 
+
+
+_NOTE_: This is now done automatically by the dataset downloading scripts.
 
 #### 2. After the AFW/PASCAL dataset evaluation of our detector and other detector present in EVALUATION TOOLBOX, the result of SFD detector is not as expected.
-    Seems something wrong as ROC curve of our detector is very poor. <br />
-    Solution: Fixed. The detection result in AFW dataset is now exactly same as in the original paper. It was because of wrong linkag e of deploy.prototxt! <br />
+
+Seems something wrong as ROC curve of our detector is very poor
+
+
+*Solution*: The detection result in AFW dataset is now exactly same as in the original paper. It was because of wrong linkage of `deploy.prototxt`!
+
 
 #### 3. The detection result in PASCAL face is 97.60% where as in original paper it is 98.49%
-    Solution: Using the correct version of Python and recompiling Caffe got PASCAL-face to 98.49
+
+*Solution*: Using the correct version of Python and recompiling Caffe got PASCAL-face to 98.49. The results can be checked [here](assets/PASCAL_eval.png).
