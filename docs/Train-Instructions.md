@@ -43,7 +43,8 @@ Training is done, with 120K iterations as noted in the SFD paper, an accuracy te
 ![Alt text](assets/SFD_training_loss.png)
 ![Alt text](assets/SFD_validation_accuracy.png)
 
-I think these numbers in validation accuracy is not normal!, but waiting for the results of test set. 
+I think these numbers in validation accuracy is not normal!, but waiting for the results of test set. <br />
+The model after training can be found here: https://drive.google.com/drive/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2?usp=sharing
 
 # Run the training in the server
 
