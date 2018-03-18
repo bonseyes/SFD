@@ -50,14 +50,15 @@ Training Plots of training loss vs. iterations, and validation accuracy vs. iter
 I think these numbers in validation accuracy are low, but since we don't use the mevaluation metric as used in the paper we cannot confirm this, so we are waiting for the results from our test codes. <br />
 The model after training can be found here: https://drive.google.com/drive/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2?usp=sharing <br />
 
-Notes: In the .prototxt files provided by the authors, there is no test.prototxt file, and in the solver.prototxt they don't use it, which simply means that they didn't use validation accuracy from caffe while training. However, in our case, using the python script we generate and use this test.prototxt file and get validation accuracy during training. This can mean that they don't use validation set and just trained blindly, or they took snapshots and used other evaluation code for validation, note that they were taking snapshots each 5000 iterations. Another thing is that in the provided files by authors it seems they use batch size of 8 not 32 as they say in the paper, for me I used batch size of 8 four times as explained above.  
+# Notes about training process: <br />
+-> In the .prototxt files provided by the authors, there is no test.prototxt file, and in the solver.prototxt they don't use it, which simply means that they didn't use validation accuracy from caffe while training. However, in our case, using the python script we generate and use this test.prototxt file and get validation accuracy during training. This can mean that they don't use validation set and just trained blindly, or they took snapshots and used other evaluation code for validation, note that they were taking snapshots each 5000 iterations. <br />
+-> Second thing is that in the provided files by authors it seems they use batch size of 8 not 32 as they say in the paper, for me I used batch size of 8 four times as explained above. <br />
+-> Another difference in training that they don't mention in the paper is excluding tiny faces! I am not sure how far this can affect the results, refer to this issue for more details, and see last cooment by the author: https://github.com/sfzhang15/SFD/issues/7
+-> We need to inverstigate more about data augmentation, it seems it should not only change from python or .prototxt, but also from cpp files. What is not obvious here is that they already resize the image to 640x640 at the beginning of the training, which itsef change the original image size and faces inside the image. I will make an issue in the original repo and see the reply of the author. Look at this issue for more info: https://github.com/sfzhang15/SFD/issues/6
+-> There are other implementation using pytorch, we can see how they implemented these details and follow their steps: https://github.com/clcarwin/SFD_pytorch
 
 # Run the training in the server
 
 When the training script is run in the server, it will quit if we closed the terminal or if the internet is cut. To solve this we use the command "screen" as follows: <br />
 After you ssh in, run screen. This will start another shell running within screen. Run your command, then do a "Ctrl-a-d". This will "disconnect" you from the screen session. At this point, you can log out or do anything else you'd like. When you want to re-connect to the screen session, just run "screen -RD" from the shell prompt.
 more commands can be found here: http://aperiodic.net/screen/quick_reference
-
-
-
-
