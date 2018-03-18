@@ -36,10 +36,21 @@
 
 -> [DONE] Prepare python script following SSD style that will include defining anchor box scales, stride, used VGG layers, augmentaion, then start training.  <br />
 -> [DONE] Check training details from the paper (learning rate, max iterations, etc)  <br />
--> TODO: Generate tarining loss and validation loss graphs after training is finished.  <br />
+-> [DONE] Generate tarining loss and validation loss graphs after training is finished.  <br />
+
+Training is done, with 120K iterations as noted in the SFD paper, an accuracy test with validation set is done each 5K iteartions. The scripts to plot training loss and test accuracy can be found in the path 'scripts/train/plot_train_graphs'. Plots of training loss vs. iterations, and validation accuracy vs. iterations are as follows:
+
+![Alt text](assets/SFD_training_loss.png)
+![Alt text](assets/SFD_validation_accuracy.png)
+
+I think these numbers in validation accuracy is not normal!, but waiting for the results of test set. 
 
 # Run the training in the server
 
 When the training script is run in the server, it will quit if we closed the terminal or if the internet is cut. To solve this we use the command "screen" as follows: <br />
 After you ssh in, run screen. This will start another shell running within screen. Run your command, then do a "Ctrl-a-d". This will "disconnect" you from the screen session. At this point, you can log out or do anything else you'd like. When you want to re-connect to the screen session, just run "screen -RD" from the shell prompt.
 more commands can be found here: http://aperiodic.net/screen/quick_reference
+
+
+
+
