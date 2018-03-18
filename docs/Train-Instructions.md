@@ -50,7 +50,7 @@ Training Plots of training loss vs. iterations, and validation accuracy vs. iter
 I think these numbers in validation accuracy are low, but since we don't use the mevaluation metric as used in the paper we cannot confirm this, so we are waiting for the results from our test codes. <br />
 The model after training can be found here: https://drive.google.com/drive/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2?usp=sharing <br />
 
-Notes: In the .prototxt files provided by the authors, there is no test.prototxt file, and in the solver.prototxt they don't use it, which simply means that they didn't use validation accuracy while training. However, in our case, using the python script we generate and use this test.prototxt file and get validation accuracy during training. Another thing is that in the provided files by authors it seems they use batch size of 8 not 32 as they say in the paper, for me I used batch size of 8 four times as explained above.  
+Notes: In the .prototxt files provided by the authors, there is no test.prototxt file, and in the solver.prototxt they don't use it, which simply means that they didn't use validation accuracy from caffe while training. However, in our case, using the python script we generate and use this test.prototxt file and get validation accuracy during training. This can mean that they don't use validation set and just trained blindly, or they took snapshots and used other evaluation code for validation, note that they were taking snapshots each 5000 iterations. Another thing is that in the provided files by authors it seems they use batch size of 8 not 32 as they say in the paper, for me I used batch size of 8 four times as explained above.  
 
 # Run the training in the server
 
