@@ -135,7 +135,8 @@ if __name__ == '__main__':
             Image_Path = dataset_path + event[0][0] + '/' + im_name[:] + '.jpg'
             image = caffe.io.load_image(Image_Path)
 
-            max_im_shrink = (0x7fffffff / 577.0 / (image.shape[0] * image.shape[1])) ** 0.5 # the max size of input image for caffe
+            max_im_shrink = (0x7fffffff / 700.0 / (image.shape[0] * image.shape[1] * image.shape[2])) ** 0.5 # the max size of input blob for caffe
+
             shrink = max_im_shrink if max_im_shrink < 1 else 1
 
             det0 = net.detect(image, shrink)

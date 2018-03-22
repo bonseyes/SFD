@@ -30,9 +30,9 @@ class SFD_NET(caffe.Net):
     def __init__(self, model_file=None, pretrained_file=None,
                  mean=None, input_scale=None, raw_scale=None,
                  channel_swap=None, device=None):
-        if type(device) is int:
-            caffe.set_device(device)
+        if device >= 0:
             caffe.set_mode_gpu()
+            caffe.set_device(device)
         else:
             caffe.set_mode_cpu()
 
