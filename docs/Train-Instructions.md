@@ -45,7 +45,7 @@ an accuracy test for validation set is done each 5K itertions, in the future dec
 Training Plots of training loss vs. iterations, and validation accuracy vs. iterations are as follows:
 
 ![Alt text](assets/SFD_training_loss.png)
-![Alt text](assets/SFD_validation_accuracy.png)
+![Alt text](assets/SFD_validation_accuracy_init.png)
 
 I think these numbers in validation accuracy are low, but since we don't use the mevaluation metric as used in the paper we cannot confirm this, so we are waiting for the results from our test codes. <br />
 The model after training can be found here: https://drive.google.com/drive/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2?usp=sharing <br />
@@ -56,6 +56,9 @@ The model after training can be found here: https://drive.google.com/drive/folde
 -> Another difference in training that they don't mention in the paper is excluding tiny faces! I am not sure how far this can affect the results, refer to this issue for more details, and see last cooment by the author: https://github.com/sfzhang15/SFD/issues/7 <br />
 -> We need to inverstigate more about data augmentation, it seems it should not only change from python or .prototxt, but also from cpp files (may be SampleBBox function in bbox_utils.cpp). What is not obvious here is that they already resize the image to 640x640 at the beginning of the training, which itsef change the original image size and faces inside the image. I made an issue in the original repo and waiting for the reply of the author: https://github.com/sfzhang15/SFD/issues/20. Look at this issue for more info: https://github.com/sfzhang15/SFD/issues/6 <br />
 -> There are other implementation using pytorch, we can see how they implemented these details and follow their steps: https://github.com/clcarwin/SFD_pytorch <br />
+
+![Alt text](assets/SFD_nm_validation_accuracy.png)
+
 
 # Run the training in the server
 
