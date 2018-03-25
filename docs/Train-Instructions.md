@@ -31,10 +31,11 @@
 
 2. Modify the anchor match code of SSD to implement the 'scale compensation anchor matching strategy'.
 (Detail these steps here including which source files and what lines of code)  [DONE] <br />
-
 -> [DONE] modify the 'MatchBBox' function in bbox_util.cpp by adding extra stage to implement the stage 2 of anchor matching strategy. This part is added in the file bbox_util.cpp inside SSD code. The modified file will be attached with the final SSD code. After this modification, caffe should be recombiled again. <br />
 
-3. Train the model.
+3. modify the function MeetEmitConstraint() in bbox_utils.cpp to ignore tiny faces < 6 pixels. Refer to this issue: https://github.com/sfzhang15/SFD/issues/7
+
+4. Train the model.
 (Provide train script including amount of training time and validation loss curves and anything else useful) [DONE] <br />
 
 -> [DONE] Prepare python script following SSD style that will include defining anchor boxes scales, stride, used VGG layers, augmentaion, and the paths to the genearted logs. Then start training by runing the python script.  <br />
