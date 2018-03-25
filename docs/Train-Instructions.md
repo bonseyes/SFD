@@ -6,6 +6,7 @@
 
 - SSD installation steps and notes can be found in the directory: docs/SSD-install.md, Make sure to include $CAFFE_ROOT/python to your PYTHONPATH
 
+# Preparing training data
 1. Follow the intruction of SSD to create the lmdb of WIDER FACE. [DONE]  <br />
 
 -> To start with wider face dataset, first we need to download it. If you work on server, you will face problem to download the data from google drive directly to the server. Therefore, in the "scripts" folder in this repo, we use the scripts "download-data.sh" and "google-drive.py" to solve this problem. Just put these scripts in the directory: $HOME/data, then run the script like this: ./download-data.sh. the data will be downloaded and unziped.  <br />
@@ -20,18 +21,20 @@
 
  4- prepared the file "labelmap_wider.prototxt" which contains the labels of the training and testing, 0 is background and 1 is face.  <br />
 
-2. Modify the data augmentation code of SSD to make sure that it does not change the image ratio.
+# Modifications in Caffe codes
+
+1. Modify the data augmentation code of SSD to make sure that it does not change the image ratio.
 (Detail these steps here including which source files and what lines of code)  [DONE] <br />
 -> [DONE] The augmentation strategy in the paper of SFD is followed, and the image ratio is not changing. The details of this part is implemented in the python script for training, it can also be found at the beginning of train.prototxt file.   <br />
 -> If you use the python script for training, you need one modification. In the file $CAFEE_ROOT/python/caffe/model_libs.py Change part of the function "VGGNetBody" in line 391 to be as follows "net[name] = L.Pooling(net.relu5_3, pool=P.Pooling.MAX, kernel_size=2, stride=2)" <br />
+-> modification in the caffe code "sampler.cpp" is done in the function "SampleBBox()", more info: https://github.com/sfzhang15/SFD/issues/20 and https://github.com/sfzhang15/SFD/issues/6 <br />
 
-
-3. Modify the anchor match code of SSD to implement the 'scale compensation anchor matching strategy'.
+2. Modify the anchor match code of SSD to implement the 'scale compensation anchor matching strategy'.
 (Detail these steps here including which source files and what lines of code)  [DONE] <br />
 
 -> [DONE] modify the 'MatchBBox' function in bbox_util.cpp by adding extra stage to implement the stage 2 of anchor matching strategy. This part is added in the file bbox_util.cpp inside SSD code. The modified file will be attached with the final SSD code. After this modification, caffe should be recombiled again. <br />
 
-4. Train the model.
+3. Train the model.
 (Provide train script including amount of training time and validation loss curves and anything else useful) [DONE] <br />
 
 -> [DONE] Prepare python script following SSD style that will include defining anchor boxes scales, stride, used VGG layers, augmentaion, and the paths to the genearted logs. Then start training by runing the python script.  <br />
@@ -40,24 +43,26 @@
 
 Training is done, with 120K iterations as noted in the SFD paper, it starts by learning rate of 0.001 for first 80K iteration, then 0.0001 for next 20K iteration, and finally 0.00001 for last 20K iterations. Batch size used is 32, as this is much data to fit in one GPU, Caffe allows to use smaller batch size of 8, then accumulated batch size of 32, which means that Caffe calculate the loss for batch size of 8 four times, then do the backpropagation once after it accumulates all the losses, This helps a lot as the GPU memory doesn't fit batch size of 32. Training takes long time, it almost took 1 day for 20K iteartions, this is mainly because some processing like data augmentation is done using CPU, in addition to the bottleneck of transfering data from the hard disk to GPU RAM. Therefore, the training with 120K took around 5 days and a half. some people also reported that training is slow: https://github.com/sfzhang15/SFD/issues/16  <br />
 
-an accuracy test for validation set is done each 5K itertions, in the future decrease this number to test each 1K or 2K iterations to follow the training in better way and get a more smoother validation accuracy curve. The scripts to plot training loss and test accuracy can be found in the path 'scripts/train/plot_train_graphs' these scripts work by modifying each of them to read the required training and validation files, so start by the script "generate_plots_SFD.sh" and inside it modify the path to the logs genearted by your code during training (.log file), this will genearte 2 files ends with .log.test and .log.train, we use gnuplot tool to plot the curves from these generated files. To prepare this we prepare 2 files end with .gnuplot, one for training and one for testing for example in our case we have "plot_log_SFD_training.gnuplot" and "plot_log_SFD_val.gnuplot" for training and validation respectively. Inside each of these .gnuplot files, you can modify the name of the files used to generate the plots, in addition to the name of the generated png image, etc. By modifying these scripts and running ./generate_plots_SFD.sh all files will be generated and will be found in the same path you run from, note that these scripts should be exist in the directory $CAFFE_ROOT/tools/extra and should be run from this directory. <br />
+an accuracy test for validation set is done each 5K itertions, in the future decrease this number to test each 1K or 2K iterations to follow the training in better way and get a more smoother validation accuracy curve. The scripts to plot training loss and test accuracy can be found in the path 'scripts/train/plot_train_graphs' these scripts work by modifying each of them to read the required training and validation files, so start by the script "generate_plots_SFD.sh" and inside it modify the path to the logs genearted by your code during training (.log file), this will genearte 2 files ends with .log.test and .log.train, we use gnuplot tool to plot the curves from these generated files. To prepare this we prepare 2 files that end with .gnuplot, one for training and one for testing; for example in our case we have "plot_log_SFD_training.gnuplot" and "plot_log_SFD_val.gnuplot" for training and validation respectively. Inside each of these .gnuplot files, you can modify the name of the files used to generate the plots, in addition to the name of the generated png image, etc. By modifying these scripts and running ./generate_plots_SFD.sh all files will be generated and will be found in the same path you run from, note that these scripts should be exist in the directory $CAFFE_ROOT/tools/extra and should be run from this directory. <br />
 
-Training Plots of training loss vs. iterations, and validation accuracy vs. iterations are as follows:
+At the beginning, the training was run without the modification in data augmentation code, so the ration was not 1. Training plots of training loss vs. iterations, and validation accuracy vs. iterations are as follows:
 
 ![Alt text](assets/SFD_training_loss.png)
 ![Alt text](assets/SFD_validation_accuracy_init.png)
 
-I think these numbers in validation accuracy are low, but since we don't use the mevaluation metric as used in the paper we cannot confirm this, so we are waiting for the results from our test codes. <br />
+I think these numbers in validation accuracy are low, but since we don't use the mevaluation metric as used in the paper we cannot confirm this, so we will try to use the wider_face test codes. <br />
 The model after training can be found here: https://drive.google.com/drive/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2?usp=sharing <br />
 
-# Notes about training process: <br />
--> In the .prototxt files provided by the authors, there is no test.prototxt file, and in the solver.prototxt they don't use it, which simply means that they didn't use validation accuracy from caffe while training. However, in our case, using the python script we generate and use this test.prototxt file and get validation accuracy during training. This can mean that they don't use validation set and just trained blindly, or they took snapshots and used other evaluation code for validation, note that they were taking snapshots each 5000 iterations. <br />
--> Second thing is that in the provided files by authors it seems they use batch size of 8 not 32 as they say in the paper, for me I used batch size of 8 four times as explained above. <br />
--> Another difference in training that they don't mention in the paper is excluding tiny faces! I am not sure how far this can affect the results, refer to this issue for more details, and see last cooment by the author: https://github.com/sfzhang15/SFD/issues/7 <br />
--> We need to inverstigate more about data augmentation, it seems it should not only change from python or .prototxt, but also from cpp files (may be SampleBBox function in bbox_utils.cpp). What is not obvious here is that they already resize the image to 640x640 at the beginning of the training, which itsef change the original image size and faces inside the image. I made an issue in the original repo and waiting for the reply of the author: https://github.com/sfzhang15/SFD/issues/20. Look at this issue for more info: https://github.com/sfzhang15/SFD/issues/6 <br />
--> There are other implementation using pytorch, we can see how they implemented these details and follow their steps: https://github.com/clcarwin/SFD_pytorch <br />
+After that, the code "sampler.cpp" was modified to keep aspect ration = 1, and the validation accuracy for each 1k iteration is shown in next figure, which is better than previous training. In this step, the modifications done for anchor matching strategy is disapled as it was not tested seperately, so now the results from this training should be at least as "S3FD(F)" in table 3 in SFD paper. The result from this step will show us if we are in the right path or no, as we carefully followed all modifications reported by the author till that point. As we mentioned before, we still need to test using the testing code of wider_face, as these results are from the detection evaluation inside caffe. Note that the training of this model is not done yet. 
 
 ![Alt text](assets/SFD_nm_validation_accuracy.png)
+
+
+# Notes about training process: <br />
+-> In the .prototxt files provided by the authors, there is no test.prototxt file, and in the solver.prototxt they don't use it, which simply means that they didn't use validation accuracy from caffe while training. However, in our case, using the python script we generate and use this test.prototxt file and get validation accuracy during training. This can mean that they don't use validation set and just trained it blindly, or they took snapshots and used other evaluation code for validation, note that they were taking snapshots each 5000 iterations. <br />
+-> Second thing is that in the provided files by authors it seems they use batch size of 8 not 32 as they say in the paper, for us, we used batch size of 8 four times as explained above. <br />
+-> Another difference in training that they don't mention in the paper is excluding tiny faces! I am not sure how far this can affect the results, refer to this issue for more details, and see last cooment by the author: https://github.com/sfzhang15/SFD/issues/7   Update: this is now handeled in the file "bbox_util.cpp" <br />
+-> There are other implementation using pytorch, we can see how they implemented these details and follow their steps: https://github.com/clcarwin/SFD_pytorch <br />
 
 
 # Run the training in the server
