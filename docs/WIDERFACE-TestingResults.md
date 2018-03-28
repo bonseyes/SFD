@@ -20,11 +20,10 @@ We can see that the results is comparable with the original model, mAP of hard s
 ![Alt text](assets/SFD-trained-medium.jpg)
 ![Alt text](assets/SFD-trained-hard.jpg)
 
-To summarize and compare, the results of original model (tested by our codes) and the trained model is as follows: <br />
-| subset  | Easy | Medium | Hard |
-| ------- | --- | --- | --- |
-| Original | 93.9% | 92.2% | 83.4% |
-| ------- | --- | --- | --- |
-| Trained | 93.3% | 92.0% | 82.3% |
+To summarize the comparison, the results of original model (tested by our codes) and the trained model is as follows: <br />
 
+| subset   | Easy  | Medium | Hard  |
+|----------|-------|--------|-------|
+| Original | 93.9% | 92.2%  | 83.4% |
+| Trained  | 93.3% | 92.0%  | 82.3% |
 
