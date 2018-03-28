@@ -85,18 +85,22 @@ def parse_gt_faces(path):
     I recommend loading the .mat file in a Python interpreter to actually 
     understand its structure and therefore this code.
     """
-    mat_faces = sio.loadmat(path) 
+    mat_faces = sio.loadmat(path)
     categories = [str(event[0]) for event in mat_faces['event_list'].flatten()]
     files = [[str(f[0]) for f in files.flatten()] for files in mat_faces['file_list'].flatten()]
-    faces = [[[list(face) for face in image[0]] for image in event[0]] for event in mat_faces['face_bbx_list']]
+    # Retrieve the list of gt boxes to keep. Matlab uses 1-based indexes, so transform them to Python indexes
+    keep_index = [[gt_list[0].flatten() - 1 for gt_list in event[0]] for event in mat_faces['gt_list']]
+    faces = [[[face for i, face in enumerate(image[0]) if i in keep_index[j][k]] for k, image in enumerate(event[0])] for j, event in enumerate(mat_faces['face_bbx_list'])]
+
     files_faces = [{k: np.array(v) for k, v in zip(fil, faces[i])} for i, fil in enumerate(files)]
     # Transform width, height into ymax, xmax respectively
     for event in files_faces:
         for img in event:
             faces = event[img]
-            faces[:, 2] = faces[:, 0] + faces[:, 2]
-            faces[:, 3] = faces[:, 1] + faces[:, 3]
-            faces = faces.astype(float)
+            if faces.size != 0:
+                faces[:, 2] = faces[:, 0] + faces[:, 2]
+                faces[:, 3] = faces[:, 1] + faces[:, 3]
+                faces = faces.astype(float)
 
     result = dict(zip(categories, files_faces))
     return result
@@ -138,6 +142,8 @@ def compute_prec_recall(dets, gt_dets):
     recalls = []
     for det in dets:
         for i, gt in enumerate(gt_dets):
+            if det.size == 0 or gt.size == 0:
+                continue
             iou = IoU(det, gt)
             if iou > 0.5:
                 if i not in already_detected:
@@ -157,8 +163,11 @@ def compute_prec_recall(dets, gt_dets):
         false_negatives = len(gt_dets) - true_positives
 
         # Compute precision and recall for this rank
-        precision = true_positives / float(true_positives + false_positives)
-        recall = true_positives / float(true_positives + false_negatives)
+        # TODO: compute this across all images, not per image (i.e. return raw counts in a data structure)
+        tpfp = float(true_positives + false_positives)
+        tpfn = float(true_positives + false_negatives)
+        precision = true_positives / tpfp if tpfp else 0.
+        recall = true_positives / tpfn if tpfn else 0.
         precisions.append(precision)
         recalls.append(recall)
     return np.array(precisions), np.array(recalls)
@@ -177,7 +186,7 @@ def compute_interpolated_AP(precisions, recalls):
     http://homepages.inf.ed.ac.uk/ckiw/postscript/ijcv_voc09.pdf
     """
     interp_precs = [] 
-    for r in np.arange(0, 1.1, 0.1):
+    for r in np.arange(0, 1.001, 1/1000.):
         idx = np.where(recalls > r)[0]
         if len(idx) == 0:
             interp_precs.append(0)
@@ -186,7 +195,7 @@ def compute_interpolated_AP(precisions, recalls):
         interp_precs.append(precisions[min_idx])
 
     interp_precs = np.array(interp_precs)
-    assert len(interp_precs) == 11
+    assert len(interp_precs) == 1001 
     return interp_precs.mean()
 
 
