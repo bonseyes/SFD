@@ -72,6 +72,25 @@ def parse_detected_faces(path):
     return result
 
 
+def normalize_scores(det_faces):
+    """
+    Normalize scores between 0 and 1
+    """
+    max_score = 0
+    min_score = 100
+    for event in det_faces:
+        for img in det_faces[event]:
+            for det in det_faces[event][img]:
+                max_score = max(det[4], max_score)
+                min_score = min(det[4], min_score)
+
+    for event in det_faces:
+        for img in det_faces[event]:
+            det_faces[event][img][:, 4] = (det_faces[event][img][:, 4] - min_score) / float(max_score - min_score)
+
+    return det_faces
+            
+
 def parse_gt_faces(path):
     """
     Given a Matlab .mat file with the corresponding groundtruth faces, 
@@ -90,9 +109,10 @@ def parse_gt_faces(path):
     files = [[str(f[0]) for f in files.flatten()] for files in mat_faces['file_list'].flatten()]
     # Retrieve the list of gt boxes to keep. Matlab uses 1-based indexes, so transform them to Python indexes
     keep_index = [[gt_list[0].flatten() - 1 for gt_list in event[0]] for event in mat_faces['gt_list']]
-    faces = [[[face for i, face in enumerate(image[0]) if i in keep_index[j][k]] for k, image in enumerate(event[0])] for j, event in enumerate(mat_faces['face_bbx_list'])]
+    faces = [[[face for face in image[0]] for image in event[0]] for event in mat_faces['face_bbx_list']]
 
     files_faces = [{k: np.array(v) for k, v in zip(fil, faces[i])} for i, fil in enumerate(files)]
+    files_keep = [{k: np.array(v) for k, v in zip(fil, keep_index[i])} for i, fil in enumerate(files)]
     # Transform width, height into ymax, xmax respectively
     for event in files_faces:
         for img in event:
@@ -103,7 +123,8 @@ def parse_gt_faces(path):
                 faces = faces.astype(float)
 
     result = dict(zip(categories, files_faces))
-    return result
+    result_keep = dict(zip(categories, files_keep))
+    return result, result_keep
 
 
 def IoU(rect1, rect2):
@@ -126,80 +147,79 @@ def IoU(rect1, rect2):
     return inter_area / float(union_area)
 
 
-def compute_prec_recall(dets, gt_dets):
+def compute_overlaps(rect, gt):
+    """
+    Given a single rectangle and a list of groundtruth rectangles,
+    compute a list of the IoU for each gt rectangle
+    """
+    # TODO: vectorize
+    ious = []
+    for gt_rect in gt:
+        ious.append(IoU(rect[:-1], gt_rect))
+    return np.array(ious)
+
+
+def compute_pr(dets, gt_dets, gt_keep):
     """
     dets, gt_dets are np.arrays(dtype=float) that have
     shape (num_detections, 4)
 
     This function assumes `dets` has the detections sorted
-    in descending order according to a score. The computation of
-    precision/recall is then done for each rank.
+    in descending order according to a score.
+
+    Returns count of cumulative TP (pred_recalls), and a list of proposals that need to be ignored
     """
-    already_detected = []
-    true_positives = 0
-    false_positives = 0
-    precisions = []
-    recalls = []
-    for det in dets:
-        for i, gt in enumerate(gt_dets):
-            if det.size == 0 or gt.size == 0:
-                continue
-            iou = IoU(det, gt)
-            if iou > 0.5:
-                if i not in already_detected:
-                    true_positives += 1
-                    already_detected.append(i)
-                else:
-                    # The bbox was already detected before with >= confidence
-                    # This is then a false positive
-                    false_positives += 1
-                break
+    # recalls keeps track of all the gt boxes that became
+    # TP detections. We do not count the ignored gt boxes
+    # in the metric. If a box was detected, it has 1, otherwise 
+    # its value in this array will be 0.
+    recalls = np.zeros(len(gt_dets)) 
+    # Counts cumulative TP for each detection
+    pred_recalls = np.zeros(len(dets))
+    # proposals keeps track of all the detections:
+    # - The ones that overlap with gt boxes that are ignored at this 
+    #   difficulty level (-1)
+    # - The ones that are either TP or FP (1)
+    proposals = np.ones(len(dets))
+
+    for i, det in enumerate(dets):
+        ious = compute_overlaps(det, gt_dets)
+        idx = np.argmax(ious)
+        max_iou = ious[idx]
+        if max_iou > 0.5:
+            if idx not in gt_keep:
+                recalls[idx] = -1
+                proposals[i] = -1
+            elif recalls[idx] == 0:
+                recalls[idx] = 1
+        true_positives = np.sum(recalls == 1)
+        pred_recalls[i] = true_positives
+
+    return pred_recalls, proposals
+
+
+def compute_interpolated_AP(dets, pred_recalls, proposals):
+    """
+    """
+    thresholds = 1000
+    interp_pr = np.zeros((thresholds, 2))
+
+    for i, r in enumerate(np.arange(0, 1, 1 / float(thresholds))):
+        idx = np.where(dets[:, 4] >= r)[0]
+        if idx.size == 0:
+            interp_pr[i, 0] = 0
+            interp_pr[i, 1] = 0
         else:
-            # All the groundtruth bboxes were checked and the IoU was below 0.5 in all cases
-            # i.e. this is a False Positive
-            false_positives += 1
-        # If there are groundtruth boxes that were not
-        # detected, they are false negatives
-        false_negatives = len(gt_dets) - true_positives
+            min_idx = idx[-1]
+            # amount of TP and FP for this threshold, for this image
+            interp_pr[i, 0] = np.sum(proposals[:min_idx + 1] == 1)
+            # amount of TP for this threshold, for this image
+            interp_pr[i, 1] = pred_recalls[min_idx]
 
-        # Compute precision and recall for this rank
-        # TODO: compute this across all images, not per image (i.e. return raw counts in a data structure)
-        tpfp = float(true_positives + false_positives)
-        tpfn = float(true_positives + false_negatives)
-        precision = true_positives / tpfp if tpfp else 0.
-        recall = true_positives / tpfn if tpfn else 0.
-        precisions.append(precision)
-        recalls.append(recall)
-    return np.array(precisions), np.array(recalls)
+    return interp_pr
 
 
-def compute_interpolated_AP(precisions, recalls):
-    """
-    Given a list of precisions and recalls for a single
-    image (computed cumulatively for the detections
-    sorted in descending order), compute the average
-    precision at a set of eleven equally spaced recall 
-    levels [0, 0.1 , ..., 1]
-
-    For more details check the Section 4.2 of "The PASCAL Visual Object 
-    Classes (VOC) Challenge" report: 
-    http://homepages.inf.ed.ac.uk/ckiw/postscript/ijcv_voc09.pdf
-    """
-    interp_precs = [] 
-    for r in np.arange(0, 1.001, 1/1000.):
-        idx = np.where(recalls > r)[0]
-        if len(idx) == 0:
-            interp_precs.append(0)
-            continue
-        min_idx = idx[recalls[idx].argmin()]
-        interp_precs.append(precisions[min_idx])
-
-    interp_precs = np.array(interp_precs)
-    assert len(interp_precs) == 1001 
-    return interp_precs.mean()
-
-
-def compute_mAP(det_faces, gt_faces):
+def compute_prec_rec(det_faces, gt_faces, gt_keep):
     """
     Given dicts of detected faces and groundtruth faces
     compute the mAP.
@@ -207,17 +227,62 @@ def compute_mAP(det_faces, gt_faces):
     The dicts are generated by parse_detected_faces and parse_gt_faces 
     respectively.
     """
-    all_AP = []
+    all_interp_pr = []
+    count = 0
+    n_imgs = 0
     for event in det_faces:
         for img in det_faces[event]:
-            img_faces = det_faces[event][img][:, :-1]
+            n_imgs += 1
+            img_faces = det_faces[event][img]#[:, :-1]
             img_gt_faces = gt_faces[event][img]
-            precisions, recalls = compute_prec_recall(img_faces, img_gt_faces)
-            interp_AP = compute_interpolated_AP(precisions, recalls)
-            all_AP.append(interp_AP)
+            img_gt_keep = gt_keep[event][img]
+            count += len(img_gt_keep)
 
-    all_AP = np.array(all_AP)
-    return all_AP.mean()
+            if img_faces.size == 0 or img_gt_faces.size == 0:
+                continue
+
+            pred_recalls, proposals = compute_pr(img_faces, img_gt_faces, img_gt_keep)
+            interp_pr = compute_interpolated_AP(img_faces, pred_recalls, proposals)
+            all_interp_pr.append(interp_pr)
+
+    thresholds = 1000
+    tpfp = np.zeros(thresholds)
+    tp = np.zeros(thresholds)
+    for i in range(n_imgs):
+        tpfp = tpfp + all_interp_pr[i][:, 0]
+        tp = tp + all_interp_pr[i][:, 1]
+
+    prec = tp / tpfp
+    recall = tp / float(count)
+    return prec, recall
+
+
+def correct_pr_curve(precision, recall):
+    """
+    We will consider a corrected PR curve where for 
+    each point (p, r), if there exists another point
+    (p', r') such that p' > p and r' >= r, we set p
+    to the maximum of those points
+    """
+    off_pre = np.concatenate(([0], precision[::-1] , [0]))
+    off_rec = np.concatenate(([0], recall[::-1], [1]))
+
+    for i in range(len(off_pre) - 2, -1, -1):
+        off_pre[i] = max(off_pre[i], off_pre[i + 1])
+
+    idx = np.where(off_rec[1:] != off_rec[:-1])[0] + 1
+
+    return off_pre, off_rec, idx
+
+
+def compute_mAP(precision, recall):
+    """
+    Given lists of precisions and recall for each of the proposed 
+    classification threshold, compute the mAP as proposed by 
+    VOC Challenge
+    """
+    precision, recall, idx = correct_pr_curve(precision, recall)
+    return np.sum((recall[idx] - recall[idx - 1]) * precision[idx])
 
 
 if __name__ == '__main__':
@@ -236,6 +301,8 @@ if __name__ == '__main__':
     gt_path = args.matlab_faces
 
     det_faces = parse_detected_faces(dets_path)
-    gt_faces = parse_gt_faces(gt_path)
-    mAP = compute_mAP(det_faces, gt_faces)
+    det_faces = normalize_scores(det_faces)
+    gt_faces, gt_keep = parse_gt_faces(gt_path)
+    precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
+    mAP = compute_mAP(precision, recall)
     print("WIDERFACE mAP: {0:.2f}".format(mAP * 100))
