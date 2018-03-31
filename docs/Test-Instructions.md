@@ -21,7 +21,7 @@ S³FD is a real-time face detector, which performs superiorly on various scales 
 2. Download the authors' [pre-trained model](https://drive.google.com/open?id=1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u). To do so, you can run:
     
     ```Shell
-    ./scripts/download_model.sh
+    ./scripts/data/download_model.sh
     ```
 
     The model will be located in `$CAFFE/models/sfd_models/VGGNet/WIDER_FACE/SFD_trained`.
@@ -33,7 +33,7 @@ S³FD is a real-time face detector, which performs superiorly on various scales 
 To automatically download the datasets, you can execute
 
 ```Shell
-./scripts/datasets/download_datasets.sh -d desired/path/for/datasets
+./scripts/data/download_datasets.sh -d desired/path/for/datasets
 ```
 
 You can also download them manually:
