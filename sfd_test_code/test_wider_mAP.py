@@ -19,7 +19,7 @@ def parse_det_file(path):
         lines = [[float(i) for i in row.strip().replace('\n', '').split(' ')] for row in f.readlines()[2:]]
 
     faces = np.array(lines, dtype=float)
-    sorted_faces = faces[faces[:, 4].argsort()[::-1]]
+    sorted_faces = faces#[faces[:, 4].argsort()[::-1]]
     sorted_faces[:, 2] = sorted_faces[:, 0] + sorted_faces[:, 2]
     sorted_faces[:, 3] = sorted_faces[:, 1] + sorted_faces[:, 3]
     return sorted_faces
@@ -133,17 +133,17 @@ def IoU(rect1, rect2):
     representing (xmin, ymin, xmax, ymax)
     """
     left1, top1, right1, bottom1 = rect1.astype(float)
-    left2, top2, right2, bottom2 = rect2.astype(float)
-    xmin = max(left1, left2)
-    xmax = min(right1, right2)
-    ymin = max(top1, top2)
-    ymax = min(bottom1, bottom2)
+    left2, top2, right2, bottom2 = rect2.astype(int)
+    xmin = int(round(max(left1, left2)))
+    xmax = int(round(min(right1, right2)))
+    ymin = int(round(max(top1, top2)))
+    ymax = int(round(min(bottom1, bottom2)))
     w = max(xmax - xmin + 1, 0) 
     h = max(ymax - ymin + 1, 0) 
     inter_area = w * h
     rect1_area = (right1 - left1 + 1) * (bottom1 - top1 + 1)
     rect2_area = (right2 - left2 + 1) * (bottom2 - top2 + 1)
-    union_area = rect1_area + rect2_area - inter_area
+    union_area = int(round(rect1_area + rect2_area - inter_area))
     return inter_area / float(union_area)
 
 
@@ -186,7 +186,7 @@ def compute_pr(dets, gt_dets, gt_keep):
         ious = compute_overlaps(det, gt_dets)
         idx = np.argmax(ious)
         max_iou = ious[idx]
-        if max_iou > 0.5:
+        if max_iou >= 0.5:
             if idx not in gt_keep:
                 recalls[idx] = -1
                 proposals[i] = -1
@@ -198,25 +198,47 @@ def compute_pr(dets, gt_dets, gt_keep):
     return pred_recalls, proposals
 
 
-def compute_interpolated_AP(dets, pred_recalls, proposals):
-    """
-    """
+def compute_tp_fp(dets, pred_recalls, proposals):
     thresholds = 1000
     interp_pr = np.zeros((thresholds, 2))
 
     for i, r in enumerate(np.arange(0, 1, 1 / float(thresholds))):
+    #for i, r in enumerate(np.arange(0.999, 0.0, -1 / float(thresholds))):
+        t = i + 1
+    #for t in range(1, thresholds+1):
+        #r = 1 - t / float(thresholds)
         idx = np.where(dets[:, 4] >= r)[0]
         if idx.size == 0:
-            interp_pr[i, 0] = 0
-            interp_pr[i, 1] = 0
+            interp_pr[t - 1, 0] = 0
+            interp_pr[t - 1, 1] = 0
         else:
             min_idx = idx[-1]
             # amount of TP and FP for this threshold, for this image
-            interp_pr[i, 0] = np.sum(proposals[:min_idx + 1] == 1)
+            interp_pr[t - 1, 0] = np.sum(proposals[:min_idx + 1] == 1)
             # amount of TP for this threshold, for this image
-            interp_pr[i, 1] = pred_recalls[min_idx]
+            interp_pr[t - 1, 1] = pred_recalls[min_idx]
 
     return interp_pr
+
+
+#def compute_tp_fp(dets, pred_recalls, proposals):
+#    thresholds = 1000
+#    interp_pr = np.zeros((thresholds, 2))
+#
+#    for t in range(1, thresholds+1):
+#        r = 1 - t / float(thresholds)
+#        idx = np.where(dets[:, 4] >= r)[0]
+#        if idx.size == 0:
+#            interp_pr[t - 1, 0] = 0
+#            interp_pr[t - 1, 1] = 0
+#        else:
+#            min_idx = idx[-1]
+#            # amount of TP and FP for this threshold, for this image
+#            interp_pr[t - 1, 0] = len(np.where(proposals[:min_idx + 1] == 1)[0])
+#            # amount of TP for this threshold, for this image
+#            interp_pr[t - 1, 1] = pred_recalls[min_idx]
+#
+#    return interp_pr
 
 
 def compute_prec_rec(det_faces, gt_faces, gt_keep):
@@ -241,8 +263,11 @@ def compute_prec_rec(det_faces, gt_faces, gt_keep):
             if img_faces.size == 0 or img_gt_faces.size == 0:
                 continue
 
+            #print(img)
+            #if "0_Parade_marchingband_1_465" in img:
+            #    import ipdb; ipdb.set_trace()
             pred_recalls, proposals = compute_pr(img_faces, img_gt_faces, img_gt_keep)
-            interp_pr = compute_interpolated_AP(img_faces, pred_recalls, proposals)
+            interp_pr = compute_tp_fp(img_faces, pred_recalls, proposals)
             all_interp_pr.append(interp_pr)
 
     thresholds = 1000
@@ -275,12 +300,7 @@ def correct_pr_curve(precision, recall):
     return off_pre, off_rec, idx
 
 
-def compute_mAP(precision, recall):
-    """
-    Given lists of precisions and recall for each of the proposed 
-    classification threshold, compute the mAP as proposed by 
-    VOC Challenge
-    """
+def compute_ap(precision, recall):
     precision, recall, idx = correct_pr_curve(precision, recall)
     return np.sum((recall[idx] - recall[idx - 1]) * precision[idx])
 
@@ -304,5 +324,5 @@ if __name__ == '__main__':
     det_faces = normalize_scores(det_faces)
     gt_faces, gt_keep = parse_gt_faces(gt_path)
     precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
-    mAP = compute_mAP(precision, recall)
-    print("WIDERFACE mAP: {0:.2f}".format(mAP * 100))
+    ap = compute_ap(precision, recall)
+    print("WIDERFACE AP: {0:.2f}".format(ap * 100))
