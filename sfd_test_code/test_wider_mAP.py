@@ -6,6 +6,9 @@ import os.path
 import scipy.io as sio
 
 
+THRESHOLDS = 1000
+
+
 def parse_det_file(path):
     """
     Given a path for a single detection file, 
@@ -19,7 +22,7 @@ def parse_det_file(path):
         lines = [[float(i) for i in row.strip().replace('\n', '').split(' ')] for row in f.readlines()[2:]]
 
     faces = np.array(lines, dtype=float)
-    sorted_faces = faces#[faces[:, 4].argsort()[::-1]]
+    sorted_faces = faces
     sorted_faces[:, 2] = sorted_faces[:, 0] + sorted_faces[:, 2]
     sorted_faces[:, 3] = sorted_faces[:, 1] + sorted_faces[:, 3]
     return sorted_faces
@@ -80,9 +83,8 @@ def normalize_scores(det_faces):
     min_score = 100
     for event in det_faces:
         for img in det_faces[event]:
-            for det in det_faces[event][img]:
-                max_score = max(det[4], max_score)
-                min_score = min(det[4], min_score)
+            max_score = max(det_faces[event][img][:, 4].max(), max_score)
+            min_score = min(det_faces[event][img][:, 4].min(), min_score)
 
     for event in det_faces:
         for img in det_faces[event]:
@@ -127,36 +129,25 @@ def parse_gt_faces(path):
     return result, result_keep
 
 
-def IoU(rect1, rect2):
-    """
-    rect1 and rect2 are np.arrays of shape (4,)
-    representing (xmin, ymin, xmax, ymax)
-    """
-    left1, top1, right1, bottom1 = rect1.astype(float)
-    left2, top2, right2, bottom2 = rect2.astype(int)
-    xmin = int(round(max(left1, left2)))
-    xmax = int(round(min(right1, right2)))
-    ymin = int(round(max(top1, top2)))
-    ymax = int(round(min(bottom1, bottom2)))
-    w = max(xmax - xmin + 1, 0) 
-    h = max(ymax - ymin + 1, 0) 
-    inter_area = w * h
-    rect1_area = (right1 - left1 + 1) * (bottom1 - top1 + 1)
-    rect2_area = (right2 - left2 + 1) * (bottom2 - top2 + 1)
-    union_area = int(round(rect1_area + rect2_area - inter_area))
-    return inter_area / float(union_area)
-
-
 def compute_overlaps(rect, gt):
     """
     Given a single rectangle and a list of groundtruth rectangles,
     compute a list of the IoU for each gt rectangle
     """
-    # TODO: vectorize
-    ious = []
-    for gt_rect in gt:
-        ious.append(IoU(rect[:-1], gt_rect))
-    return np.array(ious)
+    xmin = np.round(np.maximum(gt[:, 0], rect[0])).astype(int)
+    ymin = np.round(np.maximum(gt[:, 1], rect[1])).astype(int)
+    xmax = np.round(np.minimum(gt[:, 2], rect[2])).astype(int)
+    ymax = np.round(np.minimum(gt[:, 3], rect[3])).astype(int)
+
+    w = np.maximum(xmax - xmin + 1, 0)
+    h = np.maximum(ymax - ymin + 1, 0)
+    inter_area = w * h
+
+    rect_area = (rect[2] - rect[0] + 1) * (rect[3] - rect[1] + 1)
+    gt_areas = (gt[:, 2] - gt[:, 0] + 1) * (gt[:, 3] - gt[:, 1] + 1)
+
+    ious = inter_area / (rect_area + gt_areas - inter_area)
+    return ious
 
 
 def compute_pr(dets, gt_dets, gt_keep):
@@ -199,14 +190,10 @@ def compute_pr(dets, gt_dets, gt_keep):
 
 
 def compute_tp_fp(dets, pred_recalls, proposals):
-    thresholds = 1000
-    interp_pr = np.zeros((thresholds, 2))
+    interp_pr = np.zeros((THRESHOLDS, 2))
 
-    for i, r in enumerate(np.arange(0, 1, 1 / float(thresholds))):
-    #for i, r in enumerate(np.arange(0.999, 0.0, -1 / float(thresholds))):
+    for i, r in enumerate(np.arange(0, 1, 1 / float(THRESHOLDS))):
         t = i + 1
-    #for t in range(1, thresholds+1):
-        #r = 1 - t / float(thresholds)
         idx = np.where(dets[:, 4] >= r)[0]
         if idx.size == 0:
             interp_pr[t - 1, 0] = 0
@@ -219,26 +206,6 @@ def compute_tp_fp(dets, pred_recalls, proposals):
             interp_pr[t - 1, 1] = pred_recalls[min_idx]
 
     return interp_pr
-
-
-#def compute_tp_fp(dets, pred_recalls, proposals):
-#    thresholds = 1000
-#    interp_pr = np.zeros((thresholds, 2))
-#
-#    for t in range(1, thresholds+1):
-#        r = 1 - t / float(thresholds)
-#        idx = np.where(dets[:, 4] >= r)[0]
-#        if idx.size == 0:
-#            interp_pr[t - 1, 0] = 0
-#            interp_pr[t - 1, 1] = 0
-#        else:
-#            min_idx = idx[-1]
-#            # amount of TP and FP for this threshold, for this image
-#            interp_pr[t - 1, 0] = len(np.where(proposals[:min_idx + 1] == 1)[0])
-#            # amount of TP for this threshold, for this image
-#            interp_pr[t - 1, 1] = pred_recalls[min_idx]
-#
-#    return interp_pr
 
 
 def compute_prec_rec(det_faces, gt_faces, gt_keep):
@@ -255,7 +222,7 @@ def compute_prec_rec(det_faces, gt_faces, gt_keep):
     for event in det_faces:
         for img in det_faces[event]:
             n_imgs += 1
-            img_faces = det_faces[event][img]#[:, :-1]
+            img_faces = det_faces[event][img]
             img_gt_faces = gt_faces[event][img]
             img_gt_keep = gt_keep[event][img]
             count += len(img_gt_keep)
@@ -263,16 +230,12 @@ def compute_prec_rec(det_faces, gt_faces, gt_keep):
             if img_faces.size == 0 or img_gt_faces.size == 0:
                 continue
 
-            #print(img)
-            #if "0_Parade_marchingband_1_465" in img:
-            #    import ipdb; ipdb.set_trace()
             pred_recalls, proposals = compute_pr(img_faces, img_gt_faces, img_gt_keep)
             interp_pr = compute_tp_fp(img_faces, pred_recalls, proposals)
             all_interp_pr.append(interp_pr)
 
-    thresholds = 1000
-    tpfp = np.zeros(thresholds)
-    tp = np.zeros(thresholds)
+    tpfp = np.zeros(THRESHOLDS)
+    tp = np.zeros(THRESHOLDS)
     for i in range(n_imgs):
         tpfp = tpfp + all_interp_pr[i][:, 0]
         tp = tp + all_interp_pr[i][:, 1]
