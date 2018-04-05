@@ -84,6 +84,19 @@ python2.7 test_wider.py -p ../datasets/WIDER/WIDER_val/images/ -s val --device 0
 # There is a slight difference between them, since the annotation used for the evaluation is slightly change around March 2017.
 ```
 
+##### Check mAP for the Validation set of WIDER
+
+1. Once you have run `test_wider.py` for the Validation split and obtained the results (they should be stored by default in ), you can check the mAP for each of the `easy`, `medium` and `hard` settings of the dataset (each level has more and smaller faces) by using the `test_wider_mAP.py` script.
+2. Make sure you know where your detections are and where the `*.mat` files with the groundtruth labels for each level are located. By default, the detected faces are saved in the submission format of WIDER in `$SFD_ROOT/sfd_test_code/WIDER_FACE/eval_tools_old-version/sfd_val`. The `*.mat` files are located in `$SFD_ROOT/sfd_test_code/WIDER_FACE/eval_tools_old-version/ground_truth/`.
+3. Run:
+    ```
+    python2.7 test_wider_mAP.py -p ./path/to/detections/ -m ./path/to/wider_{easy,medium,hard}_val.mat
+    ```
+4. You should get an output like:
+    ```
+    WIDERFACE AP: 94.04
+    ```
+
 ### Running evaluation benchmarks
 
 Download the [EVALUATION TOOLBOX](https://bitbucket.org/marcopede/face-eval) for evaluation. We call this directory `$CAFFE/SFD/face-eval`.
