@@ -20,10 +20,17 @@ We can see that the results is comparable with the original model, mAP of hard s
 ![Alt text](assets/SFD-trained-medium.jpg)
 ![Alt text](assets/SFD-trained-hard.jpg)
 
+3. Results of trained model with RGB, and tested with validation set in grayscale: <br />
+Easy subset = 91.0%    <br />
+Medium subset = 87.9%  <br />
+Hard subset = 73.2%    <br />
+
 To summarize the comparison, the results of original model (tested by our codes) and the trained model is as follows: <br />
 
 | subset   | Easy  | Medium | Hard  |
 |----------|-------|--------|-------|
 | Original | 93.9% | 92.2%  | 83.4% |
 | Trained  | 93.3% | 92.0%  | 82.3% |
+| grayscale input  | 91.0% | 87.9%  | 73.2% |
+
 
