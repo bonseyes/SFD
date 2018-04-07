@@ -3,11 +3,11 @@ This folder contains pre-trained models for SFD using different architectures an
 
 | Model Name    | Size (MB)   | Speed (ms)  | Accuracy (Easy) | Accuracy (Medium) | Accuracy (Hard) | Download URL |
 | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------|
-| Original                                        | .. MB | .. ms | .. % | .. % | .. % | [Download]() |
-| SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | [Download]() |
-| SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | [Download]) |
-| SFD-300x300-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | [Download]() |
-| SFD-300x300-1CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | [Download]() |
+| Original                                        | .. MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-300x300-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-300x300-1CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
 
 ### Architectures
 
