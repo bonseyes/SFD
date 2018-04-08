@@ -14,7 +14,12 @@ __Training__
 + Dense
 
 __Files__
-+ TODO
-+ TODO
-+ TODO
-+ TODO
++ [deploy](deploy.prototxt)
++ [train](train.prototxt)
++ [test](test.prototxt)
++ [trained model](https://drive.google.com/open?id=1WbTmDlUst-90lB8NC_KtcE11v49wW7W2)
+
+__Results__
++ Easy:93.3%
++ Medium:92.0%
++ hard: 82.3%
