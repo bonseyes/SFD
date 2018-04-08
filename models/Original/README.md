@@ -13,7 +13,7 @@ __Training__
 + Dense
 
 __Files__
-+ TODO
-+ TODO
-+ TODO
-+ TODO
++ [deploy](deploy.prototxt)
++ [train](train.prototxt)
++ [test](test.prototxt)
++ [pretrained model](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view)
