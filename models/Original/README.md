@@ -17,3 +17,8 @@ __Files__
 + [train](train.prototxt)
 + [test](test.prototxt)
 + [pretrained model](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view)
+
+__Results__
++ Easy: 93.9%
++ Medium: 92.2%
++ hard: 83.4%
