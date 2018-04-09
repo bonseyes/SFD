@@ -6,18 +6,23 @@ This folder contains pre-trained models for SFD using different architectures an
 | Original                                        | 86 MB | .. ms | 93.9%| 92.2%| 83.4%| [link](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view) |
 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | 86 MB | .. ms | 93.3%| 92.0%| 82.3%| [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) |
 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
-| SFD-300x300-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
-| SFD-300x300-1CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-640x640-1CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
 
 ### Architectures
 
-##### VGG
-- [VGG Architecture - 640x640 Protoxt](https://github.com/oylz/SFD/blob/master/model/deploy.prototxt)
+##### VGG 640x640
+- [VGG Architecture - 640x640](https://github.com/oylz/SFD/blob/master/model/deploy.prototxt)
 - Features Layers : conv3_3, conv4_3, conv5_3, conv_fc7, conv6_2, conv7_2
 
-##### MobileNetV1
+##### MobileNetV1 640x640
+- [MobileNetV1 Architecture - 640x640]()
+- [MobileNetV1 Architecture - Pretrained Model COCO + VOC0712](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
+- Features Layers : __To decide__
+
+##### MobileNetV1 300x300
 - [MobileNetV1 Architecture - 300x300 Protoxt](https://github.com/chuanqi305/MobileNet-SSD/blob/master/MobileNetSSD_deploy.prototxt)
-- [MobileNetV1 Architecture - 300x300 Pretrained Model COCO + VOC0712](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
+- [MobileNetV1 Architecture - Pretrained Model COCO + VOC0712](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
 - Features Layers : __To decide__
 
 ### Naming Convention
