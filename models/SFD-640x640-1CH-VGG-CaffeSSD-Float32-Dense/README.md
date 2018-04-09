@@ -7,19 +7,30 @@ __Input__
 
 __Architecture__
 + VGG
-
-__Training__
-+ Caffe SSD
 + Float32
 + Dense
 
-__Files__
+__Training Data__
+Environment for training:
++ [Linux Ubuntu 16.04](link)
++ [Python x.yy](link)
++ [Caffe SDD](link)
+
+Files that have been prepared and tested using Caffe version _______ (INSERT LINK):
 + [deploy](deploy.prototxt)
 + [train](train.prototxt)
 + [test](test.prototxt)
-+ trained model: TODO
++ [lmdb]()
++ [labelmap]()
 
-__Results__
-+ Easy:
-+ Medium: 
-+ hard: 
+The following pretrained model has been used:
++ [pretrained_model]()
+
+__Trained Model and Results__
+The resulting model:
++ [model]()
+
+The results of testing of the model:
++ WIDERFace Easy:
++ WIDERFace Medium: 
++ WIDERFace Hard: 
