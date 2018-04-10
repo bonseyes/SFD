@@ -1,10 +1,7 @@
 from sfd_detector import SFD_NET
 import argparse
-import cv2
 import os.path
 import progressbar
-import sys
-sys.path.insert(0, '../../python')
 import caffe
 
 
@@ -22,7 +19,6 @@ def process_imgs_list(imgs_list_file, output_file, dataset_path, origin, device=
             shrink = 1
             if origin in ['AFW', 'PASCAL']:
                 shrink = 640.0 / max(image.shape[0], image.shape[1])
-                #image = cv2.resize(image, None, None, fx=ratio, fy=ratio, interpolation=cv2.INTER_LINEAR)
         
             detections = net.detect(image, shrink=shrink)
 

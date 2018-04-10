@@ -4,6 +4,8 @@ import cv2
 import numpy as np
 
 import sys
+#sys.path.insert(0, '../../../caffe-jacinto/python')
+#sys.path.insert(0, '../../../caffe-0.17/python')
 sys.path.insert(0, '../../python')
 import caffe
 
@@ -41,7 +43,7 @@ class SFD_NET(caffe.Net):
         if pretrained_file is None:
             pretrained_file = MODEL_WEIGHTS
 
-        caffe.Net.__init__(self, model_file, caffe.TEST, weights=pretrained_file)
+        caffe.Net.__init__(self, model_file, pretrained_file, caffe.TEST)
 
     def get_transformer(self, shape):
         in_ = self.inputs[0]
