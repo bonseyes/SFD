@@ -68,6 +68,41 @@ undefined reference to `SSL_CTX_new@OPENSSL_1.0.0'
 Make sure Caffe is not compiling against the Anaconda (or Miniconda) Python (unles you are using a virtualenv)
 
 
+#### Installing other versions of Caffe
+
+#### Caffe-jacinto
+If you are using `cmake` and you face compilation errors due to OpenCV missing libraries at linking phase, such as:
+
+```
+[ 89%] Linking CXX executable upgrade_net_proto_text
+[ 90%] Linking CXX executable upgrade_solver_proto_text
+[ 92%] Linking CXX executable net_speed_benchmark
+[ 92%] Built target test_net
+[ 92%] Built target net_speed_benchmark
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoCapture::set(int, double)'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoWriter::write(cv::Mat const&)'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoCapture::open(cv::String const&)'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoCapture::release()'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoCapture::operator>>(cv::Mat&)'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoWriter::VideoWriter(cv::String const&, int, double, cv::Size_<int>, bool)'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoCapture::isOpened() const'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoCapture::get(int) const'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoWriter::VideoWriter()'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoCapture::open(int)'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoWriter::isOpened() const'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoWriter::~VideoWriter()'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoCapture::~VideoCapture()'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::waitKey(int)'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::imshow(cv::String const&, cv::_InputArray const&)'
+../lib/libcaffe-nv.so.0.16.4: undefined reference to `cv::VideoCapture::VideoCapture()'
+```
+
+Make sure you add the packages `imgproc videoio highgui` to the lines 74 and 77 of `$CAFFE_ROOT/cmake/Dependencies.cmake`:
+```
+find_package(OpenCV REQUIRED COMPONENTS core imgcodecs imgproc videoio highgui)
+```
+
+
 ##### GCC issues
 Make sure you have gcc<=6 in your system. You can install it with:
 
