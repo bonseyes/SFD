@@ -4,9 +4,9 @@ import cv2
 import numpy as np
 
 import sys
-sys.path.insert(0, '../../../caffe-jacinto/python')
+#sys.path.insert(0, '../../../caffe-jacinto/python')
 #sys.path.insert(0, '../../../caffe-0.17/python')
-#sys.path.insert(0, '../../python')
+sys.path.insert(0, '../../python')
 import caffe
 
 
