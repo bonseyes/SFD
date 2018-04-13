@@ -7,8 +7,8 @@ if __name__ == '__main__':
     """
     Usage:
 
-    python2.7 test_wider_mAP.py -p WIDER_FACE/eval_tools_old-version/sfd_val\
-           -m WIDER_FACE/eval_tools_old-version/ground_truth/wider_easy_val.mat
+    python2.7 wider_eval.py -p ../output/WIDER_FACE/eval_tools/sfd_val\
+           -m ../output/WIDER_FACE/eval_tools/ground_truth/wider_easy_val.mat
     """
     parser = argparse.ArgumentParser(description='Code to check mAP metric for WIDER FACE obtained with SFD.')
     parser.add_argument('-p', '--path', type=str, help='Folder where the detected faces (validation set) are.', required=True)

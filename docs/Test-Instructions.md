@@ -27,6 +27,7 @@ S³FD is a real-time face detector, which performs superiorly on various scales 
     The model will be located in `$CAFFE/models/sfd_models/VGGNet/WIDER_FACE/SFD_trained`.
 
 3. Clone this repository [SFD](https://github.com/bonseyes/SFD) in `$CAFFE/SFD`. Make sure that the folder `$CAFFE/SFD/sfd_test_code` exists.
+4. Get [WIDER FACE eval tools](http://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/support/eval_script/eval_tools.zip). Unzip the file inside `$CAFFE/SFD/sfd_test_code/output/WIDER_FACE`.
 
 ### Datasets
 

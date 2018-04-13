@@ -1,7 +1,8 @@
-import scipy.io as sio
+import h5py
 import numpy as np
 import os
 import os.path
+import scipy.io as sio
 
 
 """
@@ -109,3 +110,19 @@ def parse_gt_faces(path):
     result = dict(zip(categories, files_faces))
     result_keep = dict(zip(categories, files_keep))
     return result, result_keep
+
+
+def parse_baseline(mat_file):
+    """
+    Given a certain mat file with a 'pr_curve' field, 
+    loads it and return the precision and recall lists.
+    """
+    try:
+        mat = sio.loadmat(mat_file)
+        precision =  mat['pr_cruve'][:, 0]
+        recall =  mat['pr_cruve'][:, 1]
+    except NotImplementedError:
+        mat = h5py.File(mat_file, 'r')
+        precision =  mat['pr_cruve'].value[0, :]
+        recall =  mat['pr_cruve'].value[1, :]
+    return precision, recall
