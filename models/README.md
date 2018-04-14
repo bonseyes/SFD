@@ -1,6 +1,8 @@
 # Models
 This folder contains pre-trained models for SFD using different architectures and training environments.
 
+__Models trained with CaffeSSD__
+
 | Model Name    | Size (MB)   | Speed (ms)  | Accuracy (Easy) | Accuracy (Medium) | Accuracy (Hard) | Download URL |
 | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------|
 | Original                                        | 86 MB | .. ms | 93.9%| 92.2%| 83.4%| [link](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view) |
@@ -8,6 +10,15 @@ This folder contains pre-trained models for SFD using different architectures an
 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
 | SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
 | SFD-640x640-1CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+
+__Models trained with NVIDIA Caffe 0.17__
+
+| Model Name    | Size (MB)   | Speed (ms)  | Accuracy (Easy) | Accuracy (Medium) | Accuracy (Hard) | Download URL |
+| ------------- |-------------|-------------| --------------| ----------------| --------------| --------------|
+| SFD-640x640-3CH-VGG-NVIDIACaffe-Float16-Dense      | -- MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-640x640-1CH-VGG-NVIDIACaffe-Float16-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-640x640-3CH-MobileNetV1-NVIDIACaffe-Float16-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-640x640-1CH-MobileNetV1-NVIDIACaffe-Float16-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
 
 ### Architectures
 
@@ -44,9 +55,9 @@ __Architectures__
 
 __Caffe Versions__
 1. [Caffe SSD](https://github.com/weiliu89/caffe/tree/ssd) : CaffeSSD
-2. [NVIDIA Caffe 0.17](https://github.com/NVIDIA/caffe) : NVIDIACaffe0.17
-3. [TIDSP Jacinto Caffe 0.16](https://github.com/tidsp/caffe-jacinto) : TIDSPCaffe0.16
-4. [Bonseyes Jacinto Caffe 0.16](https://github.com/bonseyes/caffe-jacinto) : BonseyesCaffe0.16
+2. [NVIDIA Caffe 0.17](https://github.com/NVIDIA/caffe) : NVIDIACaffe
+3. [TIDSP Jacinto Caffe 0.16](https://github.com/tidsp/caffe-jacinto) : TIDSPCaffe
+4. [Bonseyes Jacinto Caffe 0.16](https://github.com/bonseyes/caffe-jacinto) : BonseyesCaffe
 
 __Precision__
 1. Float32
