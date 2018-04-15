@@ -7,7 +7,7 @@ __Models trained with CaffeSSD__
 | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------|
 | Original                                        | 86 MB | .. ms | 93.9%| 92.2%| 83.4%| [link](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view) |
 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | 86 MB | .. ms | 93.3%| 92.0%| 82.3%| [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) |
-| SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | 86 MB | .. ms | .. % | .. % | .. % | [link](https://drive.google.com/open?id=1fudH6TU29F0oOVlIE2trulzCdhmJqJUh) |
 | SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
 | SFD-640x640-1CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
 
