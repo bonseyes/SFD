@@ -76,7 +76,7 @@ def parse_detected_faces(path):
     return result
 
 
-def parse_gt_faces(path):
+def parse_gt_faces(path, assesment='', level=''):
     """
     Given a Matlab .mat file with the corresponding groundtruth faces, 
     this function loads it and returns a dictionary like the one in
@@ -92,9 +92,21 @@ def parse_gt_faces(path):
     mat_faces = sio.loadmat(path)
     categories = [str(event[0]) for event in mat_faces['event_list'].flatten()]
     files = [[str(f[0]) for f in files.flatten()] for files in mat_faces['file_list'].flatten()]
-    # Retrieve the list of gt boxes to keep. Matlab uses 1-based indexes, so transform them to Python indexes
-    keep_index = [[gt_list[0].flatten() - 1 for gt_list in event[0]] for event in mat_faces['gt_list']]
     faces = [[[face for face in image[0]] for image in event[0]] for event in mat_faces['face_bbx_list']]
+    # Retrieve the list of gt boxes to keep. Matlab uses 1-based indexes, so transform them to Python indexes when necessary
+    if assesment == 'pose':
+        labels = {'typical': 0, 'extreme': 1}
+        keep_index = [[np.where(pose_list[0].flatten() == labels[level]) for pose_list in event[0]] for event in mat_faces['pose_label_list']]
+    elif assesment == 'occlusion':
+        labels = {'none': 0, 'partial': 1, 'heavy': 2}
+        keep_index = [[np.where(occl_list[0].flatten() == labels[level]) for occl_list in event[0]] for event in mat_faces['occlusion_label_list']]
+    elif assesment == 'scale':
+        # Check height of face
+        labels = {'small': (10, 50), 'medium': (50, 300), 'large': (300, 10000)}
+        keep_index = [[np.where((np.array(im)[:, 3] >= labels[level][0]) & (np.array(im)[:, 3] < labels[level][1]))[0] for im in event] for event in faces]
+    else:
+        # Overall
+        keep_index = [[gt_list[0].flatten() - 1 for gt_list in event[0]] for event in mat_faces['gt_list']]
 
     files_faces = [{k: np.array(v) for k, v in zip(fil, faces[i])} for i, fil in enumerate(files)]
     files_keep = [{k: np.array(v) for k, v in zip(fil, keep_index[i])} for i, fil in enumerate(files)]
