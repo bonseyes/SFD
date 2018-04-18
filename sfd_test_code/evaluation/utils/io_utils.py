@@ -10,6 +10,13 @@ Utilities to load detected faces and groundtruth faces into memory
 """
 
 
+def load_mat_file(path):
+    """
+    Given a .mat file, loads it into memory
+    """
+    return sio.loadmat(path)
+
+
 def parse_det_file(path):
     """
     Given a path for a single detection file, 
@@ -76,10 +83,10 @@ def parse_detected_faces(path):
     return result
 
 
-def parse_gt_faces(path, assesment='', level=''):
+def parse_gt_faces(mat_faces, assesment='', level=''):
     """
-    Given a Matlab .mat file with the corresponding groundtruth faces, 
-    this function loads it and returns a dictionary like the one in
+    Given a preloaded Matlab .mat file with the corresponding groundtruth faces, 
+    this function returns a dictionary like the one in
     parse_detected_faces().
 
     The .mat files used here can be found in the original 
@@ -89,21 +96,32 @@ def parse_gt_faces(path, assesment='', level=''):
     I recommend loading the .mat file in a Python interpreter to actually 
     understand its structure and therefore this code.
     """
-    mat_faces = sio.loadmat(path)
     categories = [str(event[0]) for event in mat_faces['event_list'].flatten()]
     files = [[str(f[0]) for f in files.flatten()] for files in mat_faces['file_list'].flatten()]
     faces = [[[face for face in image[0]] for image in event[0]] for event in mat_faces['face_bbx_list']]
     # Retrieve the list of gt boxes to keep. Matlab uses 1-based indexes, so transform them to Python indexes when necessary
+    # TODO: vectorize this
     if assesment == 'pose':
         labels = {'typical': 0, 'extreme': 1}
-        keep_index = [[np.where(pose_list[0].flatten() == labels[level]) for pose_list in event[0]] for event in mat_faces['pose_label_list']]
+        keep_index = [[np.where(pose_list[0].flatten() == labels[level])[0] for pose_list in event[0]] for event in mat_faces['pose_label_list']]
+        # As per Section 5.1 of the Wider Face Technical Report, we'll test faces that are at least 30px in height and are un-occluded
+        height_index = [[np.where(np.array(im)[:, 3] >= 30)[0] for im in event] for event in faces]
+        unoccluded_index = [[np.where(occl_list[0].flatten() == 0)[0] for occl_list in event[0]] for event in mat_faces['occlusion_label_list']]
+        inters_index = [[np.array(list(set(im).intersection(set(unoccluded_index[i][j])))) for j, im in enumerate(event)] for i, event in enumerate(height_index)]
+        keep_index = [[np.array(list(set(im).intersection(set(inters_index[i][j])))) for j, im in enumerate(event)] for i, event in enumerate(keep_index)]
     elif assesment == 'occlusion':
         labels = {'none': 0, 'partial': 1, 'heavy': 2}
-        keep_index = [[np.where(occl_list[0].flatten() == labels[level]) for occl_list in event[0]] for event in mat_faces['occlusion_label_list']]
+        keep_index = [[np.where(occl_list[0].flatten() == labels[level])[0] for occl_list in event[0]] for event in mat_faces['occlusion_label_list']]
+        # As per Section 5.1 of the Wider Face Technical Report, we'll test faces that are at least 30px in height
+        height_index = [[np.where(np.array(im)[:, 3] >= 30)[0] for im in event] for event in faces]
+        keep_index = [[np.array(list(set(im).intersection(set(height_index[i][j])))) for j, im in enumerate(event)] for i, event in enumerate(keep_index)]
     elif assesment == 'scale':
-        # Check height of face
+        # Check height of face and select accordingly
         labels = {'small': (10, 50), 'medium': (50, 300), 'large': (300, 10000)}
         keep_index = [[np.where((np.array(im)[:, 3] >= labels[level][0]) & (np.array(im)[:, 3] < labels[level][1]))[0] for im in event] for event in faces]
+        # Also, according to Section 5.1 of the Wider Face Technical Report, we'll test un-occluded faces only
+        unoccluded_index = [[np.where(occl_list[0].flatten() == 0)[0] for occl_list in event[0]] for event in mat_faces['occlusion_label_list']]
+        keep_index = [[np.array(list(set(im).intersection(set(unoccluded_index[i][j])))) for j, im in enumerate(event)] for i, event in enumerate(keep_index)]
     else:
         # Overall
         keep_index = [[gt_list[0].flatten() - 1 for gt_list in event[0]] for event in mat_faces['gt_list']]

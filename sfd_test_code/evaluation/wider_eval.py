@@ -1,5 +1,5 @@
 import argparse
-from utils.io_utils import parse_detected_faces, parse_gt_faces
+from utils.io_utils import parse_detected_faces, parse_gt_faces, load_mat_file
 from utils.pr_utils import compute_prec_rec, compute_ap, normalize_scores
 
 
@@ -20,7 +20,8 @@ if __name__ == '__main__':
 
     det_faces = parse_detected_faces(dets_path)
     det_faces = normalize_scores(det_faces)
-    gt_faces, gt_keep = parse_gt_faces(gt_path)
+    mat_file = load_mat_file(gt_path)
+    gt_faces, gt_keep = parse_gt_faces(mat_file)
     precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
     ap = compute_ap(precision, recall)
     print("WIDERFACE AP: {0:.2f}".format(ap * 100))

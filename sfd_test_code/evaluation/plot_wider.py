@@ -2,7 +2,7 @@ import argparse
 import matplotlib.pyplot as plt
 import os.path
 from numpy import arange
-from utils.io_utils import parse_detected_faces, parse_gt_faces, parse_baseline
+from utils.io_utils import parse_detected_faces, parse_gt_faces, parse_baseline, load_mat_file
 from utils.pr_utils import compute_prec_rec, correct_pr_curve, compute_ap, normalize_scores
 
 
@@ -44,54 +44,55 @@ if __name__ == '__main__':
     det_faces = parse_detected_faces(dets_path)
     det_faces = normalize_scores(det_faces)
 
-
     # Compute PR curves for Overall, Scale, Occlusion and Pose
     overall_levels = ['easy', 'medium', 'hard']
     overall_results = {level: {} for level in overall_levels}
+    gt_files = {level: None for level in overall_levels}
 
-    # Overall
+    print("Testing Overall")
     for level in overall_levels:
-        gt_faces, gt_keep = parse_gt_faces(os.path.join(args.matlab_faces, 'wider_{}_val.mat'.format(level)))
+        gt_files[level] = load_mat_file(os.path.join(args.matlab_faces, 'wider_{}_val.mat'.format(level)))
+        gt_faces, gt_keep = parse_gt_faces(gt_files[level])
         precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
         ap = compute_ap(precision, recall)
         precision, recall, _ = correct_pr_curve(precision, recall)
-        overall_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall, precision)
+        overall_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall[:-1], precision[:-1])
         for baseline in TO_PLOT:
             path = os.path.join(args.baselines, baseline, 'wider_pr_info_{}_{}_val.mat'.format(baseline, level))
             precision, recall = parse_baseline(path)
-            overall_results[level][baseline] = (recall, precision)
+            overall_results[level][baseline] = (recall[:-1], precision[:-1])
 
-    # Scale
+    print("Testing Scale")
     scale_levels = ['small', 'medium', 'large']
     scale_results = {level: {} for level in scale_levels}
     for level in scale_levels:
-        gt_faces, gt_keep = parse_gt_faces(os.path.join(args.matlab_faces, 'wider_easy_val.mat'), assesment='scale', level=level)
+        gt_faces, gt_keep = parse_gt_faces(gt_files['easy'], assesment='scale', level=level)
         precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
         ap = compute_ap(precision, recall)
         precision, recall, _ = correct_pr_curve(precision, recall)
-        scale_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall, precision)
+        scale_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall[:-1], precision[:-1])
 
-    # Occlusion 
+    print("Testing Occlusion")
     occlusion_levels = ['none', 'partial', 'heavy']
     occlusion_results = {level: {} for level in occlusion_levels}
     for level in occlusion_levels:
-        gt_faces, gt_keep = parse_gt_faces(os.path.join(args.matlab_faces, 'wider_easy_val.mat'), assesment='occlusion', level=level)
+        gt_faces, gt_keep = parse_gt_faces(gt_files['easy'], assesment='occlusion', level=level)
         precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
         ap = compute_ap(precision, recall)
         precision, recall, _ = correct_pr_curve(precision, recall)
-        occlusion_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall, precision)
+        occlusion_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall[:-1], precision[:-1])
 
-    # Pose
+    print("Testing Pose")
     pose_levels = ['typical', 'extreme']
     pose_results = {level: {} for level in pose_levels}
     for level in pose_levels:
-        gt_faces, gt_keep = parse_gt_faces(os.path.join(args.matlab_faces, 'wider_easy_val.mat'), assesment='pose', level=level)
+        gt_faces, gt_keep = parse_gt_faces(gt_files['easy'], assesment='pose', level=level)
         precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
         ap = compute_ap(precision, recall)
         precision, recall, _ = correct_pr_curve(precision, recall)
-        pose_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall, precision)
+        pose_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall[:-1], precision[:-1])
 
-    # Finally, plot everything
+    print("Plotting")
     length = 4
     ticks = arange(0, 1.2, 0.2) 
     f, axes = plt.subplots(len(overall_levels), length)
@@ -99,47 +100,48 @@ if __name__ == '__main__':
     for i, level in enumerate(overall_levels):
         for model in overall_results[level]:
             axes[i, 0].plot(*(overall_results[level][model]), label=model)
-            axes[i, 0].set_xticks(ticks)
-            axes[i, 0].set_yticks(ticks)
-            axes[i, 0].set_xlabel("Recall - {}".format(level))
-            axes[i, 0].set_ylabel("Precision")
-            axes[i, 0].grid(which='both')
-            axes[i, 0].legend()
+        axes[i, 0].set_xticks(ticks)
+        axes[i, 0].set_yticks(ticks)
+        axes[i, 0].set_ylabel("Precision")
+        axes[i, 0].legend()
+        axes[i, 0].grid(which='both')
+        axes[i, 0].set_xlabel("Recall - {}".format(level))
     axes[0, 0].set_title("Overall")
 
     for i, level in enumerate(scale_levels):
         for model in scale_results[level]:
             axes[i, 1].plot(*(scale_results[level][model]), label=model)
-            axes[i, 1].set_xticks(ticks)
-            axes[i, 1].set_yticks(ticks)
-            axes[i, 1].set_xlabel("Recall - {}".format(level))
-            axes[i, 1].set_ylabel("Precision")
-            axes[i, 1].grid(which='both')
-            axes[i, 1].legend()
+        axes[i, 1].set_xticks(ticks)
+        axes[i, 1].set_yticks(ticks)
+        axes[i, 1].set_xlabel("Recall - {}".format(level))
+        axes[i, 1].set_ylabel("Precision")
+        axes[i, 1].grid(which='both')
+        axes[i, 1].legend()
     axes[0, 1].set_title("Scale")
 
     for i, level in enumerate(occlusion_levels):
         for model in occlusion_results[level]:
             axes[i, 2].plot(*(occlusion_results[level][model]), label=model)
-            axes[i, 2].set_xticks(ticks)
-            axes[i, 2].set_yticks(ticks)
-            axes[i, 2].set_xlabel("Recall - {}".format(level))
-            axes[i, 2].set_ylabel("Precision")
-            axes[i, 2].grid(which='both')
-            axes[i, 2].legend()
+        axes[i, 2].set_xticks(ticks)
+        axes[i, 2].set_yticks(ticks)
+        axes[i, 2].set_xlabel("Recall - {}".format(level))
+        axes[i, 2].set_ylabel("Precision")
+        axes[i, 2].grid(which='both')
+        axes[i, 2].legend()
     axes[0, 2].set_title("Occlusion")
 
     for i, level in enumerate(pose_levels):
         for model in pose_results[level]:
             axes[i, 3].plot(*(pose_results[level][model]), label=model)
-            axes[i, 3].set_xticks(ticks)
-            axes[i, 3].set_yticks(ticks)
-            axes[i, 3].set_xlabel("Recall - {}".format(level))
-            axes[i, 3].set_ylabel("Precision")
-            axes[i, 3].grid(which='both')
-            axes[i, 3].legend()
+        axes[i, 3].set_xticks(ticks)
+        axes[i, 3].set_yticks(ticks)
+        axes[i, 3].set_xlabel("Recall - {}".format(level))
+        axes[i, 3].set_ylabel("Precision")
+        axes[i, 3].grid(which='both')
+        axes[i, 3].legend()
     axes[0, 3].set_title("Pose")
     axes[-1, -1].axis('off')
 
-    #plt.savefig("WIDER_metrics.pdf")
-    plt.show()
+    figure = plt.gcf()
+    figure.set_size_inches(15, 10)
+    plt.savefig("WIDER_metrics.png")
