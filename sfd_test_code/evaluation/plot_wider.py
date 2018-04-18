@@ -143,5 +143,5 @@ if __name__ == '__main__':
     axes[-1, -1].axis('off')
 
     figure = plt.gcf()
-    figure.set_size_inches(15, 10)
+    figure.set_size_inches(16, 10)
     plt.savefig("WIDER_metrics.png")
