@@ -1,11 +1,17 @@
+from os import makedirs
+from os.path import abspath, dirname, exists, join
 from sfd_detector import SFD_NET
 import argparse
 import caffe
 import cv2
 import numpy as np
-import os
-import os.path
 import scipy.io as sio
+
+
+# Default models if none is passed to the __init__ method, assuming the `sfd_test_code` is in ${CAFFE_ROOT}/SFD/sfd_test_code
+# These models are automatically downloaded by SFD/scripts/data/download_model.sh
+MODEL_DEF = '{}/../../models/VGGNet/WIDER_FACE/SFD_trained/deploy.prototxt'.format(abspath(dirname(__file__)))
+MODEL_WEIGHTS = '{}/../../models/VGGNet/WIDER_FACE/SFD_trained/SFD.caffemodel'.format(abspath(dirname(__file__)))
 
 
 def multi_scale_test(net, image, max_im_shrink):
@@ -41,7 +47,9 @@ def multi_scale_test(net, image, max_im_shrink):
 
 
 def flip_test(net, image, shrink):
+    orig_shape = image.shape
     image_f = cv2.flip(image, 1)
+    image_f = image.reshape(orig_shape)
     det_f = net.detect(image_f, shrink)
 
     det_t = np.zeros(det_f.shape)
@@ -107,14 +115,22 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Test code for a SFD trained model using WIDER FACE dataset.')
     parser.add_argument('-p', '--path', type=str, help='Dataset path', required=True)
     parser.add_argument('-s', '--subset', type=str, help='Subset. Choices: val, test', choices=['val', 'test'], required=True)
+    parser.add_argument('-g', '--greyscale', action='store_true', help='When set, assume that all the images are greyscale')
+    parser.add_argument('-o', '--output', type=str, help='Folder where to output detections', required=True)
+    parser.add_argument('--model', type=str, help='Path to Caffe prototxt', default=MODEL_DEF, required=False)
+    parser.add_argument('--weights', type=str, help='Path to Caffe weights (caffemodel)', default=MODEL_WEIGHTS, required=False)
     parser.add_argument('--device', type=int, default=0, help="GPU device to use, default is 0")
     args = parser.parse_args()
 
     dataset_path = args.path
+    model = args.model
+    weights = args.weights
     device = args.device
     subset = args.subset
+    is_greyscale = args.greyscale
+    output_folder = args.output
 
-    net = SFD_NET(device=device)
+    net = SFD_NET(model_file=model, pretrained_file=weights, device=device)
 
     if subset == 'val':
         wider_face = sio.loadmat('./output/WIDER_FACE/wider_face_val.mat')
@@ -124,19 +140,22 @@ if __name__ == '__main__':
     file_list = wider_face['file_list']
     del wider_face
 
-    save_path = './output/WIDER_FACE/eval_tools/sfd_' + subset + '/'
     for index, event in enumerate(event_list):
         filelist = file_list[index][0]
-        if not os.path.exists(save_path + event[0][0]):
-            os.makedirs(save_path + event[0][0])
+        event_folder = join(output_folder, event[0][0])
+        if not exists(event_folder):
+            makedirs(event_folder)
 
         for num, file in enumerate(filelist):
             im_name = file[0][0]
             Image_Path = dataset_path + event[0][0] + '/' + im_name[:] + '.jpg'
             image = caffe.io.load_image(Image_Path)
+            if is_greyscale:
+                image = image[:, :, 0]
+                image = image.reshape((image.shape[0], image.shape[1], 1))
 
-            max_im_shrink = (0x7fffffff / 800.0 / (image.shape[0] * image.shape[1] * image.shape[2])) ** 0.5 # the max size of input blob for caffe
-
+            # The max size of input blob for caffe
+            max_im_shrink = (0x7fffffff / 800.0 / (image.shape[0] * image.shape[1] * 3)) ** 0.5
             shrink = max_im_shrink if max_im_shrink < 1 else 1
 
             det0 = net.detect(image, shrink)
@@ -147,6 +166,6 @@ if __name__ == '__main__':
             det = np.row_stack((det0, det1, det2, det3))
             dets = bbox_vote(det)
 
-            f = open(save_path + event[0][0].encode('utf-8') + '/' + im_name + '.txt', 'w')
+            f = open(join(event_folder, im_name + '.txt'), 'w')
             write_to_txt(f, dets)
             print('event:%d num:%d' % (index + 1, num + 1))

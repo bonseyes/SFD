@@ -33,7 +33,8 @@ if __name__ == '__main__':
            -b ../output/WIDER_FACE/eval_tools/plot/baselines/Val/setting_int
     """
     parser = argparse.ArgumentParser(description='Code to check mAP metric for WIDER FACE obtained with SFD.')
-    parser.add_argument('-p', '--path', type=str, help='Folder where the detected faces (validation set) are.', required=True)
+    parser.add_argument('-p', '--path', type=str, help='Folder where the detected faces (validation set) for\
+            all the models to test are are. Each model should have its own separate folder inside.', required=True)
     parser.add_argument('-m', '--matlab-faces', type=str, help='Path where the easy, medium and hard .mat files with the groundtruth faces are.', required=True)
     parser.add_argument('-b', '--baselines', type=str, help='Path where the .mat files with baselines are.', required=True)
     args = parser.parse_args()
