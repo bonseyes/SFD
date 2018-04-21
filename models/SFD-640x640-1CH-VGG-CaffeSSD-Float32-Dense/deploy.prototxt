@@ -1487,14 +1487,6 @@ layer {
       nms_threshold: 0.300000011921
       top_k: 5000
     }
-    save_output_param {
-      output_directory: "~/data/Training_Out_wider/SFD_nm/SFD_nm_640x640"
-      output_name_prefix: "comp4_det_test_"
-      output_format: "txt"
-      label_map_file: "/home/ubuntu/SSD/data/WIDER_FACE/labelmap_wider.prototxt"
-      name_size_file: "/home/ubuntu/SSD/data/WIDER_FACE/val_name_size.txt"
-      num_test_image: 3226
-    }
     code_type: CENTER_SIZE
     keep_top_k: 750
     confidence_threshold: 0.0500000007451
