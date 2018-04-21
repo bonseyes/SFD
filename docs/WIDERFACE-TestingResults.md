@@ -16,9 +16,9 @@ Easy subset = 93.3%    <br />
 Medium subset = 92.0%  <br />
 Hard subset = 82.3%    <br />
 We can see that the results is comparable with the original model, mAP of hard subset is less than original model by 1.1% only.  
-![Alt text](assets/SFD-trained-easy.jpg)
-![Alt text](assets/SFD-trained-medium.jpg)
-![Alt text](assets/SFD-trained-hard.jpg)
+![Alt text](assets/SFD-Ours-RGB-easy.jpg)
+![Alt text](assets/SFD-Ours-RGB-medium.jpg)
+![Alt text](assets/SFD-Ours-RGB-hard.jpg)
 
 3. Results of trained model with RGB, and tested with validation set in grayscale: <br />
 Easy subset = 91.0%    <br />
