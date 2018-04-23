@@ -1,9 +1,10 @@
-import argparse
-import matplotlib.pyplot as plt
-import os.path
 from numpy import arange
+from os.path import join
+from os import listdir
 from utils.io_utils import parse_detected_faces, parse_gt_faces, parse_baseline, load_mat_file
 from utils.pr_utils import compute_prec_rec, correct_pr_curve, compute_ap, normalize_scores
+import argparse
+import matplotlib.pyplot as plt
 
 
 """
@@ -22,6 +23,17 @@ NOTE:
 
 # Omit ACF as it only has 100 points in the pr curve
 TO_PLOT = ['PyramidBox', 'SFD-C', 'multitask-cascade-cnn', 'Faceness', 'SSH']
+CODENAMES = {
+    'Original': 'Trained_Model_A1',
+    'SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense': 'Trained_Model_A2',
+    'SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense': 'Trained_Model_A3',
+    'SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense': 'Trained_Model_A4',
+    'SFD-640x640-1CH-MobileNetV1-CaffeSSD-Float32-Dense': 'Trained_Model_A5',
+    'SFD-640x640-3CH-VGG-NVIDIACaffe-Float16-Dense': 'Trained_Model_B1',
+    'SFD-640x640-1CH-VGG-NVIDIACaffe-Float16-Dense': 'Trained_Model_B2',
+    'SFD-640x640-3CH-MobileNetV1-NVIDIACaffe-Float16-Dense': 'Trained_Model_B3',
+    'SFD-640x640-1CH-MobileNetV1-NVIDIACaffe-Float16-Dense': 'Trained_Model_B4',
+}
 
 
 if __name__ == '__main__':
@@ -40,10 +52,14 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     dets_path = args.path
-    baselines = [os.path.join(args.baselines, baseline) for baseline in TO_PLOT]
+    baselines = [join(args.baselines, baseline) for baseline in TO_PLOT]
 
-    det_faces = parse_detected_faces(dets_path)
-    det_faces = normalize_scores(det_faces)
+    models_det_faces = {}
+    for test_model in listdir(dets_path):
+        det_faces = parse_detected_faces(join(dets_path, test_model))
+        codename = [v for c, v in CODENAMES.iteritems() if c in test_model]
+        codename = codename[0] if len(codename) == 1 else test_model
+        models_det_faces[codename] = normalize_scores(det_faces)
 
     # Compute PR curves for Overall, Scale, Occlusion and Pose
     overall_levels = ['easy', 'medium', 'hard']
@@ -52,14 +68,15 @@ if __name__ == '__main__':
 
     print("Testing Overall")
     for level in overall_levels:
-        gt_files[level] = load_mat_file(os.path.join(args.matlab_faces, 'wider_{}_val.mat'.format(level)))
+        gt_files[level] = load_mat_file(join(args.matlab_faces, 'wider_{}_val.mat'.format(level)))
         gt_faces, gt_keep = parse_gt_faces(gt_files[level])
-        precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
-        ap = compute_ap(precision, recall)
-        precision, recall, _ = correct_pr_curve(precision, recall)
-        overall_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall[:-1], precision[:-1])
+        for model_name, det_faces in models_det_faces.iteritems():
+            precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
+            ap = compute_ap(precision, recall)
+            precision, recall, _ = correct_pr_curve(precision, recall)
+            overall_results[level]['{0}-{1:.2f}'.format(model_name, ap)] = (recall[:-1], precision[:-1])
         for baseline in TO_PLOT:
-            path = os.path.join(args.baselines, baseline, 'wider_pr_info_{}_{}_val.mat'.format(baseline, level))
+            path = join(args.baselines, baseline, 'wider_pr_info_{}_{}_val.mat'.format(baseline, level))
             precision, recall = parse_baseline(path)
             overall_results[level][baseline] = (recall[:-1], precision[:-1])
 
@@ -68,30 +85,33 @@ if __name__ == '__main__':
     scale_results = {level: {} for level in scale_levels}
     for level in scale_levels:
         gt_faces, gt_keep = parse_gt_faces(gt_files['easy'], assesment='scale', level=level)
-        precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
-        ap = compute_ap(precision, recall)
-        precision, recall, _ = correct_pr_curve(precision, recall)
-        scale_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall[:-1], precision[:-1])
+        for model_name, det_faces in models_det_faces.iteritems():
+            precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
+            ap = compute_ap(precision, recall)
+            precision, recall, _ = correct_pr_curve(precision, recall)
+            scale_results[level]['{0}-{1:.2f}'.format(model_name, ap)] = (recall[:-1], precision[:-1])
 
     print("Testing Occlusion")
     occlusion_levels = ['none', 'partial', 'heavy']
     occlusion_results = {level: {} for level in occlusion_levels}
     for level in occlusion_levels:
         gt_faces, gt_keep = parse_gt_faces(gt_files['easy'], assesment='occlusion', level=level)
-        precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
-        ap = compute_ap(precision, recall)
-        precision, recall, _ = correct_pr_curve(precision, recall)
-        occlusion_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall[:-1], precision[:-1])
+        for model_name, det_faces in models_det_faces.iteritems():
+            precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
+            ap = compute_ap(precision, recall)
+            precision, recall, _ = correct_pr_curve(precision, recall)
+            occlusion_results[level]['{0}-{1:.2f}'.format(model_name, ap)] = (recall[:-1], precision[:-1])
 
     print("Testing Pose")
     pose_levels = ['typical', 'extreme']
     pose_results = {level: {} for level in pose_levels}
     for level in pose_levels:
         gt_faces, gt_keep = parse_gt_faces(gt_files['easy'], assesment='pose', level=level)
-        precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
-        ap = compute_ap(precision, recall)
-        precision, recall, _ = correct_pr_curve(precision, recall)
-        pose_results[level]['trained_model-{0:.2f}'.format(ap)] = (recall[:-1], precision[:-1])
+        for model_name, det_faces in models_det_faces.iteritems():
+            precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
+            ap = compute_ap(precision, recall)
+            precision, recall, _ = correct_pr_curve(precision, recall)
+            pose_results[level]['{0}-{1:.2f}'.format(model_name, ap)] = (recall[:-1], precision[:-1])
 
     print("Plotting")
     length = 4

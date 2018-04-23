@@ -1,5 +1,5 @@
 from os import makedirs
-from os.path import abspath, dirname, exists, join
+from os.path import abspath, dirname, exists, join, basename
 from sfd_detector import SFD_NET
 import argparse
 import caffe
@@ -125,10 +125,11 @@ if __name__ == '__main__':
     dataset_path = args.path
     model = args.model
     weights = args.weights
+    model_name = basename(weights).replace('.caffemodel', '')
     device = args.device
     subset = args.subset
     is_greyscale = args.greyscale
-    output_folder = args.output
+    output_folder = join(args.output, model_name)
 
     net = SFD_NET(model_file=model, pretrained_file=weights, device=device)
 
