@@ -27,6 +27,7 @@ S³FD is a real-time face detector, which performs superiorly on various scales 
     The model will be located in `$CAFFE/models/sfd_models/VGGNet/WIDER_FACE/SFD_trained`.
 
 3. Clone this repository [SFD](https://github.com/bonseyes/SFD) in `$CAFFE/SFD`. Make sure that the folder `$CAFFE/SFD/sfd_test_code` exists.
+4. Get [WIDER FACE eval tools](http://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/support/eval_script/eval_tools.zip). Unzip the file inside `$CAFFE/SFD/sfd_test_code/output/WIDER_FACE`.
 
 ### Datasets
 
@@ -58,7 +59,7 @@ python2.7 test.py -d PASCAL -p ../datasets/PASCAL/VOCdevkit/VOC2012/JPEGImages
 
 Remember to change paths accordingly. Run `test.py -h` to see a list of valid arguments.
 
-The test will output, for each dataset, a file in `$SFD_ROOT/sfd_test_code/{AFW,PASCAL,FDDB}/sfd_{afw,pascal,fddb}_dets.txt` which can be used with the `face-eval` tool to plot the precision-recall curves ([Next Section](#runningevaluationbenchmarks). 
+The test will output, for each dataset, a file in `$SFD_ROOT/sfd_test_code/output/{AFW,PASCAL,FDDB}/sfd_{afw,pascal,fddb}_dets.txt` which can be used with the `face-eval` tool to plot the precision-recall curves ([Next Section](#runningevaluationbenchmarks). 
 
 
 NOTE: The original paper uses a Matlab script to transform the rectangular predictions into ellipsis. If you have acces to a Matlab license, you can do that by running:
@@ -86,16 +87,18 @@ python2.7 test_wider.py -p ../datasets/WIDER/WIDER_val/images/ -s val --device 0
 
 ##### Check mAP for the Validation set of WIDER
 
-1. Once you have run `test_wider.py` for the Validation split and obtained the results (they should be stored by default in ), you can check the mAP for each of the `easy`, `medium` and `hard` settings of the dataset (each level has more and smaller faces) by using the `test_wider_mAP.py` script.
-2. Make sure you know where your detections are and where the `*.mat` files with the groundtruth labels for each level are located. By default, the detected faces are saved in the submission format of WIDER in `$SFD_ROOT/sfd_test_code/WIDER_FACE/eval_tools_old-version/sfd_val`. The `*.mat` files are located in `$SFD_ROOT/sfd_test_code/WIDER_FACE/eval_tools_old-version/ground_truth/`.
+1. Once you have run `test_wider.py` for the Validation split and obtained the results (they should be stored by default in ), you can check the mAP for each of the `easy`, `medium` and `hard` settings of the dataset (each level has more and smaller faces) by using the `wider_eval.py` script.
+2. Make sure you know where your detections are and where the `*.mat` files with the groundtruth labels for each level are located. By default, the detected faces are saved in the submission format of WIDER in `$SFD_ROOT/sfd_test_code/output/WIDER_FACE/eval_tools/sfd_val`. The `*.mat` files are located in `$SFD_ROOT/sfd_test_code/output/WIDER_FACE/eval_tools/ground_truth/`.
 3. Run:
     ```
-    python2.7 test_wider_mAP.py -p ./path/to/detections/ -m ./path/to/wider_{easy,medium,hard}_val.mat
+    python2.7 wider_eval.py -p ./path/to/detections/ -m ./path/to/wider_{easy,medium,hard}_val.mat
     ```
 4. You should get an output like:
     ```
     WIDERFACE AP: 94.04
     ```
+
+Read [here](../sfd_test_code/evaluation/README.md) for more details.
 
 ### Running evaluation benchmarks
 
@@ -103,7 +106,7 @@ Download the [EVALUATION TOOLBOX](https://bitbucket.org/marcopede/face-eval) for
 
 #### Plotting Precision-Recall curves for AFW and PASCAL
 
-1. Copy the previously generated file `./{AFW,PASCAL}/sfd_{afw,pascal}_dets.txt` into `face-eval/detections/{AFW,PASCAL}` respectively.
+1. Copy the previously generated file `./output/{AFW,PASCAL}/sfd_{afw,pascal}_dets.txt` into `face-eval/detections/{AFW,PASCAL}` respectively.
 
 2. Run:
 

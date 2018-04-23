@@ -58,6 +58,6 @@ if __name__ == "__main__":
     dataset_path = args.path
     device = args.device
 
-    imgs_list = '{}/{}_img_list.txt'.format(dataset_name, dataset_name.lower())
-    dets_file = '{}/sfd_{}_dets.txt'.format(dataset_name, dataset_name.lower())
+    imgs_list = 'output/{}/{}_img_list.txt'.format(dataset_name, dataset_name.lower())
+    dets_file = 'output/{}/sfd_{}_dets.txt'.format(dataset_name, dataset_name.lower())
     process_imgs_list(imgs_list, dets_file, dataset_path, dataset_name, device)

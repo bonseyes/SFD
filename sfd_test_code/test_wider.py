@@ -117,14 +117,14 @@ if __name__ == '__main__':
     net = SFD_NET(device=device)
 
     if subset == 'val':
-        wider_face = sio.loadmat('./WIDER_FACE/wider_face_val.mat')
+        wider_face = sio.loadmat('./output/WIDER_FACE/wider_face_val.mat')
     else:
-        wider_face = sio.loadmat('./WIDER_FACE/wider_face_test.mat')
+        wider_face = sio.loadmat('./output/WIDER_FACE/wider_face_test.mat')
     event_list = wider_face['event_list']
     file_list = wider_face['file_list']
     del wider_face
 
-    save_path = './WIDER_FACE/eval_tools_old-version/sfd_' + subset + '/'
+    save_path = './output/WIDER_FACE/eval_tools/sfd_' + subset + '/'
     for index, event in enumerate(event_list):
         filelist = file_list[index][0]
         if not os.path.exists(save_path + event[0][0]):
