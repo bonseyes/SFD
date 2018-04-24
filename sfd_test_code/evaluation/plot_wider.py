@@ -54,11 +54,13 @@ if __name__ == '__main__':
     dets_path = args.path
     baselines = [join(args.baselines, baseline) for baseline in TO_PLOT]
 
+    print("Loading detected faces of:")
     models_det_faces = {}
     for test_model in listdir(dets_path):
-        det_faces = parse_detected_faces(join(dets_path, test_model))
         codename = [v for c, v in CODENAMES.iteritems() if c in test_model]
         codename = codename[0] if len(codename) == 1 else test_model
+        print("\t{} -> {}".format(test_model, codename))
+        det_faces = parse_detected_faces(join(dets_path, test_model))
         models_det_faces[codename] = normalize_scores(det_faces)
 
     # Compute PR curves for Overall, Scale, Occlusion and Pose
@@ -68,14 +70,17 @@ if __name__ == '__main__':
 
     print("Testing Overall")
     for level in overall_levels:
+        print("   {}".format(level.upper()))
         gt_files[level] = load_mat_file(join(args.matlab_faces, 'wider_{}_val.mat'.format(level)))
         gt_faces, gt_keep = parse_gt_faces(gt_files[level])
         for model_name, det_faces in models_det_faces.iteritems():
+            print("\t{}".format(model_name))
             precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
             ap = compute_ap(precision, recall)
             precision, recall, _ = correct_pr_curve(precision, recall)
             overall_results[level]['{0}-{1:.2f}'.format(model_name, ap)] = (recall[:-1], precision[:-1])
         for baseline in TO_PLOT:
+            print("\t{}".format(baseline))
             path = join(args.baselines, baseline, 'wider_pr_info_{}_{}_val.mat'.format(baseline, level))
             precision, recall = parse_baseline(path)
             overall_results[level][baseline] = (recall[:-1], precision[:-1])
@@ -84,8 +89,10 @@ if __name__ == '__main__':
     scale_levels = ['small', 'medium', 'large']
     scale_results = {level: {} for level in scale_levels}
     for level in scale_levels:
+        print("   {}".format(level.upper()))
         gt_faces, gt_keep = parse_gt_faces(gt_files['easy'], assesment='scale', level=level)
         for model_name, det_faces in models_det_faces.iteritems():
+            print("\t{}".format(model_name))
             precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
             ap = compute_ap(precision, recall)
             precision, recall, _ = correct_pr_curve(precision, recall)
@@ -95,8 +102,10 @@ if __name__ == '__main__':
     occlusion_levels = ['none', 'partial', 'heavy']
     occlusion_results = {level: {} for level in occlusion_levels}
     for level in occlusion_levels:
+        print("   {}".format(level.upper()))
         gt_faces, gt_keep = parse_gt_faces(gt_files['easy'], assesment='occlusion', level=level)
         for model_name, det_faces in models_det_faces.iteritems():
+            print("\t{}".format(model_name))
             precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
             ap = compute_ap(precision, recall)
             precision, recall, _ = correct_pr_curve(precision, recall)
@@ -106,8 +115,10 @@ if __name__ == '__main__':
     pose_levels = ['typical', 'extreme']
     pose_results = {level: {} for level in pose_levels}
     for level in pose_levels:
+        print("   {}".format(level.upper()))
         gt_faces, gt_keep = parse_gt_faces(gt_files['easy'], assesment='pose', level=level)
         for model_name, det_faces in models_det_faces.iteritems():
+            print("\t{}".format(model_name))
             precision, recall = compute_prec_rec(det_faces, gt_faces, gt_keep)
             ap = compute_ap(precision, recall)
             precision, recall, _ = correct_pr_curve(precision, recall)
@@ -124,7 +135,7 @@ if __name__ == '__main__':
         axes[i, 0].set_xticks(ticks)
         axes[i, 0].set_yticks(ticks)
         axes[i, 0].set_ylabel("Precision")
-        axes[i, 0].legend()
+        axes[i, 0].legend(loc='lower left')
         axes[i, 0].grid(which='both')
         axes[i, 0].set_xlabel("Recall - {}".format(level))
     axes[0, 0].set_title("Overall")
@@ -137,7 +148,7 @@ if __name__ == '__main__':
         axes[i, 1].set_xlabel("Recall - {}".format(level))
         axes[i, 1].set_ylabel("Precision")
         axes[i, 1].grid(which='both')
-        axes[i, 1].legend()
+        axes[i, 1].legend(loc='lower left')
     axes[0, 1].set_title("Scale")
 
     for i, level in enumerate(occlusion_levels):
@@ -148,7 +159,7 @@ if __name__ == '__main__':
         axes[i, 2].set_xlabel("Recall - {}".format(level))
         axes[i, 2].set_ylabel("Precision")
         axes[i, 2].grid(which='both')
-        axes[i, 2].legend()
+        axes[i, 2].legend(loc='lower left')
     axes[0, 2].set_title("Occlusion")
 
     for i, level in enumerate(pose_levels):
@@ -159,7 +170,7 @@ if __name__ == '__main__':
         axes[i, 3].set_xlabel("Recall - {}".format(level))
         axes[i, 3].set_ylabel("Precision")
         axes[i, 3].grid(which='both')
-        axes[i, 3].legend()
+        axes[i, 3].legend(loc='lower left')
     axes[0, 3].set_title("Pose")
     axes[-1, -1].axis('off')
 

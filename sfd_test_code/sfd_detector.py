@@ -76,14 +76,14 @@ class SFD_NET(caffe.Net):
         transformer = self.get_transformer(self.blobs[self.inputs[0]].data.shape)
         transformed_image = transformer.preprocess(self.inputs[0], img)
         self.blobs[self.inputs[0]].data[...] = transformed_image
-        detections = self.forward()['detection_out']
+        detections = self.forward()['detection_out'].astype(np.float64)
 
         # Adjust SFD output to image size
         det_conf = detections[0, 0, :, 2]
-        det_xmin = detections[0, 0, :, 3] * width / shrink
-        det_ymin = detections[0, 0, :, 4] * height / shrink
-        det_xmax = detections[0, 0, :, 5] * width / shrink
-        det_ymax = detections[0, 0, :, 6] * height / shrink
+        det_xmin = detections[0, 0, :, 3] * (width / shrink)
+        det_ymin = detections[0, 0, :, 4] * (height / shrink)
+        det_xmax = detections[0, 0, :, 5] * (width / shrink)
+        det_ymax = detections[0, 0, :, 6] * (height / shrink)
         det = np.column_stack((det_xmin, det_ymin, det_xmax, det_ymax, det_conf))
 
         keep_index = np.where(det[:, 4] >= 0)[0]
