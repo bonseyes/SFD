@@ -49,7 +49,7 @@ def multi_scale_test(net, image, max_im_shrink):
 def flip_test(net, image, shrink):
     orig_shape = image.shape
     image_f = cv2.flip(image, 1)
-    image_f = image.reshape(orig_shape)
+    image_f = image_f.reshape(orig_shape)
     det_f = net.detect(image_f, shrink)
 
     det_t = np.zeros(det_f.shape)
