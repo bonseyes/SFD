@@ -29,26 +29,26 @@ Those missing baselines can be found [here](http://mmlab.ie.cuhk.edu.hk/projects
 The scripts takes the following arguments:
 
 ```
--p  A folder where all the _TESTED_ models' outputs are. The structure of the folder should be like:
+-p  A directory where all the _TESTED_ models' outputs are. The structure of the directory should be like:
     .
-    +-- _Original
-    |   +-- 0--Parade 
-    |   +-- 10--People_Marching
+    +-- _Original/
+    |   +-- 0--Parade/
+    |   +-- 10--People_Marching/
     |   +-- etc
-    +-- _SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense_iter_120000
-    |   +-- 0--Parade 
-    |   +-- 10--People_Marching
+    +-- _SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense_iter_120000/
+    |   +-- 0--Parade/
+    |   +-- 10--People_Marching/
     |   +-- etc
-    +-- _SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense
-    |   +-- 0--Parade 
-    |   +-- 10--People_Marching
+    +-- _SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense/
+    |   +-- 0--Parade/
+    |   +-- 10--People_Marching/
     |   +-- etc
 
-    The important thing is that each model should have its own separate folder with its corresponding detections (and the name of the folder should respect the ones in [here](../../models/README.md)
+    The important thing is that each model should have its own separate directory with its corresponding detections.
 
--m  Folder where the groundtruth labels in .mat format are. This labels come with the eval_tools provided by WIDER homepage
+-m  Directory where the groundtruth labels in .mat format are. This labels come with the eval_tools provided by WIDER homepage
 
--b  Folder where the other models baselines are. This folder also comes with the eval_tools provided by WIDER homepage.
+-b  Directory where the other models baselines are. This directory also comes with the eval_tools provided by WIDER homepage.
 ```
 
 Example:
@@ -56,7 +56,7 @@ Example:
 python2.7 plot_wider.py -p ../tests_output/ -m ../output/WIDER_FACE/eval_tools/ground_truth -b ../output/WIDER_FACE/eval_tools/plot/baselines/Val/setting_int
 ```
 
-Read the subsection "Test SFD on WIDER FACE" [here](../../docs/Test-Instructions.md) for more details on how to create the folder required for the parameter `-p`.
+Read the subsection "Test SFD on WIDER FACE" [here](../../docs/Test-Instructions.md) for more details on how to create the directory required for the parameter `-p`.  For a nicer plot, each of those directories should respect the names for the models given [here](../../models/README.md)
 
 The resulting plot should look like this:
 
