@@ -142,7 +142,8 @@ if __name__ == '__main__':
 
     for i, level in enumerate(scale_levels):
         for model in scale_results[level]:
-            axes[i, 1].plot(*(scale_results[level][model]), label=model)
+            color = [l for l in axes[0, 0].lines if l._label == model][0]._color
+            axes[i, 1].plot(*(scale_results[level][model]), label=model, color=color)
         axes[i, 1].set_xticks(ticks)
         axes[i, 1].set_yticks(ticks)
         axes[i, 1].set_xlabel("Recall - {}".format(level))
@@ -153,7 +154,8 @@ if __name__ == '__main__':
 
     for i, level in enumerate(occlusion_levels):
         for model in occlusion_results[level]:
-            axes[i, 2].plot(*(occlusion_results[level][model]), label=model)
+            color = [l for l in axes[0, 0].lines if l._label == model][0]._color
+            axes[i, 2].plot(*(occlusion_results[level][model]), label=model, color=color)
         axes[i, 2].set_xticks(ticks)
         axes[i, 2].set_yticks(ticks)
         axes[i, 2].set_xlabel("Recall - {}".format(level))
@@ -164,7 +166,8 @@ if __name__ == '__main__':
 
     for i, level in enumerate(pose_levels):
         for model in pose_results[level]:
-            axes[i, 3].plot(*(pose_results[level][model]), label=model)
+            color = [l for l in axes[0, 0].lines if l._label == model][0]._color
+            axes[i, 3].plot(*(pose_results[level][model]), label=model, color=color)
         axes[i, 3].set_xticks(ticks)
         axes[i, 3].set_yticks(ticks)
         axes[i, 3].set_xlabel("Recall - {}".format(level))
