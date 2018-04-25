@@ -1,19 +1,24 @@
 from sfd_detector import SFD_NET
 import argparse
-import os.path
+from os.path import abspath, dirname, join
 import progressbar
 import caffe
 
 
-def process_imgs_list(imgs_list_file, output_file, dataset_path, origin, device=0):
-    net = SFD_NET(device=device)
+# Default models if none is passed to the __init__ method, assuming the `sfd_test_code` is in ${CAFFE_ROOT}/SFD/sfd_test_code
+# These models are automatically downloaded by SFD/scripts/data/download_model.sh
+MODEL_DEF = '{}/../../models/VGGNet/WIDER_FACE/SFD_trained/deploy.prototxt'.format(abspath(dirname(__file__)))
+MODEL_WEIGHTS = '{}/../../models/VGGNet/WIDER_FACE/SFD_trained/SFD.caffemodel'.format(abspath(dirname(__file__)))
+
+
+def process_imgs_list(imgs_list_file, output_file, dataset_path, origin, net):
     with open(imgs_list_file, 'r') as img_names:
         names = img_names.readlines()
 
     bar = progressbar.ProgressBar(max_value=len(names))
     with open(output_file, 'w') as f:
         for i, Name in enumerate(names):
-            Image_Path = os.path.join(dataset_path, Name[:-1].replace('.jpg', '') + '.jpg')
+            Image_Path = join(dataset_path, Name[:-1].replace('.jpg', '') + '.jpg')
             image = caffe.io.load_image(Image_Path)
         
             shrink = 1
@@ -51,13 +56,18 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--dataset', type=str, choices=['AFW', 'PASCAL', 'FDDB'],
         help='Dataset name to test. Options: AFW, PASCAL, FDDB', required=True)
     parser.add_argument('-p', '--path', type=str, help='Dataset path', required=True)
+    parser.add_argument('--model', type=str, help='Path to Caffe prototxt', default=MODEL_DEF, required=False)
+    parser.add_argument('--weights', type=str, help='Path to Caffe weights (caffemodel)', default=MODEL_WEIGHTS, required=False)
     parser.add_argument('--device', type=int, default=0, help="GPU device to use, default is 0")
     args = parser.parse_args()
 
     dataset_name = args.dataset
     dataset_path = args.path
+    model = args.model
+    weights = args.weights
     device = args.device
 
     imgs_list = 'output/{}/{}_img_list.txt'.format(dataset_name, dataset_name.lower())
     dets_file = 'output/{}/sfd_{}_dets.txt'.format(dataset_name, dataset_name.lower())
-    process_imgs_list(imgs_list, dets_file, dataset_path, dataset_name, device)
+    net = SFD_NET(model_file=model, pretrained_file=weights, device=device)
+    process_imgs_list(imgs_list, dets_file, dataset_path, dataset_name, net)

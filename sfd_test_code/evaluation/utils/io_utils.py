@@ -31,8 +31,9 @@ def parse_det_file(path):
 
     faces = np.array(lines, dtype=float)
     sorted_faces = faces
-    sorted_faces[:, 2] = sorted_faces[:, 0] + sorted_faces[:, 2]
-    sorted_faces[:, 3] = sorted_faces[:, 1] + sorted_faces[:, 3]
+    if len(sorted_faces) != 0:
+        sorted_faces[:, 2] = sorted_faces[:, 0] + sorted_faces[:, 2]
+        sorted_faces[:, 3] = sorted_faces[:, 1] + sorted_faces[:, 3]
     return sorted_faces
 
 

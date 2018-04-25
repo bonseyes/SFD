@@ -75,23 +75,22 @@ matlab -nodesktop -nosplash -nojvm -r "run fitting.m;quit;"
 ```
 cd $SFD_ROOT/sfd_test_code/
 # Example:
-python2.7 test_wider.py -p ../datasets/WIDER/WIDER_val/images/ -s val --device 0
-# Run test_wider.py -h in oder to receive a list of valid arguments
-```
+python2.7 test_wider.py -p ../datasets/WIDER/WIDER_val/images/ -s val --device 0 --model path/to/deploy.prototxt --weights path/to/caffemodel -g -o tests_output/
 
 ```
-# If you want to get the results of val set in the original paper, you should use the provided "eval_tools_old-version". 
-# Or you can use latest eval_tools of WIDER FACE.
-# There is a slight difference between them, since the annotation used for the evaluation is slightly change around March 2017.
-```
+Run `test_wider.py -h` to get a full list of valid arguments.
+
+Note that you must provide `-g` if you are testing a model trained with 1 channel images (and also provide the path to the 1Channel images/model as well).
+
+The option `-o` is the directory where you want to save your detections. It is mandatory and it is recommended to use a common directory to save the results when testing several models. Doing so will easy the process of plotting the mAP metric as explained [here](../sfd_test_code/evaluation/README.md).
 
 ##### Check mAP for the Validation set of WIDER
 
 1. Once you have run `test_wider.py` for the Validation split and obtained the results (they should be stored by default in ), you can check the mAP for each of the `easy`, `medium` and `hard` settings of the dataset (each level has more and smaller faces) by using the `wider_eval.py` script.
-2. Make sure you know where your detections are and where the `*.mat` files with the groundtruth labels for each level are located. By default, the detected faces are saved in the submission format of WIDER in `$SFD_ROOT/sfd_test_code/output/WIDER_FACE/eval_tools/sfd_val`. The `*.mat` files are located in `$SFD_ROOT/sfd_test_code/output/WIDER_FACE/eval_tools/ground_truth/`.
+2. Make sure you know where your detections are and where the `*.mat` files with the groundtruth labels for each level are located. The `*.mat` files are located within `eval_tools/ground_truth/`, which you can download [here](http://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/support/eval_script/eval_tools.zip).
 3. Run:
     ```
-    python2.7 wider_eval.py -p ./path/to/detections/ -m ./path/to/wider_{easy,medium,hard}_val.mat
+    python2.7 wider_eval.py -p ./path/to/detections/ -m ./path/to/eval_tools/ground_truth/wider_{easy,medium,hard}_val.mat
     ```
 4. You should get an output like:
     ```
