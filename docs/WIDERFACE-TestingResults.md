@@ -37,8 +37,8 @@ To summarize the comparison, the results of original model (tested by our codes)
 |----------|-------|--------|-------|
 | Original | 93.9% | 92.2%  | 83.4% |
 | Trained  | 93.3% | 92.0%  | 82.3% |
-| 3H train - 1CH input  | 91.0% | 87.9%  | 73.2% |
-| 1H train - 1CH input  | 77.4% | 81.1%  | 70.5% |
+| 3H train - 1CH test  | 91.0% | 87.9%  | 73.2% |
+| 1H train - 1CH test  | 77.4% | 81.1%  | 70.5% |
 
 
 
