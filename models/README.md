@@ -27,8 +27,8 @@ __Models trained with NVIDIA Caffe 0.17__
 
 ##### MobileNetV1 640x640
 - [MobileNetV1 Architecture - 640x640]()
-- [MobileNetV1 Architecture - Pretrained Model COCO + VOC0712](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
-- Features Layers : __To decide__
+- [MobileNetV1 Architecture - Pretrained Model COCO](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
+- Features Layers : conv3, conv5, conv11, conv13, conv14_2, conv15_2
 
 ##### MobileNetV1 300x300
 - [MobileNetV1 Architecture - 300x300 Protoxt](https://github.com/chuanqi305/MobileNet-SSD/blob/master/MobileNetSSD_deploy.prototxt)
