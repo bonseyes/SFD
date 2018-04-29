@@ -29,7 +29,10 @@ Hard subset = 73.2%    <br />
 Easy subset =  77.4%   <br />
 Medium subset = 81.1%  <br />
 Hard subset =  70.5%   <br />
-
+results from the new python script:
+Easy subset =   76.75%   <br />
+Medium subset = 80.67%  <br />
+Hard subset =   69.97%   <br />
 
 To summarize the comparison, the results of original model (tested by our codes) and the trained model is as follows: <br />
 
