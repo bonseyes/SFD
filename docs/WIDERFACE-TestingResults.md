@@ -29,7 +29,7 @@ Hard subset = 73.2%    <br />
 Easy subset =  77.4%   <br />
 Medium subset = 81.1%  <br />
 Hard subset =  70.5%   <br />
-results from the new python script:
+results from the new python script: <br />
 Easy subset =   76.75%   <br />
 Medium subset = 80.67%  <br />
 Hard subset =   69.97%   <br />
