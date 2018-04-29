@@ -9,6 +9,7 @@ __Models trained with CaffeSSD__
 | A2 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | .. | 86 MB | .. ms | 93.3%| 92.0%| 82.3%| [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) |
 | A3 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | .. | 86 MB | .. ms | 77.4% | 81.1% | 70.5% | [link](https://drive.google.com/open?id=1fudH6TU29F0oOVlIE2trulzCdhmJqJUh) |
 | A4 | SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. | .. MB | .. ms | .. % | .. % | .. % | .. |
+| A5 | SFD-300x300-3CH-MobileNetV2-CaffeSSD-Float32-Dense      | .. | .. MB | .. ms | .. % | .. % | .. % | .. |
 
 __Models trained with NVIDIA Caffe 0.17__
 
@@ -16,6 +17,7 @@ __Models trained with NVIDIA Caffe 0.17__
 | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------|
 | B1 | SFD-640x640-3CH-VGG-NVIDIACaffe-Float16-Dense      | .. | -- MB | .. ms | .. % | .. % | .. % | .. |
 | B2 | SFD-640x640-3CH-MobileNetV1-NVIDIACaffe-Float16-Dense      | .. | .. MB | .. ms | .. % | .. % | .. % | .. |
+| B3 | SFD-300x300-3CH-MobileNetV2-NVIDIACaffe-Float16-Dense      | .. | .. MB | .. ms | .. % | .. % | .. % | .. |
 
 ### Architectures
 
@@ -33,6 +35,11 @@ __Models trained with NVIDIA Caffe 0.17__
 - [MobileNetV1 Architecture - Pretrained Model COCO + VOC0712](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
 - Features Layers : __To decide__
 
+##### MobileNetV2 300x300
+- [MobileNetV2 Architecture - 300x300 Protoxt](https://github.com/chuanqi305/MobileNetv2-SSDLite/blob/master/train.prototxt)
+- Features Layers : __To decide__
+
+
 ### Naming Convention
 The following naming convention is used for models:
 
@@ -49,6 +56,7 @@ __Input__
 __Architectures__
 1. VGG
 2. MobileNetV1
+3. MobileNetV2
 
 __Caffe Versions__
 1. [Caffe SSD](https://github.com/weiliu89/caffe/tree/ssd) : CaffeSSD
