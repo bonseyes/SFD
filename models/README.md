@@ -3,22 +3,19 @@ This folder contains pre-trained models for SFD using different architectures an
 
 __Models trained with CaffeSSD__
 
-| Model ID    | Model Name    | Size (MB)   | Speed (ms)  | Accuracy (Easy) | Accuracy (Medium) | Accuracy (Hard) | Download URL |
+| Model ID    | Model Name    | Iterations   | Size (MB)   | Speed (ms)  | Accuracy (Easy) | Accuracy (Medium) | Accuracy (Hard) | Download URL |
 | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------|
-| A1 | Original                                        | 86 MB | .. ms | 93.9%| 92.2%| 83.4%| [link](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view) |
-| A2 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | 86 MB | .. ms | 93.3%| 92.0%| 82.3%| [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) |
-| A3 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | 86 MB | .. ms | 77.4% | 81.1% | 70.5% | [link](https://drive.google.com/open?id=1fudH6TU29F0oOVlIE2trulzCdhmJqJUh) |
-| A4 | SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
-| A5 | SFD-640x640-1CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| A1 | Original                                        | .. | 86 MB | .. ms | 93.9%| 92.2%| 83.4%| [link](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view) |
+| A2 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | .. | 86 MB | .. ms | 93.3%| 92.0%| 82.3%| [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) |
+| A3 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | .. | 86 MB | .. ms | 77.4% | 81.1% | 70.5% | [link](https://drive.google.com/open?id=1fudH6TU29F0oOVlIE2trulzCdhmJqJUh) |
+| A4 | SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | .. | .. MB | .. ms | .. % | .. % | .. % | .. |
 
 __Models trained with NVIDIA Caffe 0.17__
 
-| Model ID    | Model Name    | Size (MB)   | Speed (ms)  | Accuracy (Easy) | Accuracy (Medium) | Accuracy (Hard) | Download URL |
+| Model ID    | Model Name    | Iterations   | Size (MB)   | Speed (ms)  | Accuracy (Easy) | Accuracy (Medium) | Accuracy (Hard) | Download URL |
 | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------|
-| B1 | SFD-640x640-3CH-VGG-NVIDIACaffe-Float16-Dense      | -- MB | .. ms | .. % | .. % | .. % | .. |
-| B2 | SFD-640x640-1CH-VGG-NVIDIACaffe-Float16-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
-| B3 | SFD-640x640-3CH-MobileNetV1-NVIDIACaffe-Float16-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
-| B4 | SFD-640x640-1CH-MobileNetV1-NVIDIACaffe-Float16-Dense      | .. MB | .. ms | .. % | .. % | .. % | .. |
+| B1 | SFD-640x640-3CH-VGG-NVIDIACaffe-Float16-Dense      | .. | -- MB | .. ms | .. % | .. % | .. % | .. |
+| B2 | SFD-640x640-3CH-MobileNetV1-NVIDIACaffe-Float16-Dense      | .. | .. MB | .. ms | .. % | .. % | .. % | .. |
 
 ### Architectures
 
