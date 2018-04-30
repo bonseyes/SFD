@@ -425,8 +425,8 @@ layer {
       self.last = name
     
     def bn(self, name):
-      if self.stage == "deploy":  #deploy does not need bn, you can use merge_bn.py to generate a new caffemodel
-         return
+      #if self.stage == "deploy":  #deploy does not need bn, you can use merge_bn.py to generate a new caffemodel
+      #   return
       print(
 """layer {
   name: "%s/bn"
