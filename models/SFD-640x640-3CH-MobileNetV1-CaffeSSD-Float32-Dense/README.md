@@ -23,7 +23,7 @@ __Files__
 + [test](test.prototxt)
 + [trained model 85K iterations](https://drive.google.com/open?id=1ROB_Jfjy5PO9V5Xrr72yxqKVWDxNFUkl)
 
-__Results__
-+ Easy: 
-+ Medium: 
-+ hard: 
+__Results[85K iterations]__
++ Easy: 89.9%
++ Medium: 84.6%
++ hard: 50.4%
