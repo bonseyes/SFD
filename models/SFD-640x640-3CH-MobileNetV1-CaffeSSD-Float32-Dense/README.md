@@ -28,5 +28,10 @@ __Results[85K iterations]__
 + Medium: 84.6%
 + hard: 50.4%
 
+__Results[120K iterations]__
++ Easy: 90.0%
++ Medium: 84.8%
++ hard: 50.1%
+
 __Notes__
 We can notice the result for hard is not good. This makes sense as the first layer used for detection is very early, so it is not good feature map for detection. 
