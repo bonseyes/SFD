@@ -9,7 +9,7 @@ __Models trained with CaffeSSD__
 | A2 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | .. ms | 93.3%| 92.0%| 82.3%| [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) |
 | A3 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | .. ms | 77.4% | 81.1% | 70.5% | [link](https://drive.google.com/open?id=1fudH6TU29F0oOVlIE2trulzCdhmJqJUh) |
 | A4 | SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | 120K | 20 MB | .. ms | 90.0% | 84.8% | 50.1% | [link](https://drive.google.com/open?id=1ROB_Jfjy5PO9V5Xrr72yxqKVWDxNFUkl) |
-| A5 | SFD-300x300-3CH-MobileNetV2-CaffeSSD-Float32-Dense      | .. | .. MB | .. ms | .. % | .. % | .. % | .. |
+| A5 | SFD-320x320-3CH-MobileNetV2-CaffeSSD-Float32-Dense      | 100K | 20 MB | .. ms | 84.3% | 78.9% | 55.2% | .. |
 
 __Models trained with NVIDIA Caffe 0.17__
 
@@ -30,7 +30,7 @@ __Models trained with NVIDIA Caffe 0.17__
 - [MobileNetV1 Architecture - Pretrained Model COCO](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
 - Features Layers : conv3, conv5, conv11, conv13, conv14_2, conv15_2
 
-##### MobileNetV1 300x300
+##### MobileNetV1 320x320
 - [MobileNetV1 Architecture - 300x300 Protoxt](https://github.com/chuanqi305/MobileNet-SSD/blob/master/MobileNetSSD_deploy.prototxt)
 - [MobileNetV1 Architecture - Pretrained Model COCO + VOC0712](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
 - Features Layers : __To decide__
