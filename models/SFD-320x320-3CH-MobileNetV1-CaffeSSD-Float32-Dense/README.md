@@ -24,9 +24,9 @@ __Files__
 + [trained model]()
 
 __Results[100K iterations]__
-+ Easy: 
-+ Medium:
-+ hard: 
++ Easy: 84.3
++ Medium: 78.9
++ hard: 55.2%
 
 __Notes__
  
