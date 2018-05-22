@@ -21,12 +21,12 @@ __Files__
 + [deploy](deploy.prototxt)
 + [train](train.prototxt)
 + [test](test.prototxt)
-+ [trained model]()
++ [trained model](https://drive.google.com/open?id=1nrcekK5sLOUL3zVCzBaORwZTKw6mXnxM)
 
-__Results[100K iterations]__
+__Results[120K iterations]__
 + Easy: 84.3
-+ Medium: 78.9
-+ hard: 55.2%
++ Medium: 79.1
++ hard: 55.3%
 
 __Notes__
- 
+ The performance is less than 640x640 by ~4%, except for hard subset it is better by ~5%
