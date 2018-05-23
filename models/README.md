@@ -9,7 +9,7 @@ __Models trained with CaffeSSD__
 | A2 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | .. ms | 93.3%| 92.0%| 82.3%| [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) |
 | A3 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | .. ms | 77.4% | 81.1% | 70.5% | [link](https://drive.google.com/open?id=1fudH6TU29F0oOVlIE2trulzCdhmJqJUh) |
 | A4 | SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | 120K | 20 MB | .. ms | 90.0% | 84.8% | 50.1% | [link](https://drive.google.com/open?id=1ROB_Jfjy5PO9V5Xrr72yxqKVWDxNFUkl) |
-| A5 | SFD-320x320-3CH-MobileNetV2-CaffeSSD-Float32-Dense      | 120K | 20 MB | .. ms | 84.3% | 79.1% | 55.3% | [link](https://drive.google.com/drive/folders/1nrcekK5sLOUL3zVCzBaORwZTKw6mXnxM?usp=sharing) |
+| A5 | SFD-320x320-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | 120K | 20 MB | .. ms | 84.3% | 79.1% | 55.3% | [link](https://drive.google.com/drive/folders/1nrcekK5sLOUL3zVCzBaORwZTKw6mXnxM?usp=sharing) |
 
 __Models trained with NVIDIA Caffe 0.17__
 
@@ -50,8 +50,8 @@ e.g. SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense
 __Input__
 1. 640x640 RGB 3 Channel : 640x640-3CH
 2. 640x640 Gray 1 Channel : 640x640-1CH
-3. 300x300 RGB 3 Channel : 300x300-3CH
-4. 300x300 Gray 1 Channel : 300x300-1CH
+3. 320x320 RGB 3 Channel : 320x320-3CH
+4. 320x320 Gray 1 Channel : 320x320-1CH
 
 __Architectures__
 1. VGG
