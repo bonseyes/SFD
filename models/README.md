@@ -15,9 +15,7 @@ __Models trained with NVIDIA Caffe 0.17__
 
 | Model ID    | Model Name    | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | AFW Accuracy | Pascal Accuracy | Download URL |
 | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------|
-| B1 | SFD-640x640-3CH-VGG-NVIDIACaffe-Float16-Dense      | .. | -- MB | .. ms | .. % / .. % / .. % | --% | --% | .. |
-| B2 | SFD-640x640-3CH-MobileNetV1-NVIDIACaffe-Float16-Dense      | .. | .. MB | .. ms | .. % / .. % / .. % | --% | --% | .. |
-| B3 | SFD-300x300-3CH-MobileNetV2-NVIDIACaffe-Float16-Dense      | .. | .. MB | .. ms | .. % / .. % / .. % | --% | --% |  .. |
+| B1 | ..     | .. | -- MB | .. ms | .. % / .. % / .. % | --% | --% | .. |
 
 ### Architectures
 
