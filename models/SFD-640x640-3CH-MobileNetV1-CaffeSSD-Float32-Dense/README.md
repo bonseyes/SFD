@@ -34,4 +34,14 @@ __Results[120K iterations]__
 + hard: 50.1%
 
 __Notes__
-We can notice the result for hard is not good. This makes sense as the first layer used for detection is very early, so it is not good feature map for detection. 
+We can notice the result for hard subset is not good. This makes sense as the first layer used for detection is very early, so it is not good feature map for detection. 
+
+__Update__
++ In previous confogurations, it is noticable that accuracy for small faces (hard subset) is not high, this is mainly because the first feature map is very early and not good enough for detection. In this update, "conv3" which handle the detection with bounding boxes of size 8x8 (stride 4) is not used for detection, instead "conv5" is used for boxes of sizes 8x8 and 16x16 with stride of 8 for both of them. The results for first 35K iterations are shown bellow, which shows better accuracy for hard subset. We need to check again after the full iterations which should be better for other subsets.   
++ Features Layers : conv5, conv11, conv13, conv14_2, conv15_2
+
+__Results[35K iterations]__
++ Easy: 88.1%
++ Medium: 82.6%
++ hard: 62.5%
+
