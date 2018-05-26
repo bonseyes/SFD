@@ -1,4 +1,4 @@
-# Models
+# SFD Models
 This folder contains pre-trained models for SFD using different architectures and training environments.
 
 __Models trained with CaffeSSD__
@@ -73,3 +73,8 @@ __Training Methods__
 
 
 
+# MTCNN 
+
+| Model    | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | AFW Accuracy | Pascal Accuracy |FDDB Accuracy (D/C) | Download URL |
+| ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| 
+| MTCNN | 6.9 MB   | .. ms | .. % / .. % / .. % | 97.68% | 93.95% | 91.4% / --% | [link](https://github.com/AlphaQi/MTCNN-light) |
