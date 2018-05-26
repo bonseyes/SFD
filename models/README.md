@@ -73,8 +73,12 @@ __Training Methods__
 
 
 
-# MTCNN 
+# MTCNN Models
+
+__Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Neural Networks__
+
+No deep learning framework based model (C++, opencv and openblas)
 
 | Model    | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | AFW Accuracy | Pascal Accuracy |FDDB Accuracy (D/C) | Download URL |
 | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| 
-| MTCNN | 6.9 MB   | .. ms | .. % / .. % / .. % | 97.68% | 93.95% | 91.4% / --% | [link](https://github.com/AlphaQi/MTCNN-light) |
+| MTCNN-light | 6.9 MB   | .. ms | .. % / .. % / .. % | 97.68% | 93.95% | 91.4% / --% | [link](https://github.com/AlphaQi/MTCNN-light) |
