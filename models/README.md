@@ -6,7 +6,7 @@ __Models trained with CaffeSSD__
 | Model ID    | Model Name    | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | AFW Accuracy | Pascal Accuracy | FDDB Accuracy (D/C) | Download URL |
 | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------| --------------|
 | A1 | Original                                        | 120K | 86 MB | 31.24 ms | 93.9% / 92.2% / 83.4%| 99.86% | 98.49% | 98.2% / 75.72% | [link](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view) |
-| A2 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | 30.28 ms | 93.3% / 92.0% / 82.3%| 99.45% | 97.71% | 97.8% / 74.99% | [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) |
+| A2 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | 30.28 ms | 93.4% / 92.0% / 82.3%| 99.45% | 97.71% | 97.8% / 74.99% | [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) |
 | A3 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | 30.29 ms | 77.4% / 81.1% / 70.5% | --% | --% | --% / --% | [link](https://drive.google.com/open?id=1fudH6TU29F0oOVlIE2trulzCdhmJqJUh) |
 | A4 | SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | 120K | 20 MB | 36.86 ms | 90.0% / 84.8% / 50.1% | 98.36% | 97.27% | 92.6% / 70.83% | [link](https://drive.google.com/open?id=1ROB_Jfjy5PO9V5Xrr72yxqKVWDxNFUkl) |
 | A5 | SFD-320x320-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | 120K | 20 MB | 21.34 ms | 84.3% / 79.1% / 55.3% | 97.45% | 96.04% | 90.0% / 68.42% | [link](https://drive.google.com/drive/folders/1nrcekK5sLOUL3zVCzBaORwZTKw6mXnxM?usp=sharing) |
