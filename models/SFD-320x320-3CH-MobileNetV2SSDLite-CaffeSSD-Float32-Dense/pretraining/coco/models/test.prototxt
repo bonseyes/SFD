@@ -21,7 +21,7 @@ layer {
     }
   }
   data_param {
-    source: "test_lmdb"
+    source: "/media/eze/Datasets/COCO/lmdb/coco_val_lmdb"
     batch_size: 8
     backend: LMDB
   }

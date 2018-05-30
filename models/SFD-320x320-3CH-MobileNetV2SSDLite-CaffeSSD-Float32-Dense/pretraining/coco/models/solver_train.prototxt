@@ -1,4 +1,4 @@
-net: "train.prototxt"
+net: "models/train.prototxt"
 base_lr: 0.00001
 display: 10
 max_iter: 120000
