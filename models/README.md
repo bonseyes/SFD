@@ -10,7 +10,7 @@ __Models trained with CaffeSSD__
 | A3 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | 30.29 ms | 77.4% / 81.1% / 70.5% | 98.93% | 97.24% | 95.9% / 73.5% | 44.9% | [link](https://drive.google.com/open?id=1fudH6TU29F0oOVlIE2trulzCdhmJqJUh) |
 | A4 | SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | 120K | 20 MB | 36.86 ms | 90.0% / 84.8% / 50.1% | 98.36% | 97.27% | 92.6% / 70.83% | 49.7% | [link](https://drive.google.com/open?id=1ROB_Jfjy5PO9V5Xrr72yxqKVWDxNFUkl) |
 | A5 | SFD-320x320-3CH-MobileNetV1-CaffeSSD-Float32-Dense      | 120K | 20 MB | 21.34 ms | 84.3% / 79.1% / 55.3% | 97.45% | 96.04% | 90.0% / 68.42% | 43.9% | [link](https://drive.google.com/drive/folders/1nrcekK5sLOUL3zVCzBaORwZTKw6mXnxM?usp=sharing) |
-| A6 | SFD-640x640-3CH-MobileNetV1-param2-CaffeSSD-Float32-Dense      | 100K | 20 MB | 45.05 ms | 90.4% / 85.6% / 66.6% | ..% | ..% | 94.38% / 72.23% | ..% | [link](https://drive.google.com/open?id=1bf4Y0zcjmjKcxZttd-atGl3ifJzUIgfD) |
+| A6 | SFD-640x640-3CH-MobileNetV1-param2-CaffeSSD-Float32-Dense      | 100K | 20 MB | 45.05 ms | 90.4% / 85.6% / 66.6% | 98.40% | 97.49% | 94.38% / 72.23% | 56.1% | [link](https://drive.google.com/open?id=1bf4Y0zcjmjKcxZttd-atGl3ifJzUIgfD) |
 
 __Models trained with NVIDIA Caffe 0.17__
 
