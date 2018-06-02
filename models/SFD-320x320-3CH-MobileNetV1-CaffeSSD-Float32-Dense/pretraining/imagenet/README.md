@@ -1,7 +1,9 @@
 ## Pretrain MobileNetv1 with ILSVRC12 - classification task
 
 1. Make sure you have downloaded [Imagenet 2012](http://www.image-net.org/challenges/LSVRC/2012/) challenge dataset. A script for that is already provided in this repository: `${SFD}/scripts/data/download_imagenet.sh`
+
 2. Download some extra files to create LMDBS: `${CAFFE_ROOT}/data/ilsvrc12/get_ilsvrc_aux.sh`
+
 3. Use the train-test splits in `${CAFFE_ROOT}/data/ilsvrc12/{train,text,val}.txt` to generate the LMDBS using `create_imagenet.sh` utility from Caffe. Make sure you edit the following variables in the file:
     
     ```
@@ -25,4 +27,7 @@
 
 5. Train the model with `./start_training.sh`
 
+### Resources
 
+- [On creating LMDB Imagenet dataset](https://github.com/BVLC/caffe/tree/master/examples/imagenet)
+- [Caffe implementation of MobileNet](https://github.com/shicai/MobileNet-Caffe)
