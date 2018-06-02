@@ -18,8 +18,10 @@ There are some differences between Caffe and tensorflow implementation:
  - [Official documentation of MobileNetV2-SSDLite](https://github.com/chuanqi305/MobileNetv2-SSDLite)
 
 ### TODOs
-- TODO: check if the weights provided correspond to tensorflow initialized weights or already have some pretrainig
 - DONE: check how to create the LMDB databases. Try to improve this document with that info. Check https://github.com/aghagol/caffe-ssd/tree/master/data/coco
-- DONE: once LMDB databases were created, check training. 
-- TODO: If that works, try to separate train from val during training.
+- DONE: once LMDB databases were created, check training. TRAINING WORKS
+
+- TODO: check if the weights provided correspond to tensorflow initialized weights or already have some pretrainig
+- TODO: check that the dataset has been built correctly using the Ipython notebook of the authors.
+- TODO: If everything works, try to separate train from val during training.
 - TODO: test trained model
