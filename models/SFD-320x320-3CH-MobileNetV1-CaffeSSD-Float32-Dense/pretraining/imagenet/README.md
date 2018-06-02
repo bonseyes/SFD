@@ -23,6 +23,6 @@
 
 4. Generate the `.prototxt` files using `${SFD}/scripts/train/Classifier-ImageNet/MobileNetV1-Dense/generate_model.sh`. Make sure you modify the `--lmdb` argument to match your newly created LMDBs.
 
-5. Train the model:
+5. Train the model with `./start_training.sh`
 
 
