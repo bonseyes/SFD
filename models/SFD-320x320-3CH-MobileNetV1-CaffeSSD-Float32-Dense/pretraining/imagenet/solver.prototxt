@@ -1,8 +1,8 @@
 train_net: "train.prototxt"
-test_net: "test.prototxt"
-test_iter: 807 #403 #807 #50  807
-test_interval: 1000
-base_lr: 0.001
+#test_net: "test.prototxt"
+#test_iter: 807 #403 #807 #50  807
+#test_interval: 1000
+base_lr: 0.0001
 display: 10
 max_iter: 120000
 lr_policy: "multistep"
@@ -22,6 +22,6 @@ stepvalue: 100000
 stepvalue: 120000
 #iter_size: 4
 type: "SGD"
-eval_type: "detection"
+#eval_type: "detection"
 #ap_version: "11point"
 
