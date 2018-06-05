@@ -40,6 +40,6 @@
 - [Caffe implementation of MobileNet](https://github.com/shicai/MobileNet-Caffe)
 
 
-## Troubleshooting
+### Troubleshooting
 
 - If Caffe does not recogize images, log, snapshots or prototxt files, it is probably because the paths are wrong. Try using absolute paths to avoid that issue.
