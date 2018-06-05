@@ -18,8 +18,8 @@ dst_folder_name = 'resized_256'
 
 def resize_img(p, im, fn, sz):
     w, h = im.size
-    ratio = min(h / sz, w / sz)
-    im = im.resize((int(w / ratio), int(h / ratio)), resample=Image.BICUBIC)
+    ratio = min(h / float(sz), w / float(sz))
+    im = im.resize((int(round(w / ratio)), int(round(h / ratio))), resample=Image.BICUBIC)
     new_fn = os.path.join(p, '../..', 'resized_256', os.path.dirname(fn).split('/')[-2], os.path.dirname(fn).split('/')[-1])
 
     if not os.path.exists(new_fn):
