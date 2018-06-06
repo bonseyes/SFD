@@ -5,8 +5,8 @@ layer {
   top: "data"
   top: "label"
   image_data_param {
-      source: "train.txt"
-      batch_size: 32
+      source: "train2.txt"
+      batch_size: 60
   }
   transform_param {
       mean_value: 104.0
@@ -43,6 +43,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv0"
   top: "conv0"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -111,6 +114,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv1/dw"
   top: "conv1/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -176,6 +182,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv1"
   top: "conv1"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -245,6 +254,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv2/dw"
   top: "conv2/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -310,6 +322,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv2"
   top: "conv2"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -378,6 +393,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv3/dw"
   top: "conv3/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -443,6 +461,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv3"
   top: "conv3"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -512,6 +533,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv4/dw"
   top: "conv4/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -577,6 +601,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv4"
   top: "conv4"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -645,6 +672,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv5/dw"
   top: "conv5/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -710,6 +740,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv5"
   top: "conv5"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -779,6 +812,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv6/dw"
   top: "conv6/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -844,6 +880,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv6"
   top: "conv6"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -912,6 +951,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv7/dw"
   top: "conv7/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -977,6 +1019,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv7"
   top: "conv7"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1045,6 +1090,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv8/dw"
   top: "conv8/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1110,6 +1158,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv8"
   top: "conv8"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1178,6 +1229,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv9/dw"
   top: "conv9/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1243,6 +1297,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv9"
   top: "conv9"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1311,6 +1368,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv10/dw"
   top: "conv10/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1376,6 +1436,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv10"
   top: "conv10"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1444,6 +1507,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv11/dw"
   top: "conv11/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1509,6 +1575,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv11"
   top: "conv11"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1578,6 +1647,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv12/dw"
   top: "conv12/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1643,6 +1715,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv12"
   top: "conv12"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1711,6 +1786,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv13/dw"
   top: "conv13/dw"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1776,6 +1854,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv13"
   top: "conv13"
+  batch_norm_param {
+    use_global_stats: false
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -1842,7 +1923,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 1001
+    num_output: 1000
     kernel_size: 1
     weight_filler {
       type: "msra"

@@ -474,12 +474,19 @@ layer {
     def bn(self, name):
       #if self.stage == "deploy":  # in original code they said: deploy does not need bn, you can use merge_bn.py to generate a new caffemodel. However, deply actually didn't work without bn.
       #   return
+      global_stats = 'false'
+      if self.stage == 'deploy':
+          global_stats = 'true'
+
       print(
 """layer {
   name: "%s/bn"
   type: "BatchNorm"
   bottom: "%s"
   top: "%s"
+  batch_norm_param {
+    use_global_stats: %s
+  }
   param {
     lr_mult: 0
     decay_mult: 0
@@ -515,7 +522,7 @@ layer {
       value: 0
     }
   }
-}""" % (name,name,name,name,name,name))
+}""" % (name,name,name,global_stats,name,name,name))
       self.last = name
     
     def relu(self, name):
