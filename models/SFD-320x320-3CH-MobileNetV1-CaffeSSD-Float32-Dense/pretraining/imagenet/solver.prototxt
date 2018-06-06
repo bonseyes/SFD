@@ -2,7 +2,7 @@ train_net: "train.prototxt"
 #test_net: "test.prototxt"
 #test_iter: 807 #403 #807 #50  807
 #test_interval: 1000
-base_lr: 0.0001
+base_lr: 0.001
 display: 10
 max_iter: 120000
 lr_policy: "multistep"

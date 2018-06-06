@@ -1954,3 +1954,27 @@ layer{
   bottom: "label"
   loss_weight: 1 
 }
+#layer{
+#  name: "disp_label"
+#  type: "Power"
+#  bottom: "label"
+#  top: "disp_label"
+#}
+#layer{
+#  name: "argmax"
+#  type: "ArgMax"
+#  bottom: "prob"
+#  top: "argmax"
+#}
+#layer{
+#  name: "disp_pred"
+#  type: "Power"
+#  bottom: "argmax"
+#  top: "disp_pred"
+#}
+#layer{
+#  name: "disp_prob"
+#  type: "Power"
+#  bottom: "prob"
+#  top: "disp_prob"
+#}
