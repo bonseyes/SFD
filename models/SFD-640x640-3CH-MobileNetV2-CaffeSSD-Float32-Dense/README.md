@@ -45,7 +45,8 @@ __Results[100K iterations]__
 + To solve the memory issue, these files nedd to be replaced in Caffe src/caffe/layers with thes [file](https://github.com/chuanqi305/MobileNetv2-SSDLite/tree/master/src). Don't forget to rebuild caffe again. 
 + To start training, the learning rate needs to be very small, otherwise the fluctuations in training loss and validation accuracy will be very big. I found that learning rate 0.00005 is the best depending on my observations for first 3k (validation accuracy is calculated each 1K).
 + During training, the behaviour of the training was normal until ~ 30K, then the fluctuations in validatidation accuracy curve started to increase, at the end the ccuracy was decreasing!! Next figure shows this behaviour.
-![Alt text](SSD640x640-MobileNetV2-CaffeSSD-wider_training_loss.png)
+
+![Alt text](SSD640x640-MobileNetV2-CaffeSSD-wider_vlidation_accuracy.png)
 
 + To solve this problem, we can use the snapshot of the model at 30K iterations, to validate this solution we can also test the model at the end (100K iterations) to see the difference.
 
@@ -54,4 +55,5 @@ __Results[100K iterations]__
 + I tested the model for WIDERA_FACE, but faced "out of memory" issue after event:25 num:3. Note that we use GPU with 16GB of RAM!
 + I tried to use the deploy model without batch_norm layer to decrease the memory usage, but it didn't work. 
 + To be able to test the model, the direct solution is to use GPU with more memory if possible. But also the testing codes could be modified so that it tests each crop of the image separately and free the memory after that.
+
 
