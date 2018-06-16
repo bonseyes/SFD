@@ -1,0 +1,28 @@
+train_net: "train.prototxt"
+test_net: "test.prototxt"
+test_iter: 807
+test_interval: 2000
+base_lr: 0.045
+display: 10
+max_iter: 100000
+lr_policy: "step"
+gamma: 0.98
+stepsize: 32029  # 12281167 train images over batches of 40 images
+weight_decay: 0.00004
+snapshot: 5000
+snapshot_prefix: "snapshots/MobilenetV2-imagenet"
+solver_mode: GPU
+device_id: 0
+debug_info: false
+snapshot_after_train: true
+test_initialization: true
+average_loss: 5
+#stepvalue: 80000
+#stepvalue: 90000
+#stepvalue: 100000
+#iter_size: 10
+type: "RMSProp"
+#eval_type: "detection"
+#ap_version: "11point"
+
+# Hyperparameters based on Section 6.1 of https://arxiv.org/pdf/1801.04381.pdf
