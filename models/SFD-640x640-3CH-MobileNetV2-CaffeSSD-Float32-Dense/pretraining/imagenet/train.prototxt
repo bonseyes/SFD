@@ -6,7 +6,7 @@ layer {
   top: "label"
   image_data_param {
       source: "train2.txt"
-      batch_size: 40 
+      batch_size: 30 
   }
   transform_param {
       mean_value: 104.0

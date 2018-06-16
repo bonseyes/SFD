@@ -1,6 +1,6 @@
 train_net: "train.prototxt"
 test_net: "test.prototxt"
-test_iter: 807
+test_iter: 1500 
 test_interval: 2000
 base_lr: 0.045
 display: 10
