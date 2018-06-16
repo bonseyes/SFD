@@ -1,0 +1,27 @@
+train_net: "models/MobileNet/SFD-320x320-param2/train.prototxt"
+test_net: "models/MobileNet/SFD-320x320-param2/test.prototxt"
+test_iter: 807 
+test_interval: 1000
+base_lr: 0.001
+display: 10
+max_iter: 100000
+lr_policy: "multistep"
+gamma: 0.1
+momentum: 0.9
+weight_decay: 0.0005
+snapshot: 5000
+snapshot_prefix: "models/MobileNet/SFD-320x320-param2/snapshots/SFD-MobileNet_320x320_param2_WiderFace"
+solver_mode: GPU
+device_id: 0
+debug_info: false
+snapshot_after_train: true
+test_initialization: true
+average_loss: 10
+stepvalue: 80000
+stepvalue: 90000
+stepvalue: 100000
+iter_size: 1
+type: "SGD"
+eval_type: "detection"
+ap_version: "11point"
+
