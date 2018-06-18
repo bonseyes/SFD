@@ -5,7 +5,7 @@ layer {
   top: "data"
   top: "label"
   image_data_param {
-      source: "train2.txt"
+      source: "/media/sdf/IMAGENET/train_shuffled.txt"
       batch_size: 80 
       new_height: 256
       new_width: 256

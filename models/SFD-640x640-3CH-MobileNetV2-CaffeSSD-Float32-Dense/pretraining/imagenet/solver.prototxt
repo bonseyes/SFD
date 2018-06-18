@@ -6,7 +6,7 @@ test_iter: 500
 test_interval: 500 
 # lr 0.1 from https://github.com/shicai/MobileNet-Caffe/issues/1
 # lr 0.045 from paper (using tensorflow)
-base_lr: 0.045
+base_lr: 0.0045
 display: 10
 max_iter: 2000000
 lr_policy: "step"
