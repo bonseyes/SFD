@@ -7,6 +7,8 @@ layer {
   image_data_param {
       source: "/media/sdf/IMAGENET/val.txt"
       batch_size: 10
+      new_height: 256
+      new_width: 256
   }
   transform_param {
       mean_value: 104.0
@@ -14,6 +16,7 @@ layer {
       mean_value: 123.0
       crop_size: 224
       mirror: true
+      scale: 0.017
   }
   include: { phase: TEST }
 }
@@ -43,6 +46,7 @@ layer {
   bottom: "Conv"
   top: "Conv"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -114,6 +118,7 @@ layer {
   bottom: "conv/depthwise"
   top: "conv/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -182,6 +187,7 @@ layer {
   bottom: "conv/project"
   top: "conv/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -244,6 +250,7 @@ layer {
   bottom: "conv_1/expand"
   top: "conv_1/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -316,6 +323,7 @@ layer {
   bottom: "conv_1/depthwise"
   top: "conv_1/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -384,6 +392,7 @@ layer {
   bottom: "conv_1/project"
   top: "conv_1/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -446,6 +455,7 @@ layer {
   bottom: "conv_2/expand"
   top: "conv_2/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -517,6 +527,7 @@ layer {
   bottom: "conv_2/depthwise"
   top: "conv_2/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -585,6 +596,7 @@ layer {
   bottom: "conv_2/project"
   top: "conv_2/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -654,6 +666,7 @@ layer {
   bottom: "conv_3/expand"
   top: "conv_3/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -726,6 +739,7 @@ layer {
   bottom: "conv_3/depthwise"
   top: "conv_3/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -794,6 +808,7 @@ layer {
   bottom: "conv_3/project"
   top: "conv_3/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -856,6 +871,7 @@ layer {
   bottom: "conv_4/expand"
   top: "conv_4/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -927,6 +943,7 @@ layer {
   bottom: "conv_4/depthwise"
   top: "conv_4/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -995,6 +1012,7 @@ layer {
   bottom: "conv_4/project"
   top: "conv_4/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1064,6 +1082,7 @@ layer {
   bottom: "conv_5/expand"
   top: "conv_5/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1135,6 +1154,7 @@ layer {
   bottom: "conv_5/depthwise"
   top: "conv_5/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1203,6 +1223,7 @@ layer {
   bottom: "conv_5/project"
   top: "conv_5/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1272,6 +1293,7 @@ layer {
   bottom: "conv_6/expand"
   top: "conv_6/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1344,6 +1366,7 @@ layer {
   bottom: "conv_6/depthwise"
   top: "conv_6/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1412,6 +1435,7 @@ layer {
   bottom: "conv_6/project"
   top: "conv_6/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1474,6 +1498,7 @@ layer {
   bottom: "conv_7/expand"
   top: "conv_7/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1545,6 +1570,7 @@ layer {
   bottom: "conv_7/depthwise"
   top: "conv_7/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1613,6 +1639,7 @@ layer {
   bottom: "conv_7/project"
   top: "conv_7/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1682,6 +1709,7 @@ layer {
   bottom: "conv_8/expand"
   top: "conv_8/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1753,6 +1781,7 @@ layer {
   bottom: "conv_8/depthwise"
   top: "conv_8/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1821,6 +1850,7 @@ layer {
   bottom: "conv_8/project"
   top: "conv_8/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1890,6 +1920,7 @@ layer {
   bottom: "conv_9/expand"
   top: "conv_9/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -1961,6 +1992,7 @@ layer {
   bottom: "conv_9/depthwise"
   top: "conv_9/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2029,6 +2061,7 @@ layer {
   bottom: "conv_9/project"
   top: "conv_9/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2098,6 +2131,7 @@ layer {
   bottom: "conv_10/expand"
   top: "conv_10/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2169,6 +2203,7 @@ layer {
   bottom: "conv_10/depthwise"
   top: "conv_10/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2237,6 +2272,7 @@ layer {
   bottom: "conv_10/project"
   top: "conv_10/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2299,6 +2335,7 @@ layer {
   bottom: "conv_11/expand"
   top: "conv_11/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2370,6 +2407,7 @@ layer {
   bottom: "conv_11/depthwise"
   top: "conv_11/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2438,6 +2476,7 @@ layer {
   bottom: "conv_11/project"
   top: "conv_11/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2507,6 +2546,7 @@ layer {
   bottom: "conv_12/expand"
   top: "conv_12/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2578,6 +2618,7 @@ layer {
   bottom: "conv_12/depthwise"
   top: "conv_12/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2646,6 +2687,7 @@ layer {
   bottom: "conv_12/project"
   top: "conv_12/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2715,6 +2757,7 @@ layer {
   bottom: "conv_13/expand"
   top: "conv_13/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2787,6 +2830,7 @@ layer {
   bottom: "conv_13/depthwise"
   top: "conv_13/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2855,6 +2899,7 @@ layer {
   bottom: "conv_13/project"
   top: "conv_13/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2917,6 +2962,7 @@ layer {
   bottom: "conv_14/expand"
   top: "conv_14/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -2988,6 +3034,7 @@ layer {
   bottom: "conv_14/depthwise"
   top: "conv_14/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -3056,6 +3103,7 @@ layer {
   bottom: "conv_14/project"
   top: "conv_14/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -3125,6 +3173,7 @@ layer {
   bottom: "conv_15/expand"
   top: "conv_15/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -3196,6 +3245,7 @@ layer {
   bottom: "conv_15/depthwise"
   top: "conv_15/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -3264,6 +3314,7 @@ layer {
   bottom: "conv_15/project"
   top: "conv_15/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -3333,6 +3384,7 @@ layer {
   bottom: "conv_16/expand"
   top: "conv_16/expand"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -3404,6 +3456,7 @@ layer {
   bottom: "conv_16/depthwise"
   top: "conv_16/depthwise"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -3472,6 +3525,7 @@ layer {
   bottom: "conv_16/project"
   top: "conv_16/project"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
@@ -3534,6 +3588,7 @@ layer {
   bottom: "Conv_1"
   top: "Conv_1"
   batch_norm_param {
+    use_global_stats: true 
     eps: 0.001
   }
   param {
