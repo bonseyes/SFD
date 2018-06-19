@@ -36,7 +36,7 @@ then
     mkdir -p $directory
 fi
 
-for name in "afw" "fddb" "pascal" "wider"
+for name in "afw" "fddb" "pascal" "wider" "ufdd"
 do
     $root_dir/scripts/data/download_${name}.sh $directory
 done
