@@ -102,6 +102,16 @@ Read [here](../sfd_test_code/evaluation/README.md) for more details.
 
 #### Test SFD on UFDD
 
+```
+cd $SFD_ROOT/sfd_test_code/
+# Example:
+python2.7 test_ufdd.py -p ../datasets/UFDD/UFDD_val/images/ --device 0 --model path/to/deploy.prototxt --weights path/to/caffemodel -o output/UFDD/
+
+```
+Run `test_ufdd.py -h` to get a full list of valid arguments.
+
+Note that option `-g` must be provided if you are testing model trained with 1 channel images. The option `-o` is the directory where you want to save your detections. 
+
 ### Running evaluation benchmarks
 
 Download the [EVALUATION TOOLBOX](https://bitbucket.org/marcopede/face-eval) for evaluation. We call this directory `$CAFFE/SFD/face-eval`.
