@@ -42,6 +42,7 @@ You can also download them manually:
 2. [FDDB](http://vis-www.cs.umass.edu/fddb/index.html)
 3. [PASCAL face (train/validataion)](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html) and [PASCAL face (test)](http://host.robots.ox.ac.uk:8080/eval/challenges/voc2012/)
 4. [WIDER FACE](http://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/)
+5. [UFDD](https://ufdd.info/)
 
 ### Test SFD detector
 
@@ -98,6 +99,8 @@ The option `-o` is the directory where you want to save your detections. It is m
     ```
 
 Read [here](../sfd_test_code/evaluation/README.md) for more details.
+
+#### Test SFD on UFDD
 
 ### Running evaluation benchmarks
 
