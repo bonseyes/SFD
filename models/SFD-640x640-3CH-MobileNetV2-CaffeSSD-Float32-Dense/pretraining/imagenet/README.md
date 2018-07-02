@@ -39,6 +39,19 @@
 - [Caffe implementation of MobileNetv2](https://github.com/PINTO0309/MobileNetv2-SSDLite)
 
 
+### Results
+
+This model was trained using ILSVRC12, over 1.8M of iterations, batch size of 80 images. Check `train.prototxt` for further image preprocessing information. Validation set accuracy: 62.9%
+
+- [Model download](https://drive.google.com/file/d/1s2ldfB3854S6JAo1q2LvB2W9sr9lABmg/view?usp=sharing)
+- [Caffe Logs](https://drive.google.com/file/d/1_dQHadvXk0k0O_R9OpP31XClgKGZx6Au/view?usp=sharing)
+
+
+All the training hyperparameters were based on the original paper, except for the learning rate, which is 2 order of magnitude smaller. No augmentation was carried out, which might explain the overfit over train set after 1M iterations:
+
+![](./loss_curve.png)
+
+
 ### Troubleshooting
 
 - If Caffe does not recogize images, log, snapshots or prototxt files, it is probably because the paths are wrong. Try using absolute paths to avoid that issue.
