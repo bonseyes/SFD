@@ -1,12 +1,12 @@
 # SFD-320x320-3CH-MobileNetV2-mod1-CaffeSSD-Float32-Dense Model
 
 __Input__
-+ 640x640
++ 320x320
 + 3 channels RGB
 
 __Architecture__
 + MobileNet-V2
-+ [MobileNetV2 Architecture - Pretrained Model_with_ImageNet]() 
++ [MobileNetV2 Architecture - Pretrained Model_with_ImageNet](https://github.com/bonseyes/SFD/tree/master/models/SFD-640x640-3CH-MobileNetV2-CaffeSSD-Float32-Dense/pretraining/imagenet) 
 + Features Layers : conv_13/expand, Conv_1, layer_19_2_2, layer_19_2_3, layer_19_2_4
 
 __Training__
