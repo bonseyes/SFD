@@ -1,5 +1,5 @@
 
-# SFD-640x640-3CH-ResNetV1-CaffeSSD-Float32-Dense Model
+# SFD-640x640-3CH-MobileNetV1-CaffeSSD-Float32-Dense Model
 
 __Input__
 + 640x640
