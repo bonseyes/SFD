@@ -17,33 +17,8 @@ __Models trained with CaffeSSD__
 | A10 | SFD-640x640-Quantized-MobileNetV1-CaffeSSD-Float32-Dense      | 100K | 20 MB | -- ms | 87.5% / 82.8% / 62.4% | --% | --% | --% / --% | --% | [link](https://drive.google.com/open?id=1MtSQoj09DQFYYhVx7Kh4fp7vLm0Z9JQ9) |
 | A11 | SFD-320x320-3CH-MobileNetV2-mod1-CaffeSSD-Float32-Dense   | 90K | 12 MB | -- ms | 90.4% / 88.8% / 78.5% | --% | --% | --% / --% | --% | [link](https://drive.google.com/drive/folders/1mbs_u8to4bPycUk2coUiXuXb-IduT5EW) |
 | A12 | SFD-320x320-3CH-MobileNetV2-mod2-CaffeSSD-Float32-Dense   | 90K | 8.2 MB | -- ms | 89.8% / 87.7% / 75.4% | --% | --% | --% / --% | --% | [link](https://drive.google.com/drive/folders/1b7Li9CMw-okHEC34XITpP5h8pLYfpgqR?usp=sharing) |
-
-__Models trained with NVIDIA Caffe 0.17__
-
-| Model ID    | Model Name    | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | AFW Accuracy | Pascal Accuracy |FDDB Accuracy (D/C) | Download URL |
-| ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------| --------------|
-| B1 | ..     | .. | -- MB | .. ms | .. % / .. % / .. % | --% | --% | --% / --% | .. |
-
-### Architectures
-
-##### VGG 640x640
-- [VGG Architecture - 640x640](https://github.com/oylz/SFD/blob/master/model/deploy.prototxt)
-- Features Layers : conv3_3, conv4_3, conv5_3, conv_fc7, conv6_2, conv7_2
-
-##### MobileNetV1 640x640
-- [MobileNetV1 Architecture - 640x640]()
-- [MobileNetV1 Architecture - Pretrained Model COCO](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
-- Features Layers : conv3, conv5, conv11, conv13, conv14_2, conv15_2
-
-##### MobileNetV1 320x320
-- [MobileNetV1 Architecture - 300x300 Protoxt](https://github.com/chuanqi305/MobileNet-SSD/blob/master/MobileNetSSD_deploy.prototxt)
-- [MobileNetV1 Architecture - Pretrained Model COCO + VOC0712](https://drive.google.com/open?id=0B3gersZ2cHIxVFI1Rjd5aDgwOG8)
-- Features Layers : conv3, conv5, conv11, conv13, conv14_2, conv15_2
-
-##### MobileNetV2 300x300
-- [MobileNetV2 Architecture - 300x300 Protoxt](https://github.com/chuanqi305/MobileNetv2-SSDLite/blob/master/train.prototxt)
-- Features Layers : __To decide__
-
+| A13 | SFD-320x320-3CH-MobileNetV2-mod3-CaffeSSD-Float32-Dense   | --K | -- MB | -- ms | --.-% / --.-% / --.-% | --% | --% | --% / --% | --% | -- |
+| A14 | SFD-640x640-3CH-MobileNetV2-mod4-CaffeSSD-Float32-Dense   | --K | -- MB | -- ms | --.-% / --.-% / --.-% | --% | --% | --% / --% | --% | -- |
 
 ### Naming Convention
 The following naming convention is used for models:
@@ -77,8 +52,6 @@ __Training Methods__
 1. Dense
 2. Sparse
 3. Quantized
-
-
 
 # MTCNN Models
 
