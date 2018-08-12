@@ -17,7 +17,7 @@ __Models trained with CaffeSSD__
 | A10 | SFD-640x640-Quantized-MobileNetV1-CaffeSSD-Float32-Dense      | 100K | 20 MB | 30.80 ms | 87.5% / 82.8% / 62.4% | --% | --% | --% / --% | --% | [link](https://drive.google.com/open?id=1MtSQoj09DQFYYhVx7Kh4fp7vLm0Z9JQ9) |
 | A11 | SFD-320x320-3CH-MobileNetV2-mod1-CaffeSSD-Float32-Dense   | 90K | 12 MB | 55.36 ms | 90.4% / 88.8% / 78.5% | 98.93% | 97.0% | 96.3% / 73.6% | 63.1% | [link](https://drive.google.com/drive/folders/1mbs_u8to4bPycUk2coUiXuXb-IduT5EW) |
 | A12 | SFD-320x320-3CH-MobileNetV2-mod2-CaffeSSD-Float32-Dense   | 90K | 8.2 MB | 34.92 ms | 89.8% / 87.7% / 75.4% | 98.73% | 97.08% | 95.4% / 72.5% | 61.9% | [link](https://drive.google.com/drive/folders/1b7Li9CMw-okHEC34XITpP5h8pLYfpgqR?usp=sharing) |
-| A13 | SFD-320x320-3CH-MobileNetV2-mod3-CaffeSSD-Float32-Dense   | --K | -- MB | -- ms | --.-% / --.-% / --.-% | --% | --% | --% / --% | --% | -- |
+| A13 | SFD-320x320-3CH-MobileNetV2-mod3-CaffeSSD-Float32-Dense   | 90K | 8.2 MB | -- ms | 88.7% / 86.3% / 72.4% | --% | --% | --% / --% | --% | -- |
 | A14 | SFD-640x640-3CH-MobileNetV2-mod4-CaffeSSD-Float32-Dense   | --K | -- MB | -- ms | --.-% / --.-% / --.-% | --% | --% | --% / --% | --% | -- |
 
 ### Naming Convention
