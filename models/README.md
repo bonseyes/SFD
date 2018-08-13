@@ -4,7 +4,7 @@ This folder contains pre-trained models for SFD using different architectures an
 __Models trained with CaffeSSD__
 
 | Model ID    | Model Name    | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | AFW Accuracy | Pascal Accuracy | FDDB Accuracy (D/C) | UFDD Accuracy | Download URL | Pretraining (Imagenet) Model |
-| ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------| --------------| --------------|
+| ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| --------------| --------------| --------------| --------------|
 | A1 | Original                                        | 120K | 86 MB | 31.24 ms | 93.9% / 92.2% / 83.4%| 99.86% | 98.49% | 98.2% / 75.72% | 72.2% | [link](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view) | |
 | A2 | SFD-640x640-3CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | 30.28 ms | 93.4% / 92.0% / 82.3%| 99.45% | 97.71% | 97.8% / 74.99% | 69.9% | [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) | |
 | A3 | SFD-640x640-1CH-VGG-CaffeSSD-Float32-Dense      | 120K | 86 MB | 30.29 ms | 77.4% / 81.1% / 70.5% | 98.93% | 97.24% | 95.9% / 73.5% | 44.9% | [link](https://drive.google.com/open?id=1fudH6TU29F0oOVlIE2trulzCdhmJqJUh) | |
