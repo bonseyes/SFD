@@ -40,6 +40,8 @@ FDDB/
 PASCAL/
 WIDER/
 datasets/
+logs/
+snapshots/
 
 # Third party projects
 face-eval/

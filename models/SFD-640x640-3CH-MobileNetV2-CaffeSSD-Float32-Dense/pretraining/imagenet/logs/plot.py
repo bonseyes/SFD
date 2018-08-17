@@ -20,7 +20,8 @@ if __name__ == "__main__":
 
     train_acc = np.array([float(l.split()[10]) for l in train_acc])
     test_acc = np.array([float(l.split()[10]) for l in test_acc])
-    train_loss = np.array([float(l.split()[8]) for l in train_loss])
+    #train_loss = np.array([float(l.split()[8]) for l in train_loss])
+    train_loss = np.array([float(l.split()[12]) for l in train_loss])
 
     train_acc_x = np.arange(0, last_iter+1, display)
     test_acc_x = np.arange(0, last_iter+1, test_interv)
