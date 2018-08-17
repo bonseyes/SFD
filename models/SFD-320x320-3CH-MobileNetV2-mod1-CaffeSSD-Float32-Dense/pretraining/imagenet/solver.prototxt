@@ -9,7 +9,7 @@ display: 50
 max_iter: 2000000
 lr_policy: "step"
 gamma: 0.98
-stepsize: 42706 # 1281167 train images over batches of 60 images
+stepsize: 42706 # 1281167 train images over batches of 30 images
 weight_decay: 0.00004
 snapshot: 10000
 snapshot_prefix: "snapshots/MobilenetV2-mod1-imagenet"

@@ -6,7 +6,7 @@ layer {
   top: "label"
   image_data_param {
       source: "/home/ubuntu/datasets/IMAGENET/train_shuffled.txt"
-      batch_size: 30
+      batch_size: 30 
       new_height: 256
       new_width: 256
   }
