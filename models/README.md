@@ -20,7 +20,7 @@ __Models trained with CaffeSSD__
 | A13 | SFD-320x320-3CH-MobileNetV2-mod3-CaffeSSD-Float32-Dense   | 90K | 8.2 MB | -- ms | 88.7% / 86.3% / 72.4% | --% | --% | --% / --% | --% | -- | |
 | A14 | SFD-640x640-3CH-MobileNetV2-mod4-CaffeSSD-Float32-Dense   | --K | -- MB | -- ms | --.-% / --.-% / --.-% | --% | --% | --% / --% | --% | -- | |
 | A15 | SFD-320x320-3CH-MobileNetV2-mod5-CaffeSSD-from:ImageNet-Float32-Dense   | --K | 3.9 MB | -- ms | 89.4% / 87.8% / 77.2% | --% | --% | --% / --% | --% | -- | |
-| A16 | SFD-320x320-3CH-MobileNetV2-mod5-CaffeSSD-from:COCO-Float32-Dense   | --K | -- MB | -- ms | --.-% / --.-% / --.-% | --% | --% | --% / --% | --% | -- | |
+| A16 | SFD-320x320-3CH-MobileNetV2-mod5-CaffeSSD-from:COCO-Float32-Dense   | 90K | 3.9 MB | -- ms | 89.7% / 88.1% / 77.3% | --% | --% | --% / --% | --% | -- | |
 
 ### Naming Convention
 The following naming convention is used for models:
