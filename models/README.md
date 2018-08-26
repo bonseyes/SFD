@@ -18,8 +18,8 @@ __MobileNetV2__
 
 | Model ID    | Model Name    | Input | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | Download | Pretraining (Imagenet) |
 | ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| 
-| A11 | SFD-MobileNetV2-mod1  | 3CH 320x320 | 90K | 12 MB | 55.36 ms | 90.4% / 88.8% / 78.5% | [link](https://drive.google.com/drive/folders/1mbs_u8to4bPycUk2coUiXuXb-IduT5EW) | |
-| A15 | SFD-MobileNetV2-mod5   | 3CH 320x320 | 90K | 3.9 MB | -- ms | 89.4% / 87.8% / 77.2% | [link](https://drive.google.com/open?id=1LpwLW1NyN6uYw0q9kD0vBQ6Iy6T1_DLz) | |
+| A11 | SFD-MobileNetV2-mod1  | 3CH 320x320 | 90K | 12 MB | 55.36 ms | 90.4% / 88.8% / 78.5% | [link](https://drive.google.com/drive/folders/1mbs_u8to4bPycUk2coUiXuXb-IduT5EW) | [pretrained-model](https://drive.google.com/open?id=1ISkqOPOMBTvxHKFQ4xdN4xBfdROjNgFQ) |
+| A15 | SFD-MobileNetV2-mod5   | 3CH 320x320 | 90K | 3.9 MB | -- ms | 89.4% / 87.8% / 77.2% | [link](https://drive.google.com/open?id=1LpwLW1NyN6uYw0q9kD0vBQ6Iy6T1_DLz) | [pretrained-model](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
 | A18 | SFD-MobileNetV2-mod5   | 3CH 640x640 | --K | -- MB | -- ms | --% / --% / --% | -- | |
 
 ### Naming Convention
