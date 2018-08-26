@@ -25,6 +25,15 @@ __MobileNetV2__
 | A15 | SFD-MobileNetV2-mod5   | 3CH 320x320 | 90K | 3.9 MB | -- ms | 89.4% / 87.8% / 77.2% | [link](https://drive.google.com/open?id=1LpwLW1NyN6uYw0q9kD0vBQ6Iy6T1_DLz) | [pretrained-model](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
 | A18 | SFD-MobileNetV2-mod5   | 3CH 640x640 | --K | -- MB | -- ms | --% / --% / --% | -- | |
 
+
+__NVIDIA-Caffe FP16 Models__
+
+| Model ID    | Model Name    | Input | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | Download | Pretraining (Imagenet) |
+| ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| 
+| B1 | SFD-VGG-FP16     | 3CH 320x320 | 120K | 86 MB | -- ms | 90.0% / 89.0% / 79.5% | [link](https://drive.google.com/open?id=1B3N0MayY46jgoRzKFFPYYdsp9rLnKj_L) | NO pretrained model |
+
+
+
 ### Naming Convention
 The following naming convention is used for models:
 
