@@ -5,14 +5,14 @@ __Original Models__
 
 | Model ID    | Model Name    | Input | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | Download | Pretraining (Imagenet) |
 | ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| 
-| A1 | Original                                        | 3CH 640x640 | 120K | 86 MB | 31.24 ms | 93.9% / 92.2% / 83.4% | [link](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view) | |
-| A2 | SFD-VGG     | 3CH 640x640 | 120K | 86 MB | 30.28 ms | 93.4% / 92.0% / 82.3% | [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) | |
+| A1 | Original                                        | 3CH 640x640 | 120K | 86 MB | 31.24 ms | 93.9% / 92.2% / 83.4% | [link](https://drive.google.com/file/d/1CboBIsjcDQ-FC1rMES6IjTl6sYQDoD6u/view) | [pretrained-model](https://gist.github.com/weiliu89/2ed6e13bfd5b57cf81d6) |
+| A2 | SFD-VGG     | 3CH 640x640 | 120K | 86 MB | 30.28 ms | 93.4% / 92.0% / 82.3% | [link](https://drive.google.com/drive/u/0/folders/1WbTmDlUst-90lB8NC_KtcE11v49wW7W2) | [pretrained-model](https://gist.github.com/weiliu89/2ed6e13bfd5b57cf81d6) |
 
 __MobileNetV1__
 
 | Model ID    | Model Name    | Input | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | Download | Pretraining (Imagenet) |
 | ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| 
-| A7 | SFD-MobileNetV1      | 3CH 320x320 | 100K | 20 MB | 36.80 ms | 86.9% / 82.5% / 65.5% | [link](https://drive.google.com/open?id=1_tmrTB0HYzSq3gFPKUWlfKtHQn6WIWNM) | |
+| A7 | SFD-MobileNetV1      | 3CH 320x320 | 100K | 20 MB | 36.80 ms | 86.9% / 82.5% / 65.5% | [link](https://drive.google.com/open?id=1_tmrTB0HYzSq3gFPKUWlfKtHQn6WIWNM) | [pretrained-model](https://drive.google.com/file/d/0B3gersZ2cHIxVFI1Rjd5aDgwOG8/view?usp=sharing) |
 
 __MobileNetV2__
 
