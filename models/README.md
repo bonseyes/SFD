@@ -19,6 +19,7 @@ __MobileNetV2__
 | Model ID    | Model Name    | Input | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | Download | Pretraining (Imagenet) |
 | ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| 
 | A11 | SFD-MobileNetV2-mod1  | 3CH 320x320 | -- | 14 MB | 55.36 ms | 90.4% / 88.8% / 78.5% | [link](https://drive.google.com/drive/folders/1mbs_u8to4bPycUk2coUiXuXb-IduT5EW) | [pretrained-model](https://drive.google.com/file/d/1ZFcV4MoIzJfUYlwVI47_738__fUte_9p/view?usp=sharing) |
+| A11_2 | SFD-MobileNetV2-mod1  | 3CH 320x320 | -- | 12 MB | -- ms | 89.9% / 88.0% / 77.2% | | |
 | A12 | SFD-MobileNetV2-mod2   | 3CH 320x320 | -- | 8.2 MB | -- ms | 89.8% / 87.7% / 75.4% |  [link](https://drive.google.com/drive/folders/1b7Li9CMw-okHEC34XITpP5h8pLYfpgqR?usp=sharing) | [pretrained-model](https://drive.google.com/open?id=1FTTlmqi9KOdoQFXOrMb5QnNF1SzKPbNN) |
 | A13 | SFD-MobileNetV2-mod3   | 3CH 320x320 | -- | 10 MB | -- ms | 88.7% / 86.3% / 72.4% | -- | [pretrained-model](https://drive.google.com/file/d/1LV89HdBxctoOWP9ixabpipMKMS1Ftyrm/view?usp=sharing) |
 | A14 | SFD-MobileNetV2-mod4   | 3CH 320x320 | -- | 10 MB | -- ms | -- | !! | [pretrained-model](https://drive.google.com/file/d/1ufB-tsZtlRDY7j4GcujKhxQM6UijxjR9/view?usp=sharing) |
