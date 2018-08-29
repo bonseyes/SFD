@@ -32,6 +32,7 @@ __NVIDIA-Caffe FP16 Models__
 | Model ID    | Model Name    | Input | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | Download | Pretraining (Imagenet) |
 | ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| 
 | B1 | SFD-VGG-FP16     | 3CH 320x320 | 120K | 86 MB | -- ms | 90.0% / 89.0% / 79.5% | [link](https://drive.google.com/open?id=1B3N0MayY46jgoRzKFFPYYdsp9rLnKj_L) | NO pretrained model |
+| B1 | SFD-MobileNetV2-mod5-FP16     | 3CH 320x320 | 90K | 3.9 MB | -- ms | 88.3% / 86.7% / 78.0% | [link](https://drive.google.com/open?id=1PA-LaOatq0T0LyTgRPJda43XtOay46mW) | NO pretrained model |
 
 
 
