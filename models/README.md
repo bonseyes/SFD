@@ -25,8 +25,6 @@ __MobileNetV2__
 | A14 | SFD-MobileNetV2-mod4   | 3CH 320x320 | -- | 10 MB | -- ms | -- | !! | [pretrained-model](https://drive.google.com/file/d/1ufB-tsZtlRDY7j4GcujKhxQM6UijxjR9/view?usp=sharing) |
 | A15 | SFD-MobileNetV2-mod5   | 3CH 320x320 | 90K | 3.9 MB | -- ms | 89.4% / 87.8% / 77.2% | [link](https://drive.google.com/open?id=1LpwLW1NyN6uYw0q9kD0vBQ6Iy6T1_DLz) | [pretrained-model](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
 | A18 | SFD-MobileNetV2-mod5   | 3CH 640x640 | 90K | 3.9 MB | -- ms | 90.6% / 88.5% / 75.0% | [link](https://drive.google.com/open?id=1AWLwyTzxZ1TN_8qdKhDg4gwJge-9kJYG) | [pretrained-model](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
-| A18_2 | SFD-MobileNetV2-mod5   | 3CH 640x640 | 70K | 3.9 MB | -- ms | 90.4% / 88.4% / 75.1% | [link](https://drive.google.com/open?id=1AWLwyTzxZ1TN_8qdKhDg4gwJge-9kJYG) | [pretrained-model](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
-
 
 __NVIDIA-Caffe FP16 Models__
 
