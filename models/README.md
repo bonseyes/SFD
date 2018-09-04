@@ -24,7 +24,8 @@ __MobileNetV2__
 | A13 | SFD-MobileNetV2-mod3   | 3CH 320x320 | -- | 10 MB | -- ms | 88.7% / 86.3% / 72.4% | -- | [pretrained-model](https://drive.google.com/file/d/1LV89HdBxctoOWP9ixabpipMKMS1Ftyrm/view?usp=sharing) |
 | A14 | SFD-MobileNetV2-mod4   | 3CH 320x320 | -- | 10 MB | -- ms | -- | !! | [pretrained-model](https://drive.google.com/file/d/1ufB-tsZtlRDY7j4GcujKhxQM6UijxjR9/view?usp=sharing) |
 | A15 | SFD-MobileNetV2-mod5   | 3CH 320x320 | 90K | 3.9 MB | -- ms | 89.4% / 87.8% / 77.2% | [link](https://drive.google.com/open?id=1LpwLW1NyN6uYw0q9kD0vBQ6Iy6T1_DLz) | [pretrained-model](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
-| A18 | SFD-MobileNetV2-mod5   | 3CH 640x640 | 70K | 3.9 MB | -- ms | 90.4% / 88.4% / 75.1% | [link](https://drive.google.com/open?id=1AWLwyTzxZ1TN_8qdKhDg4gwJge-9kJYG) | [pretrained-model](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
+| A18 | SFD-MobileNetV2-mod5   | 3CH 640x640 | 90K | 3.9 MB | -- ms | 90.6% / 88.5% / 75.0% | [link](https://drive.google.com/open?id=1AWLwyTzxZ1TN_8qdKhDg4gwJge-9kJYG) | [pretrained-model](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
+| A18_2 | SFD-MobileNetV2-mod5   | 3CH 640x640 | 70K | 3.9 MB | -- ms | 90.4% / 88.4% / 75.1% | [link](https://drive.google.com/open?id=1AWLwyTzxZ1TN_8qdKhDg4gwJge-9kJYG) | [pretrained-model](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
 
 
 __NVIDIA-Caffe FP16 Models__
@@ -33,7 +34,7 @@ __NVIDIA-Caffe FP16 Models__
 | ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------| --------------| 
 | B1 | SFD-VGG-FP16     | 3CH 320x320 | 120K | 86 MB | -- ms | 90.0% / 89.0% / 79.5% | [link](https://drive.google.com/open?id=1B3N0MayY46jgoRzKFFPYYdsp9rLnKj_L) | NO pretrained model |
 | B2 | SFD-MobileNetV2-mod5-FP16     | 3CH 320x320 | 90K | 3.9 MB | -- ms | 88.3% / 86.7% / 78.0% | [link](https://drive.google.com/open?id=1PA-LaOatq0T0LyTgRPJda43XtOay46mW) | NO pretrained model |
-| B3 | SFD-MobileNetV2-mod5-FP16-pretrained    | 3CH 320x320 | 90K | 3.9 MB | -- ms | 89.2% / 87.9% / 77.7% |  | [pretrained model fp32](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
+| B3 | SFD-MobileNetV2-mod5-FP16-pretrained    | 3CH 320x320 | 90K | 3.9 MB | -- ms | 89.2% / 87.9% / 77.7% | [link](https://drive.google.com/drive/folders/1nofs6b3OzVx_4jLTG9stjcgp1T2CoUYc?usp=sharing) | [pretrained model fp32](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
 
 
 ### Naming Convention
