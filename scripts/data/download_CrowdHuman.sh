@@ -17,7 +17,7 @@ python $drive 1uBB3psTLteVEP2Wg466DsYVx1eV8LacU $output_dir/annotation_train.odg
 python $drive 151-MHsdCni1izANEuZA3q3Pp7Jwpi-PX $output_dir/annotation_val.odgt
 
 cd $output_dir
-for file in "CrowdHuman_train01" "CrowdHuman_train02" "CrowdHuman_train03" "CrowdHuman_val.zip"
+for file in "CrowdHuman_train01.zip" "CrowdHuman_train02.zip" "CrowdHuman_train03.zip" "CrowdHuman_val.zip"
 do
     unzip $file.zip -d .
 done
