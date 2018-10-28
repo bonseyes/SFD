@@ -35,7 +35,7 @@ __NVIDIA-Caffe FP16 Models__
 | B3 | SFD-MobileNetV2-mod5-FP16-pretrained:ImageNet    | 3CH 320x320 | 90K | 3.9 MB | -- ms | 89.2% / 87.9% / 77.7% | [link](https://drive.google.com/drive/folders/1nofs6b3OzVx_4jLTG9stjcgp1T2CoUYc?usp=sharing) | [pretrained model fp32](https://drive.google.com/open?id=1C3eN-w-rgfvfkdt5dFRzRS-MO6GfXtBj) |
 | B4 | SFD-MobileNetV2-mod5-FP16-pretrained:ImageNet+faces/non-faces    | 3CH 320x320 | 90K | 3.9 MB | -- ms | 89.1% / 87.8% / 78.0% |  |  |
 | B5 | SFD-MobileNetV2-mod5-FP16-person+faces  | 3CH 320x320 | 150K | 4.3 MB | -- ms | 69.9% / 72.2% / 53.9% |  |  |
-| B6 | SFD-MobileNetV2-mod5-FP16-wider-pretrained:person+faces  | 3CH 320x320 | 70K | 3.9 MB | -- ms | 89.9% / 78.6% / 78.23% |  |  |
+| B6 | SFD-MobileNetV2-mod5-FP16-wider-pretrained:person+faces  | 3CH 320x320 | 70K | 3.9 MB | -- ms | 89.9% / 88.6% / 78.2% |  |  |
 
 
 
