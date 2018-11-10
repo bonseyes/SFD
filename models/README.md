@@ -85,7 +85,7 @@ __Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Neu
 
 # Other Very Fast/Light Models
 
-**1. [https://github.com/brodmann17/Brodmann17FaceDetector](https://github.com/brodmann17/Brodmann17FaceDetector)**
+**1. [https://github.com/brodmann17/Brodmann17FaceDetector](https://github.com/brodmann17/Brodmann17FaceDetector)**  
 **2. [https://github.com/ShiqiYu/libfacedetection](https://github.com/ShiqiYu/libfacedetection)**
 
 
