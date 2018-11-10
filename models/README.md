@@ -92,4 +92,4 @@ __Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Neu
 |   Model   | Wider Accuracy (E/M/H) | AFW Accuracy | Pascal Accuracy |FDDB Accuracy (D/C) |UFDD Accuracy | Original URL |
 | ------------- | ------------- | ------------- |-------------|-------------| --------------| ----------------|
 | Brodmann17FaceDetector |  62.5% / 48.3% / 20.1% | ..% | ..% | ..% / ..% | ..% | [link](https://github.com/brodmann17/Brodmann17FaceDetector) |
-| libfacedetection | 68.7% / 63.5% / 37.4% | ..% | ..% | ..% / ..% | ..%| [link](https://github.com/ShiqiYu/libfacedetection) |
+| libfacedetection | 68.7% / 63.5% / 37.4% | ..% | ..% | ..% / ..% | ..%| [link](https://github.com/ghimiredhikura/libfacedetection-vs2015) |
