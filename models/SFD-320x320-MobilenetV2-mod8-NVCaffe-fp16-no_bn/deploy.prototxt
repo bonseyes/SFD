@@ -4361,8 +4361,6 @@ layer {
   }
 }
 layer {
-  #forward_type:  FLOAT
-  #backward_type: FLOAT
   name: "conv_10/expand__mbox_priorbox"
   type: "PriorBox"
   bottom: "conv_10/expand_"
@@ -4476,8 +4474,6 @@ layer {
   }
 }
 layer {
-  #forward_type:  FLOAT
-  #backward_type: FLOAT
   name: "Conv_1_mbox_priorbox"
   type: "PriorBox"
   bottom: "Conv_1"
@@ -4590,8 +4586,6 @@ layer {
   }
 }
 layer {
-  #forward_type:  FLOAT
-  #backward_type: FLOAT
   name: "layer_19_2_2_mbox_priorbox"
   type: "PriorBox"
   bottom: "layer_19_2_2"
@@ -4704,8 +4698,6 @@ layer {
   }
 }
 layer {
-  #forward_type:  FLOAT
-  #backward_type: FLOAT
   name: "layer_19_2_3_mbox_priorbox"
   type: "PriorBox"
   bottom: "layer_19_2_3"
@@ -4818,8 +4810,6 @@ layer {
   }
 }
 layer {
-  #forward_type:  FLOAT
-  #backward_type: FLOAT
   name: "layer_19_2_4_mbox_priorbox"
   type: "PriorBox"
   bottom: "layer_19_2_4"
