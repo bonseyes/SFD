@@ -1,10 +1,33 @@
+#!/bin/sh
+# Generate Caffe based files for training and testing models
 
-stage=train
-python gen_model_fp16.py --stage $stage --lmdb /home/ubuntu/data/WIDER_FACE/lmdb/WIDER_FACE_train_lmdb_NVCaffe --label-map data/WIDER_FACE/labelmap_wider.prototxt --class-num 2 > $stage.prototxt
+generate_model()
+{
+  STAGE=$1
+  LMDB=$2
+  LABELMAP=$3
+  CLASSNUM=$4
+  OUTFILE=$STAGE + ".prototxt"
 
-stage=test
-python gen_model_fp16.py --stage $stage --lmdb /home/ubuntu/data/WIDER_FACE/lmdb/WIDER_FACE_val_lmdb_NVCaffe --label-map data/WIDER_FACE/labelmap_wider.prototxt --class-num 2 > $stage.prototxt
+  echo "Genreating " $STAGE
+  python gen_model_fp16.py --stage $STAGE --lmdb $LMDB --label-map $LABELMAP --class-num $CLASSNUM > $OUTFILE
+}
 
-stage=deploy
-python gen_model_fp16.py --stage $stage --lmdb /home/ubuntu/data/WIDER_FACE/lmdb/WIDER_FACE_val_lmdb_NVCaffe --label-map data/WIDER_FACE/labelmap_wider.prototxt --class-num 2 > $stage.prototxt
+LMDB=/home/ubuntu/data/WIDER_FACE/lmdb/WIDER_FACE_train_lmdb_NVCaffe
+LABELMAP=/home/ubuntu/data/WIDER_FACE/labelmap_wider.prototxt
+CLASSNUM=2
 
+# Generate solver
+generate_model solver $LMDB $LABELMAP $CLASSNUM
+
+# Generate train
+generate_model train $LMDB $LABELMAP $CLASSNUM
+
+# Generate test
+generate_model test $LMDB $LABELMAP $CLASSNUM
+
+# Generate deployment with original layers
+generate_model deploy-orig $LMDB $LABELMAP $CLASSNUM
+
+# Generate deployment with compitable with Caffe
+generate_model deploy-compat $LMDB $LABELMAP $CLASSNUM
