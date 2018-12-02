@@ -10,6 +10,7 @@ This repository intends to reproduce the results of the aforementioned paper.
 1. [Preparation](#preparation)
 2. [Evaluation](#evaluation)
 3. [Training](#training)
+3. [Future Enhancements](#enhancements)
 
 
 ### Preparation
@@ -25,3 +26,13 @@ To test the pre-trained models, read the [Test Instructions](./docs/Test-Instruc
 ### Training 
 
 To train new models using SFD, read the [Train Instructions](./docs/Train-Instructions.md)
+
+### Enhancements 
+
+#### CFENet to enhance small object detection through feature fusion
+- [CFENet Paper](https://arxiv.org/pdf/1806.09790.pdf)
+- [CFENet Code](https://github.com/qijiezhao/CFENet/tree/working)
+
+#### PyramidMobileNet to add greater spatial information to convolutions
+- [PyramidMobileNet Paper](https://arxiv.org/pdf/1811.07083.pdf)
+
