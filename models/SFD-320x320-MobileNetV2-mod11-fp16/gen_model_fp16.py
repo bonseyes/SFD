@@ -1,6 +1,63 @@
 import argparse
 FLAGS = None
 
+def check_env_flag(name, default=''):
+    return os.getenv(name, default).upper() in ['ON', '1', 'YES', 'TRUE', 'Y']
+
+#
+# Options
+#
+#   USE_RGB
+#     Use RGB (3 channels) as input (ON)
+#
+#   USE_IMAGE_MEAN
+#     Use mean substraction from input channels (ON)
+#
+#   USE_TRAIN_FLOAT16
+#     Use mixed float16/32 during training otherwise use only float32 (ON)
+#
+#   USE_TRAIN_SSD
+#     Train using SSD otherwise use classification based training using ImageNet (ON)
+#
+#   TRAIN_LABEL
+#     Label used for training model ("MobileNetV2-SSD-ModX-[DATE]")
+#
+#   TRAIN_INPUT_DIMENSION
+#     Input image dimension (320)
+#
+#   TRAIN_SSD_CLASS_NUMBER
+#     Number of SSD classes to detect (1)
+#
+#   TRAIN_SSD_SCALES
+#     Scales used for SSD anchors ([[16, 32], [64], [128], [256], [512]])
+#
+#   TRAIN_SSD_STEPS
+#     Steps used for SSD anchors ([[8], [16], [32], [64], [128]])
+#
+#   TRAIN_SSD_FIRST_LAYER_OUTPUT_CHANNELS
+#     Number of output channels for first convolutional layer (8)
+#
+#   TRAIN_SSD_CHANNEL_GROWTH_RATE
+#     Global growth rate for number of channels within network (1.33)
+#
+#   TRAIN_IMAGE_MEAN
+#     Image mean used for input substraction (imagenet.mean) [ 104.0, 117.0, 123.0 ]
+#
+#   TRAIN_GLOBAL_GARDIENT_SCALE
+#     Global gradient scaling for low precision training (32)
+#
+#   TRAIN_BATCH_SIZE
+#     Batch size used in training (64)
+#
+
+#
+# Default training options example
+#
+USE_RGB = check_env_flag('USE_RGB', 'ON')
+USE_IMAGE_MEAN = check_env_flag('USE_IMAGE_MEAN', 'ON')
+USE_TRAIN_FLOAT16 = check_env_flag('USE_TRAIN_FLOAT16', 'ON')
+USE_TRAIN_SSD = check_env_flag('USE_TRAIN_SSD', 'ON')
+
 class Generator():
 
     def __init__(self):
