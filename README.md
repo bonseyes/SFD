@@ -38,3 +38,6 @@ To train new models using SFD, read the [Train Instructions](./docs/Train-Instru
 
 #### DSFD uses a Feature Enhance Module with two shot pass
 - [DSFD Paper](https://arxiv.org/pdf/1810.10220.pdf)
+
+#### SRN - Selective Refinement Network
+- [SRN Paper](https://arxiv.org/abs/1809.02693)
