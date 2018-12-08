@@ -36,3 +36,5 @@ To train new models using SFD, read the [Train Instructions](./docs/Train-Instru
 #### PyramidMobileNet to add greater spatial information to convolutions
 - [PyramidMobileNet Paper](https://arxiv.org/pdf/1811.07083.pdf)
 
+#### DSFD uses a Feature Enhance Module with two shot pass
+- [DSFD Paper](https://arxiv.org/pdf/1810.10220.pdf)
