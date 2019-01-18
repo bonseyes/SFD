@@ -801,31 +801,31 @@ layer {
           self.data_deploy()
       t = 2
       t_ = 4
-      self.conv_bn_relu_with_factor("Conv", 48, 3, 2)
-      self.conv_bn_relu_with_factor("Conv_a", 48, 3, 1)
-      self.conv_depthwise("conv/depthwise", 48, 1)
-      self.conv_project("conv/project", 48, 48)
-      self.conv_block("conv_1", 48,  t_, 64 , 2, False) #
+      self.conv_bn_relu_with_factor("Conv", 36, 3, 2)
+      self.conv_bn_relu_with_factor("Conv_a", 36, 3, 1)
+      self.conv_depthwise("conv/depthwise", 36, 1)
+      self.conv_project("conv/project", 36, 36)
+      self.conv_block("conv_1", 36,  t_, 64 , 2, False) #
       self.conv_block("conv_2", 64,  t, 64, 1, True)
       self.conv_block("conv_3", 64,  t, 64, 1, True)  # 
       self.conv_block("conv_4", 64,  t, 64, 1, True)
-      self.conv_block("conv_5", 64,  t, 128, 2, False) #
-      self.conv_block("conv_6", 128,  t, 128, 1, True)
-      self.conv_block("conv_7", 128,  t, 128, 1, True)
-      self.conv_block("conv_8", 128,  t, 128, 1, True) #
-      self.conv_block("conv_9", 128,  t, 128, 1, True)
-      self.conv_block("conv_10", 128,  t_, 196, 2, False) # 
-      self.conv_block("conv_11", 196,  t, 196, 1, True)
-      self.conv_block("conv_12", 196,  t, 196, 1, True)
-      self.conv_block("conv_13", 196,  t, 196, 1, True)
-      self.conv_block("conv_14", 196,  t, 196, 1, True)
-      self.conv_block("conv_15", 196,  t, 196, 1, True)
-      self.conv_block("conv_16", 196,  t, 196, 1, True)
-      self.conv_bn_relu_with_factor("Conv_1", 392, 1, 1)
+      self.conv_block("conv_5", 64,  t, 96, 2, False) #
+      self.conv_block("conv_6", 96,  t, 96, 1, True)
+      self.conv_block("conv_7", 96,  t, 96, 1, True)
+      self.conv_block("conv_8", 96,  t, 96, 1, True) #
+      self.conv_block("conv_9", 96,  t, 96, 1, True)
+      self.conv_block("conv_10", 96,  t_, 128, 2, False) # 
+      self.conv_block("conv_11", 128,  t, 128, 1, True)
+      self.conv_block("conv_12", 128,  t, 128, 1, True)
+      self.conv_block("conv_13", 128,  t, 128, 1, True)
+      self.conv_block("conv_14", 128,  t, 128, 1, True)
+      self.conv_block("conv_15", 128,  t, 128, 1, True)
+      self.conv_block("conv_16", 128,  t, 128, 1, True)
+      self.conv_bn_relu_with_factor("Conv_1", 256, 1, 1)
       if gen_ssd is True:
-          self.conv_ssd("layer_19", 2, 392, 523)
-          self.conv_ssd("layer_19", 3, 523, 697)
-          self.conv_ssd("layer_19", 4, 697, 871)
+          self.conv_ssd("layer_19", 2, 256, 256)
+          self.conv_ssd("layer_19", 3, 256, 256)
+          self.conv_ssd("layer_19", 4, 256, 256)
           #self.conv_ssd("layer_19", 5, 256, 128)
           self.mbox("conv_10/expand_", 2)
           self.mbox("Conv_1", 1)

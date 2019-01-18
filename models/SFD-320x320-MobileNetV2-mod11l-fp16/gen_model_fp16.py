@@ -809,23 +809,23 @@ layer {
       self.conv_block("conv_2", 48,  t, 48, 1, True)
       self.conv_block("conv_3", 48,  t, 48, 1, True)  # 
       self.conv_block("conv_4", 48,  t, 48, 1, True)
-      self.conv_block("conv_5", 48,  t, 96, 2, False) #
-      self.conv_block("conv_6", 96,  t, 96, 1, True)
-      self.conv_block("conv_7", 96,  t, 96, 1, True)
-      self.conv_block("conv_8", 96,  t, 96, 1, True) #
-      self.conv_block("conv_9", 96,  t, 96, 1, True)
-      self.conv_block("conv_10", 96,  t, 192, 2, False) # 
-      self.conv_block("conv_11", 192,  t, 192, 1, True)
-      self.conv_block("conv_12", 192,  t, 192, 1, True)
-      self.conv_block("conv_13", 192,  t, 192, 1, True)
-      self.conv_block("conv_14", 192,  t, 192, 1, True)
-      self.conv_block("conv_15", 192,  t, 192, 1, True)
-      self.conv_block("conv_16", 192,  t, 192, 1, True)
-      self.conv_bn_relu_with_factor("Conv_1", 384, 1, 1)
+      self.conv_block("conv_5", 48,  t, 72, 2, False) #
+      self.conv_block("conv_6", 72,  t, 72, 1, True)
+      self.conv_block("conv_7", 72,  t, 72, 1, True)
+      self.conv_block("conv_8", 72,  t, 72, 1, True) #
+      self.conv_block("conv_9", 72,  t, 72, 1, True)
+      self.conv_block("conv_10", 72,  t, 128, 2, False) # 
+      self.conv_block("conv_11", 128,  t, 128, 1, True)
+      self.conv_block("conv_12", 128,  t, 128, 1, True)
+      self.conv_block("conv_13", 128,  t, 128, 1, True)
+      self.conv_block("conv_14", 128,  t, 128, 1, True)
+      self.conv_block("conv_15", 128,  t, 128, 1, True)
+      self.conv_block("conv_16", 128,  t, 128, 1, True)
+      self.conv_bn_relu_with_factor("Conv_1", 256, 1, 1)
       if gen_ssd is True:
-          self.conv_ssd("layer_19", 2, 384, 512)
-          self.conv_ssd("layer_19", 3, 512, 683)
-          self.conv_ssd("layer_19", 4, 683, 854)
+          self.conv_ssd("layer_19", 2, 256, 256)
+          self.conv_ssd("layer_19", 3, 256, 256)
+          self.conv_ssd("layer_19", 4, 256, 256)
           #self.conv_ssd("layer_19", 5, 256, 128)
           self.mbox("conv_10/expand_", 2)
           self.mbox("Conv_1", 1)
