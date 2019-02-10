@@ -8,7 +8,7 @@ max_iter: 90000
 lr_policy: "multistep"
 gamma: 0.5
 weight_decay: 0.00001
-snapshot: 10 #10000
+snapshot: 10000
 snapshot_prefix: "models/MobileNetV2/SFD-320x320-mod11m-fp16/snapshots/SFD-320x320-MobilenetV2-mod11m-NVCaffe-fp16-wider"
 solver_mode: GPU
 device_id: 0
