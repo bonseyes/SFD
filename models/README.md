@@ -38,6 +38,12 @@ __NVIDIA-Caffe FP16 Models__
 | B6 | SFD-MobileNetV2-mod5-FP16-wider-pretrained:person+faces  | 3CH 320x320 | 70K | 3.9 MB | -- ms | 89.9% / 88.6% / 78.2% |  |  |
 
 
+__MobileNetV2-mod11 with NVIDIA-Caffe FP16__
+
+| Model ID    | Model Name    | Input | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | ImageNet (Top-5/ Top-1) | Download | Pretraining (Imagenet) |
+| ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| -------------- | ----------------| --------------| 
+| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | -- MB | -- ms | --% / --% / --% | 74.16% / 48.39% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16/pretrained-ImageNet) |
+
 
 ### Naming Convention
 The following naming convention is used for models:
