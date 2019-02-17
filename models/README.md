@@ -40,7 +40,7 @@ __NVIDIA-Caffe FP16 Models__
 
 __MobileNetV2-mod11 with NVIDIA-Caffe FP16__
 
-| ID | Model Name | Input | Iter   | Size (MB)   | Speed (FPS)  | Wider Accuracy (E/M/H) | ImageNet (Top-5/ Top-1) | Download | Pretraining (Imagenet) |
+| ID | Model Name | Input | Iter | Size (MB)   | 1xARM A53 Speed | Wider Accuracy (E/M/H) | ImageNet (Top-5/ Top-1) | Download | Pretraining (Imagenet) |
 | ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| -------------- | ----------------| --------------| 
 | N | MobileNetV2-modd11-n     | 3CH 320x320 | 90K | 7.29 MB | 0.360 fps | 88.84% / 88.16% / 78.93% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11n-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11n-fp16/pretrained-ImageNet) |
 | M | MobileNetV2-modd11-m     | 3CH 320x320 | 90K | 4.42 MB | 0.620 fps | 88.57% / 86.45% / 75.56% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11m-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11m-fp16/pretrained-ImageNet) |
