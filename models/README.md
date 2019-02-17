@@ -40,10 +40,18 @@ __NVIDIA-Caffe FP16 Models__
 
 __MobileNetV2-mod11 with NVIDIA-Caffe FP16__
 
-| Model ID    | Model Name    | Input | Iterations   | Size (MB)   | Speed (ms)  | Wider Accuracy (E/M/H) | ImageNet (Top-5/ Top-1) | Download | Pretraining (Imagenet) |
+| ID | Model Name | Input | Iter   | Size (MB)   | Speed (FPS)  | Wider Accuracy (E/M/H) | ImageNet (Top-5/ Top-1) | Download | Pretraining (Imagenet) |
 | ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| -------------- | ----------------| --------------| 
-| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | -- MB | -- ms | 88.44% / 86.23% / 75.16% | 74.16% / 48.39% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16/pretrained-ImageNet) |
-
+| N | MobileNetV2-modd11-n     | 3CH 320x320 | 90K | 7.29 MB | 0.360 fps | 88.84% / 88.16% / 78.93% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11n-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11n-fp16/pretrained-ImageNet) |
+| M | MobileNetV2-modd11-m     | 3CH 320x320 | 90K | 4.42 MB | 0.620 fps | 88.57% / 86.45% / 75.56% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11m-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11m-fp16/pretrained-ImageNet) |
+| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | 3.61 MB | 1.160 fps | 88.44% / 86.23% / 75.16% | 74.16% / 48.39% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16/pretrained-ImageNet) |
+| R | MobileNetV2-modd11-r     | 3CH 320x320 | 90K | 2.03 MB | 2.610 fps | % / % / % | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11r-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11r-fp16/pretrained-ImageNet) |
+| E | MobileNetV2-modd11-r     | 3CH 320x320 | 90K | 1.06 MB | 4.680 fps | % / % / % | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11e-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11e-fp16/pretrained-ImageNet) |
+| F | MobileNetV2-modd11-r     | 3CH 320x320 | 90K | 0.91 MB | 6.950 fps | % / % / % | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11f-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11f-fp16/pretrained-ImageNet) |
+| G | MobileNetV2-modd11-r     | 3CH 320x320 | 90K | 0.49 MB | 12.560 fps | % / % / % | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11g-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11g-fp16/pretrained-ImageNet) |
+| I | MobileNetV2-modd11-r     | 3CH 320x320 | 90K | 0.34 MB | 16.500 fps | % / % / % | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11i-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11i-fp16/pretrained-ImageNet) |
+| J | MobileNetV2-modd11-r     | 3CH 320x320 | 90K | 0.22 MB | 19.290 fps | % / % / % | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11j-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11j-fp16/pretrained-ImageNet) |
+| P | MobileNetV2-modd11-r     | 3CH 320x320 | 90K | 0.16 MB | 21.960 fps | % / % / % | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11p-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11p-fp16/pretrained-ImageNet) |
 
 ### Naming Convention
 The following naming convention is used for models:
