@@ -24,4 +24,6 @@ datasets/nirfaces/images/Sub10_frame_0.jpg
 
 # Example Bounding Box Output
 
+![Bounding Box Output](example_output.png)
+
 
