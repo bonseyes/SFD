@@ -45,6 +45,7 @@ import math
 os.environ["CUDA_VISIBLE_DEVICES"]='0'
 torch.cuda.set_device(0)
 
+# Download model here : https://drive.google.com/open?id=1rXwlqaWaTgsFcNaNlp9GE2Vxq4_G6Zge
 print('Loading model..')
 ssd_net = build_sfd('test', 640, 2)
 net = ssd_net
