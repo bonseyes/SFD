@@ -1,36 +1,107 @@
 # SFD Trained Models
 This folder contains training scripts and trained models for various datasets for different modified MobileNetV2 architectures.
 
-## MobileNetV2-mod11 with NVIDIA-Caffe FP16
+```
+train
+│   README.md  
+│
+└───MobileNetV2-mod11-l
+│   │   README.md
+│   │
+│   └───ImageNet
+│       │   *.caffemodel
+│       │   *.prototxt
+│       │   *.sh
+│       │   ...
+│   └───COCO
+│       │   *.caffemodel
+│       │   *.prototxt
+│       │   *.sh
+│       │   ...
+│   └───Widerface
+│       │   *.caffemodel
+│       │   *.prototxt
+│       │   *.sh
+│       │   ...
+│   └───WiderfaceAugmented
+│       │   *.caffemodel
+│       │   *.prototxt
+│       │   *.sh
+│       │   ...
+│   └───Pedestrian
+│       │   *.caffemodel
+│       │   *.prototxt
+│       │   *.sh
+│       │   ...
+│   
+└───MobileNetV2-modd11-X
+    │   ...
+```
 
-### Baseline
+## ImageNet
 
-The models are trained using WiderFace dataset without pre-training
+The models are trained using ImageNet dataset without pre-training using NVIDIA-Caffe FP16.
 
-| ID | Model Name | Input | Iter | Size (MB)   | 1xARM A53 Speed | Wider Accuracy (E/M/H) | ImageNet (Top-5/ Top-1) | Download | Pretraining (Imagenet) |
-| ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| -------------- | ----------------| --------------| 
-| N | MobileNetV2-modd11-n     | 3CH 320x320 | 90K | 7.29 MB | 0.360 fps | 88.84% / 88.16% / 78.93% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11n-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11n-fp16/pretrained-ImageNet) |
-| M | MobileNetV2-modd11-m     | 3CH 320x320 | 90K | 4.42 MB | 0.620 fps | 88.57% / 86.45% / 75.56% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11m-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11m-fp16/pretrained-ImageNet) |
-| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | 3.61 MB | 1.160 fps | 88.44% / 86.23% / 75.16% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16/pretrained-ImageNet) |
-| R | MobileNetV2-modd11-r     | 3CH 320x320 | 90K | 2.03 MB | 2.610 fps | 84.03% / 80.45% / 65.45% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11r-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11r-fp16/pretrained-ImageNet) |
-| E | MobileNetV2-modd11-e     | 3CH 320x320 | 90K | 1.06 MB | 4.680 fps | 80.79% / 76.79% / 59.0% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11e-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11e-fp16/pretrained-ImageNet) |
-| F | MobileNetV2-modd11-f     | 3CH 320x320 | 90K | 0.91 MB | 6.950 fps | 78.2% / 74.12% / 53.39% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11f-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11f-fp16/pretrained-ImageNet) |
-| G | MobileNetV2-modd11-g     | 3CH 320x320 | 90K | 0.49 MB | 12.560 fps | 75.03% / 70.15% / 46.46% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11g-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11g-fp16/pretrained-ImageNet) |
-| I | MobileNetV2-modd11-i     | 3CH 320x320 | 90K | 0.34 MB | 16.500 fps | 70.15% / 65.82% / 40.66% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11i-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11i-fp16/pretrained-ImageNet) |
-| J | MobileNetV2-modd11-j     | 3CH 320x320 | 90K | 0.22 MB | 19.290 fps | 67.63% / 62.61% / 36.51% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11j-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11j-fp16/pretrained-ImageNet) |
-| P | MobileNetV2-modd11-p     | 3CH 320x320 | 90K | 0.16 MB | 21.960 fps | 59.57% / 53.09% / 28.0% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11p-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11p-fp16/pretrained-ImageNet) |
+| ID | Model Name | Input | Iter | Size (MB)   | 1xARM A53 Speed | ImageNet (Top-5/ Top-1) | Download |
+| ------------- | ------------- | ------------- | ------------- |-------------| --------------| -------------- | ----------------|
+| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | 3.61 MB | 1.160 fps | --% / --% | |
+| E | MobileNetV2-modd11-e     | 3CH 320x320 | 90K | 1.06 MB | 4.680 fps | --% / --% | |
+| F | MobileNetV2-modd11-f     | 3CH 320x320 | 90K | 0.91 MB | 6.950 fps | --% / --% | |
+| G | MobileNetV2-modd11-g     | 3CH 320x320 | 90K | 0.49 MB | 12.560 fps | --% / --% | |
+| I | MobileNetV2-modd11-i     | 3CH 320x320 | 90K | 0.34 MB | 16.500 fps | --% / --% | |
 
-### ImageNet pretraining and Widerface data augmentation
+### COCO
 
-The models are trained using WiderFace dataset without pre-training
+The models are trained using COCO dataset with ImageNet pre-training using NVIDIA-Caffe FP16.
 
-| ID | Model Name | Input | Iter | Size (MB)   | 1xARM A53 Speed | Wider Accuracy (E/M/H) | ImageNet (Top-5/ Top-1) | Download | Pretraining (Imagenet) |
-| ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| -------------- | ----------------| --------------| 
-| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | 3.61 MB | 1.160 fps | 88.44% / 86.23% / 75.16% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11l-fp16/pretrained-ImageNet) |
-| E | MobileNetV2-modd11-e     | 3CH 320x320 | 90K | 1.06 MB | 4.680 fps | 80.79% / 76.79% / 59.0% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11e-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11e-fp16/pretrained-ImageNet) |
-| F | MobileNetV2-modd11-f     | 3CH 320x320 | 90K | 0.91 MB | 6.950 fps | 78.2% / 74.12% / 53.39% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11f-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11f-fp16/pretrained-ImageNet) |
-| G | MobileNetV2-modd11-g     | 3CH 320x320 | 90K | 0.49 MB | 12.560 fps | 75.03% / 70.15% / 46.46% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11g-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11g-fp16/pretrained-ImageNet) |
-| I | MobileNetV2-modd11-i     | 3CH 320x320 | 90K | 0.34 MB | 16.500 fps | 70.15% / 65.82% / 40.66% | --% / --% | [link-det](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11i-fp16) | [link-cls](https://github.com/bonseyes/SFD/tree/master/models/SFD-320x320-MobileNetV2-mod11i-fp16/pretrained-ImageNet) |
+| ID | Model Name | Input | Iter | Size (MB)   | 1xARM A53 Speed | MAP | Download |
+| ------------- | ------------- | ------------- | ------------- |-------------| --------------| -------------- | ----------------|
+| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | 3.61 MB | 1.160 fps | --% | |
+| E | MobileNetV2-modd11-e     | 3CH 320x320 | 90K | 1.06 MB | 4.680 fps | --% | |
+| F | MobileNetV2-modd11-f     | 3CH 320x320 | 90K | 0.91 MB | 6.950 fps | --% | |
+| G | MobileNetV2-modd11-g     | 3CH 320x320 | 90K | 0.49 MB | 12.560 fps | --% | |
+| I | MobileNetV2-modd11-i     | 3CH 320x320 | 90K | 0.34 MB | 16.500 fps | --% | |
+
+## Widerface
+
+The models are trained using WiderFace dataset without pre-training using NVIDIA-Caffe FP16.
+
+| ID | Model Name | Input | Iter | Size (MB)   | 1xARM A53 Speed | Wider Accuracy (E/M/H) | Download |
+| ------------- | ------------- | ------------- | ------------- |-------------|-------------| --------------| --------------| 
+| N | MobileNetV2-modd11-n     | 3CH 320x320 | 90K | 7.29 MB | 0.360 fps | 88.84% / 88.16% / 78.93% | |
+| M | MobileNetV2-modd11-m     | 3CH 320x320 | 90K | 4.42 MB | 0.620 fps | 88.57% / 86.45% / 75.56% | |
+| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | 3.61 MB | 1.160 fps | 86.74% / 84.57% / 73.15% | |
+| R | MobileNetV2-modd11-r     | 3CH 320x320 | 90K | 2.03 MB | 2.610 fps | 84.03% / 80.45% / 65.45% | |
+| E | MobileNetV2-modd11-e     | 3CH 320x320 | 90K | 1.06 MB | 4.680 fps | 80.79% / 76.79% / 59.0% | |
+| F | MobileNetV2-modd11-f     | 3CH 320x320 | 90K | 0.91 MB | 6.950 fps | 78.2% / 74.12% / 53.39% | |
+| G | MobileNetV2-modd11-g     | 3CH 320x320 | 90K | 0.49 MB | 12.560 fps | 75.03% / 70.15% / 46.46% | |
+| I | MobileNetV2-modd11-i     | 3CH 320x320 | 90K | 0.34 MB | 16.500 fps | 70.15% / 65.82% / 40.66% | |
+| J | MobileNetV2-modd11-j     | 3CH 320x320 | 90K | 0.22 MB | 19.290 fps | 67.63% / 62.61% / 36.51% | |
+| P | MobileNetV2-modd11-p     | 3CH 320x320 | 90K | 0.16 MB | 21.960 fps | 59.57% / 53.09% / 28.0% | |
+
+### Widerface Augmented
+
+The models are trained using data augmented WiderFace dataset with pre-training using ImageNet using NVIDIA-Caffe FP16.
+
+| ID | Model Name | Input | Iter | Size (MB)   | 1xARM A53 Speed | Wider Accuracy (E/M/H) | Download | 
+| ------------- | ------------- | ------------- | ------------- |-------------|-------------| -------------- | ----------------|
+| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | 3.61 MB | 1.160 fps | 88.44% / 86.23% / 75.16% | |
+| E | MobileNetV2-modd11-e     | 3CH 320x320 | 90K | 1.06 MB | 4.680 fps | 82.03% / 78.35% / 61.21% | |
+| F | MobileNetV2-modd11-f     | 3CH 320x320 | 90K | 0.91 MB | 6.950 fps | 80.57% / 75.87% / 56.1% | |
+| G | MobileNetV2-modd11-g     | 3CH 320x320 | 90K | 0.49 MB | 12.560 fps | 69.03% / 65.83% / 43.13% | |
+| I | MobileNetV2-modd11-i     | 3CH 320x320 | 90K | 0.34 MB | 16.500 fps | --% / --% / --% | |
+
+## Pedestrian
+
+The models are trained using Pedestrian dataset with pre-training using ImageNet using NVIDIA-Caffe FP16.
+
+| ID | Model Name | Input | Iter | Size (MB)   | 1xARM A53 Speed | Accuracy | Download | 
+| ------------- | ------------- | ------------- | ------------- |-------------|-------------| -------------- | ----------------|
+| L | MobileNetV2-modd11-l     | 3CH 320x320 | 90K | 3.61 MB | 1.160 fps | --% | |
+| E | MobileNetV2-modd11-e     | 3CH 320x320 | 90K | 1.06 MB | 4.680 fps | --% | |
+| F | MobileNetV2-modd11-f     | 3CH 320x320 | 90K | 0.91 MB | 6.950 fps | --% | |
+| G | MobileNetV2-modd11-g     | 3CH 320x320 | 90K | 0.49 MB | 12.560 fps | --% | |
+| I | MobileNetV2-modd11-i     | 3CH 320x320 | 90K | 0.34 MB | 16.500 fps | --% | |
 
 ### Naming Convention
 The following naming convention is used for models:
