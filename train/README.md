@@ -7,31 +7,47 @@ train
 │
 └───mobilenetv2-mod11-[ID]
 │   │   README.md
+│   │   model_mobilenetv2_mod11_[ID].py
 │   │
 │   └───imagenet
 │       │   *.caffemodel
 │       │   *.prototxt
-│       │   *.sh
+│       │   generate_imagenet.py
+│       │   generate_model_fp16.py
+│       │   start_training.sh
+│       │   start_testing.sh
 │       │   ...
 │   └───coco
 │       │   *.caffemodel
 │       │   *.prototxt
-│       │   *.sh
+│       │   generate_coco.py
+│       │   generate_model_fp16.py
+│       │   start_training.sh
+│       │   start_testing.sh
 │       │   ...
 │   └───widerface
 │       │   *.caffemodel
 │       │   *.prototxt
-│       │   *.sh
+│       │   generate_widerface.py
+│       │   generate_model_fp16.py
+│       │   start_training.sh
+│       │   start_testing.sh
 │       │   ...
 │   └───widerfaceaugmented
 │       │   *.caffemodel
 │       │   *.prototxt
-│       │   *.sh
+│       │   generate_widerface_aug.py
+│       │   generate_model_fp16.py
+│       │   start_training.sh
+│       │   start_testing.sh
 │       │   ...
 │   └───pedestrian
 │       │   *.caffemodel
 │       │   *.prototxt
-│       │   *.sh
+│       │   generate_pedestrian.py
+│       │   generate_model_fp16.py
+│       │   start_training.sh
+│       │   start_testing.sh
 │       │   ...
 │   
 └───...
