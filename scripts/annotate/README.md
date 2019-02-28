@@ -9,3 +9,14 @@ Automatically annotate face bounding boxes using PyramidBox CNN face detector on
 3. Run process_dataset.py on extracted frames from videos (with or without CUDA)
 
 ```python process_dataset.py --image_dir datasets/nirfaces/images --out_dir datasets/nirfaces/annotations --no-cuda --no-imshow```
+
+# Annotation Output
+
+The output annotation for each image is stored in a txt file in widerface format:
+
+```datasets/nirfaces/images/Sub10_frame_0.jpg
+1
+249.3 135.1 196.8 252.4 1.000```
+
+# Example Bounding Box Output
+
