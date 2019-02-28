@@ -52,12 +52,24 @@ train
 | J | mobilenetv2-modd11-j     | 3CH 320x320 | 0.22 MB | 19.290 fps |
 | P | mobilenetv2-modd11-p     | 3CH 320x320 | 0.16 MB | 21.960 fps |
 
+### ImageNet
+
+The models are trained using ImageNet dataset with-out pre-training using NVIDIA-Caffe FP16.
+
+| ID | Model Name | Iterations | Accuracy | Download |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| L | mobilenetv2-modd11-l     | --K | --% | |
+| E | mobilenetv2-modd11-e     | --K | --% | |
+| F | mobilenetv2-modd11-f     | --K | --% | |
+| G | mobilenetv2-modd11-g     | --K | --% | |
+| I | mobilenetv2-modd11-i     | --K | --% | |
+
 ### COCO
 
 The models are trained using COCO dataset with ImageNet pre-training using NVIDIA-Caffe FP16.
 
 | ID | Model Name | Iterations | Accuracy | Download |
-| ------------- | ------------- | ------------- | ------------- |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
 | L | mobilenetv2-modd11-l     | --K | --% | |
 | E | mobilenetv2-modd11-e     | --K | --% | |
 | F | mobilenetv2-modd11-f     | --K | --% | |
