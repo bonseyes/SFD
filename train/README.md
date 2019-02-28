@@ -57,16 +57,16 @@ train
 
 | ID | Model Name | Input | Size (MB)   | 1xARM A53 FPS |
 | ------------- | ------------- | ------------- | ------------- |-------------|
-| N | mobilenetv2-modd11-n     | 3CH 320x320 | 7.29 MB | 0.360 fps |
-| M | mobilenetv2-modd11-m     | 3CH 320x320 | 4.42 MB | 0.620 fps |
-| L | mobilenetv2-modd11-l     | 3CH 320x320 | 3.61 MB | 1.160 fps |
-| R | mobilenetv2-modd11-r     | 3CH 320x320 | 2.03 MB | 2.610 fps |
-| E | mobilenetv2-modd11-e     | 3CH 320x320 | 1.06 MB | 4.680 fps |
-| F | mobilenetv2-modd11-f     | 3CH 320x320 | 0.91 MB | 6.950 fps |
-| G | mobilenetv2-modd11-g     | 3CH 320x320 | 0.49 MB | 12.560 fps |
-| I | mobilenetv2-modd11-i     | 3CH 320x320 | 0.34 MB | 16.500 fps |
-| J | mobilenetv2-modd11-j     | 3CH 320x320 | 0.22 MB | 19.290 fps |
-| P | mobilenetv2-modd11-p     | 3CH 320x320 | 0.16 MB | 21.960 fps |
+| N | mobilenetv2-mod11-n     | 3CH 320x320 | 7.29 MB | 0.360 fps |
+| M | mobilenetv2-mod11-m     | 3CH 320x320 | 4.42 MB | 0.620 fps |
+| L | mobilenetv2-mod11-l     | 3CH 320x320 | 3.61 MB | 1.160 fps |
+| R | mobilenetv2-mod11-r     | 3CH 320x320 | 2.03 MB | 2.610 fps |
+| E | mobilenetv2-mod11-e     | 3CH 320x320 | 1.06 MB | 4.680 fps |
+| F | mobilenetv2-mod11-f     | 3CH 320x320 | 0.91 MB | 6.950 fps |
+| G | mobilenetv2-mod11-g     | 3CH 320x320 | 0.49 MB | 12.560 fps |
+| I | mobilenetv2-mod11-i     | 3CH 320x320 | 0.34 MB | 16.500 fps |
+| J | mobilenetv2-mod11-j     | 3CH 320x320 | 0.22 MB | 19.290 fps |
+| P | mobilenetv2-mod11-p     | 3CH 320x320 | 0.16 MB | 21.960 fps |
 
 ### ImageNet
 
