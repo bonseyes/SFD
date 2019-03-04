@@ -34,6 +34,9 @@ venv/
 *.tmp
 ~*
 
+# models
+Res50_pyramid.pth
+
 # Datasets
 AFW/
 FDDB/
