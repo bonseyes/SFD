@@ -4,7 +4,7 @@
 -> Version of AMI (Deep Learning Base AMI (Ubuntu) Version 3.0 (ami-07c2a77e)  <br />
 -> Version of Amazon Instance > p3.2xlarge  <br />
 
-- To train with FP16 option, we need NVIDIA-Caffe, The version that has the changes of SFD can be found here:https://github.com/bonseyes/caffe-NVIDIA , don't forgert to checkout to the correct brance, now it is "SFD-0.17.0" () <br />
+- To train with FP16 option, we need NVIDIA-Caffe, The version that has the changes of SFD can be found here:https://github.com/bonseyes/caffe-NVIDIA , don't forgert to checkout to the correct brance, now it is "SFD-0.17.1" <br />
 - SSD installation steps and notes can be found in the directory: docs/SSD-install.md, Make sure to include $CAFFE_ROOT/python to your PYTHONPATH
 
 # Preparing training data
