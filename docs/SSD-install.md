@@ -10,14 +10,15 @@
     ```
 
     We will call the directory that you cloned Caffe into `$CAFFE_ROOT`
+    If you need to use SFD with the modifications, use this repo for caffe-SSD: https://github.com/bonseyes/caffe-SSD and this repo for caffe-NVIDIA: https://github.com/bonseyes/caffe-NVIDIA ... Don't forgert to checkout to the proper branch. 
 
 2. Make sure you have cmake, make, gcc-6 (or lower) installed. We recommend to use CUDA 9.0. If you choose that version, we recommend that you also install CUDNN version 7.0.4, but other versions might work as well.
 
-3. Follow the official [Caffe instructions](http://caffe.berkeleyvision.org/installation.html) to install all the required dependencies in your system in order to compile Caffe from scratch.
+3. Follow the official [Caffe instructions](http://caffe.berkeleyvision.org/installation.html) to install all the required dependencies in your system in order to compile Caffe from scratch. The installation process and dependencies for caffe-SSD and caffe-NVIDIA are the same. 
 
 4. You can compile Caffe either using Make or CMake. We will use CMake in this guide as it is faster to configure. You can also use `ccmake` to define the libraries in an interactive way. Before you execute `cmake`, make the following changes:
 
-    - Change a line in a file if you use CUDA 9.0. Inside the folder `cmake` that exists in `$CAFFE_ROOT`, modify the file: `Cuda.cmake` as follows
+    - If you are using caffe-SSD, change a line in a file if you use CUDA 9.0. Inside the folder `cmake` that exists in `$CAFFE_ROOT`, modify the file: `Cuda.cmake` as follows
         remove this line: `set(Caffe_known_gpu_archs "20 21(20) 30 35 50 52 61")`
         and put instead: `set(Caffe_known_gpu_archs "30 35 50 52 61")`
 
@@ -38,7 +39,7 @@
     #
     # Press "t" to see more options, and then change:
     #
-    # CUDA_ARCH_NAME:  All
+    # CUDA_ARCH_NAME:  AUTO
     #
     # Then press "c" again, until this message appear in the instructions down: "Press [g] to generate and exit"
     # Then press "g"
