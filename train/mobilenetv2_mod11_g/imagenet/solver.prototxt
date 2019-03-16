@@ -1,0 +1,32 @@
+train_net: "train.prototxt"
+test_net: "test.prototxt"
+test_iter: 5000
+test_interval: 1000 
+# lr 0.1 from https://github.com/shicai/MobileNet-Caffe/issues/1
+# lr 0.045 from paper (using tensorflow)
+base_lr: 0.00045
+display: 50
+max_iter: 2000000
+lr_policy: "step"
+gamma: 0.98
+#stepsize: 16014 # 1281167 train images over batches of 80 images
+#stepsize: 42706 # 1281167 train images over batches of 60 images
+stepsize: 64058 # 1281167 train images over batches of 40 images
+weight_decay: 0.00004
+snapshot: 25000
+snapshot_prefix: "snapshots/MobilenetV2-mod11g-ImageNet-caffeSSD"
+solver_mode: GPU
+device_id: 0
+debug_info: false
+snapshot_after_train: true
+test_initialization: true
+average_loss: 5
+#stepvalue: 80000
+#stepvalue: 90000
+#stepvalue: 100000
+#iter_size: 10
+type: "RMSProp"
+#eval_type: "detection"
+#ap_version: "11point"
+
+# Hyperparameters based on Section 6.1 of https://arxiv.org/pdf/1801.04381.pdf
