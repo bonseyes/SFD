@@ -1,4 +1,4 @@
-# SFD Trained Models
+# SFD Object Detection Trained Models
 This folder contains training scripts and trained models for various datasets for different modified MobileNetV2 architectures.
 
 ```
@@ -58,15 +58,11 @@ train
 | ID | Model Name | Input | Size (MB)   | 1xARM A53 FPS |
 | ------------- | ------------- | ------------- | ------------- |-------------|
 | N | mobilenetv2-mod11-n     | 3CH 320x320 | 7.29 MB | 0.360 fps |
-| M | mobilenetv2-mod11-m     | 3CH 320x320 | 4.42 MB | 0.620 fps |
 | L | mobilenetv2-mod11-l     | 3CH 320x320 | 3.61 MB | 1.160 fps |
-| R | mobilenetv2-mod11-r     | 3CH 320x320 | 2.03 MB | 2.610 fps |
 | E | mobilenetv2-mod11-e     | 3CH 320x320 | 1.06 MB | 4.680 fps |
 | F | mobilenetv2-mod11-f     | 3CH 320x320 | 0.91 MB | 6.950 fps |
 | G | mobilenetv2-mod11-g     | 3CH 320x320 | 0.49 MB | 12.560 fps |
 | I | mobilenetv2-mod11-i     | 3CH 320x320 | 0.34 MB | 16.500 fps |
-| J | mobilenetv2-mod11-j     | 3CH 320x320 | 0.22 MB | 19.290 fps |
-| P | mobilenetv2-mod11-p     | 3CH 320x320 | 0.16 MB | 21.960 fps |
 
 ### ImageNet
 
@@ -74,6 +70,7 @@ The models are trained using ImageNet dataset with-out pre-training using NVIDIA
 
 | ID | Model Name | Iterations | Accuracy | Download |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
+| N | mobilenetv2-mod11-n     | --K | --% | |
 | L | mobilenetv2-mod11-l     | --K | --% | |
 | E | mobilenetv2-mod11-e     | --K | --% | |
 | F | mobilenetv2-mod11-f     | --K | --% | |
@@ -86,6 +83,7 @@ The models are trained using COCO dataset with ImageNet pre-training using NVIDI
 
 | ID | Model Name | Iterations | Accuracy | Download |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
+| N | mobilenetv2-mod11-n     | --K | --% | |
 | L | mobilenetv2-mod11-l     | --K | --% | |
 | E | mobilenetv2-mod11-e     | --K | --% | |
 | F | mobilenetv2-mod11-f     | --K | --% | |
@@ -97,7 +95,7 @@ The models are trained using COCO dataset with ImageNet pre-training using NVIDI
 The models are trained using WiderFace dataset without pre-training using NVIDIA-Caffe FP16.
 
 | ID | Model Name | Iterations | Accuracy (E/M/H) | Download |
-| ------------- | ------------- | ------------- | ------------- |-------------| 
+| ------------- | ------------- | ------------- | ------------- |-------------|
 | N | mobilenetv2-mod11-n     | 90K | 88.84% / 88.16% / 78.93% | |
 | M | mobilenetv2-mod11-m     | 90K | 88.57% / 86.45% / 75.56% | |
 | L | mobilenetv2-mod11-l     | 90K | 86.74% / 84.57% / 73.15% | |
@@ -115,9 +113,10 @@ The models are trained using data augmented WiderFace dataset with pre-training 
 
 | ID | Model Name | Iterations | Accuracy (E/M/H) | Download | 
 | ------------- | ------------- | ------------- | ------------- |-------------|
+| N | mobilenetv2-mod11-n     | 90K | --.--% / --.--% / --.--% | |
 | L | mobilenetv2-mod11-l     | 90K | 88.44% / 86.23% / 75.16% | |
 | E | mobilenetv2-mod11-e     | 90K | 82.03% / 78.35% / 61.21% | |
-| F | mobilenetv2-mod11-f     | 90K | 80.57% / 75.87% / 56.1% | |
+| F | mobilenetv2-mod11-f     | 90K | 80.57% / 75.87% / 56.1% | |-
 | G | mobilenetv2-mod11-g     | 90K | 69.03% / 65.83% / 43.13% | |
 | I | mobilenetv2-mod11-i     | 90K | --% / --% / --% | |
 
@@ -127,6 +126,7 @@ The models are trained using Pedestrian dataset with pre-training using ImageNet
 
 | ID | Model Name | Iterations | Accuracy (E/M/H) | Download | 
 | ------------- | ------------- | ------------- | ------------- |-------------|
+| N | mobilenetv2-mod11-n     | 90K | --.--% / --.--% / --.--% | |
 | L | mobilenetv2-mod11-l     | 90K | --% / --% / --% | |
 | E | mobilenetv2-mod11-e     | 90K | --% / --% / --% | |
 | F | mobilenetv2-mod11-f     | 90K | --% / --% / --% | |
