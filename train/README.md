@@ -77,7 +77,7 @@ The models are trained using ImageNet dataset with-out pre-training using NVIDIA
 | G | mobilenetv2-mod11-g     | --K | --% | |
 | I | mobilenetv2-mod11-i     | --K | --% | |
 
-### COCO
+### Multi-Object Detection 81 Classes : COCO
 
 The models are trained using COCO dataset with ImageNet pre-training using NVIDIA-Caffe FP16.
 
@@ -90,24 +90,20 @@ The models are trained using COCO dataset with ImageNet pre-training using NVIDI
 | G | mobilenetv2-mod11-g     | --K | --% | |
 | I | mobilenetv2-mod11-i     | --K | --% | |
 
-## Widerface
+## Single-Object Detection : Widerface
 
 The models are trained using WiderFace dataset without pre-training using NVIDIA-Caffe FP16.
 
 | ID | Model Name | Iterations | Accuracy (E/M/H) | Download |
 | ------------- | ------------- | ------------- | ------------- |-------------|
 | N | mobilenetv2-mod11-n     | 90K | 88.84% / 88.16% / 78.93% | |
-| M | mobilenetv2-mod11-m     | 90K | 88.57% / 86.45% / 75.56% | |
 | L | mobilenetv2-mod11-l     | 90K | 86.74% / 84.57% / 73.15% | |
-| R | mobilenetv2-mod11-r     | 90K | 84.03% / 80.45% / 65.45% | |
 | E | mobilenetv2-mod11-e     | 90K | 80.79% / 76.79% / 59.0% | |
 | F | mobilenetv2-mod11-f     | 90K | 78.2% / 74.12% / 53.39% | |
 | G | mobilenetv2-mod11-g     | 90K | 75.03% / 70.15% / 46.46% | |
 | I | mobilenetv2-mod11-i     | 90K | 70.15% / 65.82% / 40.66% | |
-| J | mobilenetv2-mod11-j     | 90K | 67.63% / 62.61% / 36.51% | |
-| P | mobilenetv2-mod11-p     | 90K | 59.57% / 53.09% / 28.0% | |
 
-### Widerface Augmented
+###  Single-Object Detection : Widerface Data Augmented
 
 The models are trained using data augmented WiderFace dataset with pre-training using ImageNet using NVIDIA-Caffe FP16.
 
@@ -120,7 +116,7 @@ The models are trained using data augmented WiderFace dataset with pre-training 
 | G | mobilenetv2-mod11-g     | 90K | 69.03% / 65.83% / 43.13% | |
 | I | mobilenetv2-mod11-i     | 90K | --% / --% / --% | |
 
-## Pedestrian
+## Single-Object Detection : Pedestrian
 
 The models are trained using Pedestrian dataset with pre-training using ImageNet using NVIDIA-Caffe FP16.
 
