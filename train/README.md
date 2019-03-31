@@ -71,11 +71,24 @@ The models are trained using ImageNet dataset with-out pre-training using NVIDIA
 | ID | Model Name | Iterations | Accuracy: Top-1/Top-5  | Download |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | N | mobilenetv2-mod11-n     | --K | --% | |
-| L | mobilenetv2-mod11-l     | 850K | 48% / 74% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_l/imagenet) |
+| L | mobilenetv2-mod11-l     | 850K | 48.0% / 74.0% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_l/imagenet) |
 | E | mobilenetv2-mod11-e     | 525K | 31.1% / 56.9% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_e/imagenet) |
 | F | mobilenetv2-mod11-f     | 525K | 26.4% / 50.5% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_f/imagenet) |
-| G | mobilenetv2-mod11-g     | 550K | 21% / 43.9% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_g/imagenet) |
+| G | mobilenetv2-mod11-g     | 550K | 21.0% / 43.9% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_g/imagenet) |
 | I | mobilenetv2-mod11-i     | 550K | 14.1% / 32.5% | |
+
+### Multi-Object Detection 23 Classes : nuScenes
+
+The models are trained using nuScenes dataset with ImageNet pre-training using NVIDIA-Caffe FP16.
+
+| ID | Model Name | Iterations | Accuracy | Download |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| N | mobilenetv2-mod11-n     | --K | --% | |
+| L | mobilenetv2-mod11-l     | --K | --% | |
+| E | mobilenetv2-mod11-e     | --K | --% | |
+| F | mobilenetv2-mod11-f     | --K | --% | |
+| G | mobilenetv2-mod11-g     | --K | --% | |
+| I | mobilenetv2-mod11-i     | --K | --% | |
 
 ### Multi-Object Detection 81 Classes : COCO
 
