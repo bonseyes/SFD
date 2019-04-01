@@ -15,4 +15,4 @@ To download nuScenes you need to go to the [Download page](https://www.nuscenes.
 Step 1: Click [Sign Up](https://www.nuscenes.org/sign-up)
 Step 2: Complete the form and login with your ID and PASS you have just created. 
 Step 3: Now you can download the subset of dataset that you are interested in.  
-![Alt text](assets/nuscene1.png)
+![Alt text](assets/nuscene1.PNG)
