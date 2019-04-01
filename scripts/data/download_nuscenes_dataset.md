@@ -15,4 +15,15 @@ To download nuScenes you need to go to the [Download page](https://www.nuscenes.
 Step 1: Click [Sign Up](https://www.nuscenes.org/sign-up)
 Step 2: Complete the form and login with your ID and PASS you have just created. 
 Step 3: Now you can download the subset of dataset that you are interested in.  
+  
 ![Alt text](assets/nuscene1.PNG)
+  
+For the devkit to work you will need to download all archives. Please unpack the archives to the /data/sets/nuscenes folder *without* overwriting folders that occur in multiple archives. Eventually you should have the following folder structure:
+
+```
+/data/sets/nuscenes
+    samples	-	Sensor data for keyframes.
+    sweeps	-	Sensor data for intermediate frames.
+    maps	-	Large image files (~500 Gigapixel) that depict the drivable surface and sidewalks in the scene.
+    v1.0-*	-	JSON tables that include all the meta data and annotations. Each split (trainval, test, mini) is provided in a separate folder.
+```
