@@ -109,12 +109,12 @@ The models are trained using WiderFace dataset without pre-training using NVIDIA
 
 | ID | Model Name | Iterations | Accuracy (E/M/H) | Download |
 | ------------- | ------------- | ------------- | ------------- |-------------|
-| N | mobilenetv2-mod11-n     | 90K | 88.84% / 88.16% / 78.93% | |
+| N | mobilenetv2-mod11-n     | 90K | 88.84% / 88.16% / 78.93% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_n/widerface) |
 | L | mobilenetv2-mod11-l     | 90K | 86.74% / 84.57% / 73.15% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_l/widerface) |
-| E | mobilenetv2-mod11-e     | 90K | 80.79% / 76.79% / 59.0% | |
+| E | mobilenetv2-mod11-e     | 90K | 80.79% / 76.79% / 59.0% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_e/widerface) |
 | F | mobilenetv2-mod11-f     | 90K | 78.2% / 74.12% / 53.39% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_f/widerface)|
 | G | mobilenetv2-mod11-g     | 90K | 75.03% / 70.15% / 46.46% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_g/widerface) |
-| I | mobilenetv2-mod11-i     | 90K | 70.15% / 65.82% / 40.66% | |
+| I | mobilenetv2-mod11-i     | 90K | 70.15% / 65.82% / 40.66% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_i/widerface) |
 
 ###  Single-Object Detection : Widerface Data Augmented
 
@@ -124,10 +124,10 @@ The models are trained using data augmented WiderFace dataset with pre-training 
 | ------------- | ------------- | ------------- | ------------- |-------------|
 | N | mobilenetv2-mod11-n     | 90K | --.--% / --.--% / --.--% | |
 | L | mobilenetv2-mod11-l     | 90K | 88.44% / 86.23% / 75.16% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_l/widerfaceaugmented) |
-| E | mobilenetv2-mod11-e     | 90K | 82.03% / 78.35% / 61.21% | |
+| E | mobilenetv2-mod11-e     | 90K | 82.03% / 78.35% / 61.21% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_e/widerfaceaugmented) |
 | F | mobilenetv2-mod11-f     | 90K | 80.57% / 75.87% / 56.1% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_f/widerfaceaugmented) |-
 | G | mobilenetv2-mod11-g     | 90K | 69.03% / 65.83% / 43.13% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_g/widerfaceaugmented) |
-| I | mobilenetv2-mod11-i     | 90K | --% / --% / --% | |
+| I | mobilenetv2-mod11-i     | 90K | 66.47% / 63.41% / 37.63% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_i/widerfaceaugmented) |
 
 ## Single-Object Detection : Pedestrian
 
