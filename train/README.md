@@ -122,7 +122,7 @@ The models are trained using data augmented WiderFace dataset with pre-training 
 
 | ID | Model Name | Iterations | Accuracy (E/M/H) | Download | 
 | ------------- | ------------- | ------------- | ------------- |-------------|
-| N | mobilenetv2-mod11-n     | 90K | --.--% / --.--% / --.--% | |
+| N | mobilenetv2-mod11-n     | 90K | 89.87% / 88.52% / 78.54% | link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_n/widerfaceaugmented) |
 | L | mobilenetv2-mod11-l     | 90K | 88.44% / 86.23% / 75.16% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_l/widerfaceaugmented) |
 | E | mobilenetv2-mod11-e     | 90K | 82.03% / 78.35% / 61.21% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_e/widerfaceaugmented) |
 | F | mobilenetv2-mod11-f     | 90K | 80.57% / 75.87% / 56.1% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_f/widerfaceaugmented) |-
