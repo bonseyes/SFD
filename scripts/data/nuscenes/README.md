@@ -1,4 +1,4 @@
-# NUSCENES IMAGE ONLY DATASET DOWNLAD AND USING INSTRUCTIONS
+# NUSCENES Camera Dataset Download and using Instructions
 Here we describe how to download NUSCENES camera only datasets. We also provide easy python script to show how to split data into train/val set, how to use specific version among "v1.0-trainval", "v1.0-test", "v1.0-mini" and how to get annotation such as 3d bounding box and labels. 
 
 ## Dataset download
@@ -32,7 +32,7 @@ cd script/data/nuscenes/
 python test.py dataroot="$SFD_ROOT/NUSCENES_DATA_ROOT/NUSCENES/NUSCENES_TRAINVAL_DATASET_ROOT" version="v1.0-trainval" token="CAM_BACK"
 ```
 
-# NUSCENES FULL DATA DOWNLOAD INSTRUCTIONS 
+# NUSCENES Full Dataset Download Instructions
 
 ## About nuScenes [https://www.nuscenes.org/]
 The nuScenes dataset is a large-scale autonomous driving dataset.  
