@@ -98,10 +98,10 @@ The models are trained using COCO dataset with ImageNet pre-training using NVIDI
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | N | mobilenetv2-mod11-n     | 150K | 19.6% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_n/coco) |
 | L | mobilenetv2-mod11-l     | 150K | 17.9% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_l/coco) |
-| E | mobilenetv2-mod11-e     | --K | --% | |
+| E | mobilenetv2-mod11-e     | 150K | 10.75% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_e/coco) |
 | F | mobilenetv2-mod11-f     | 150K | 10.1% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_f/coco) |
 | G | mobilenetv2-mod11-g     | 150K | 6.5% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_g/coco) |
-| I | mobilenetv2-mod11-i     | --K | --% | |
+| I | mobilenetv2-mod11-i     | 150K | 5.18% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_i/coco) |
 
 ## Single-Object Detection : Widerface
 
@@ -122,7 +122,7 @@ The models are trained using data augmented WiderFace dataset with pre-training 
 
 | ID | Model Name | Iterations | Accuracy (E/M/H) | Download | 
 | ------------- | ------------- | ------------- | ------------- |-------------|
-| N | mobilenetv2-mod11-n     | 90K | 89.87% / 88.52% / 78.54% | link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_n/widerfaceaugmented) |
+| N | mobilenetv2-mod11-n     | 90K | 89.87% / 88.52% / 78.54% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_n/widerfaceaugmented) |
 | L | mobilenetv2-mod11-l     | 90K | 88.44% / 86.23% / 75.16% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_l/widerfaceaugmented) |
 | E | mobilenetv2-mod11-e     | 90K | 82.03% / 78.35% / 61.21% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_e/widerfaceaugmented) |
 | F | mobilenetv2-mod11-f     | 90K | 80.57% / 75.87% / 56.1% | [link](https://github.com/bonseyes/SFD/tree/master/train/mobilenetv2_mod11_f/widerfaceaugmented) |-
