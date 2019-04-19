@@ -1,4 +1,4 @@
-name: "MobileNetv2-SSD"
+name: "MobileNetv2-SSDLite"
 input: "data"
 input_shape {
   dim: 1
@@ -4281,57 +4281,218 @@ layer {
   top: "layer_19_2_4"
 }
 layer {
-  name: "conv_10/expand__mbox_loc-_"
+  name: "layer_19_1_5"
   type: "Convolution"
-  bottom: "conv_10/expand_"
-  top: "conv_10/expand__mbox_loc-_"
+  bottom: "layer_19_2_4"
+  top: "layer_19_1_5"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
+  }
+  convolution_param {
+    num_output: 128
+    bias_term: false
+    kernel_size: 1
+    weight_filler {
+      type: "msra"
+    }
+  }
+}
+layer {
+  name: "layer_19_1_5/bn"
+  type: "BatchNorm"
+  bottom: "layer_19_1_5"
+  top: "layer_19_1_5"
+  batch_norm_param {
+    eps: 0.001
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "layer_19_1_5/scale"
+  type: "Scale"
+  bottom: "layer_19_1_5"
+  top: "layer_19_1_5"
+  param {
+    lr_mult: 1.0
+    decay_mult: 0.0
   }
   param {
     lr_mult: 2.0
     decay_mult: 0.0
   }
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "layer_19_1_5/relu"
+  type: "ReLU"
+  bottom: "layer_19_1_5"
+  top: "layer_19_1_5"
+}
+layer {
+  name: "layer_19_2_5/depthwise"
+  type: "Convolution"
+  bottom: "layer_19_1_5"
+  top: "layer_19_2_5/depthwise"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
   convolution_param {
-    num_output: 16
+    num_output: 128
+    bias_term: false
     pad: 1
     kernel_size: 3
+    stride: 2
+    group: 128
+    #engine: CAFFE
     weight_filler {
       type: "msra"
     }
+  }
+}
+layer {
+  name: "layer_19_2_5/depthwise/bn"
+  type: "BatchNorm"
+  bottom: "layer_19_2_5/depthwise"
+  top: "layer_19_2_5/depthwise"
+  batch_norm_param {
+    eps: 0.001
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "layer_19_2_5/depthwise/scale"
+  type: "Scale"
+  bottom: "layer_19_2_5/depthwise"
+  top: "layer_19_2_5/depthwise"
+  param {
+    lr_mult: 1.0
+    decay_mult: 0.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
     bias_filler {
-      type: "constant"
-      value: 0.0
+      value: 0
     }
   }
 }
 layer {
-  name: "conv_10/expand__mbox_loc-__perm"
-  type: "Permute"
-  bottom: "conv_10/expand__mbox_loc-_"
-  top: "conv_10/expand__mbox_loc-__perm"
-  permute_param {
-    order: 0
-    order: 2
-    order: 3
-    order: 1
+  name: "layer_19_2_5/depthwise/relu"
+  type: "ReLU"
+  bottom: "layer_19_2_5/depthwise"
+  top: "layer_19_2_5/depthwise"
+}
+layer {
+  name: "layer_19_2_5"
+  type: "Convolution"
+  bottom: "layer_19_2_5/depthwise"
+  top: "layer_19_2_5"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  convolution_param {
+    num_output: 256
+    bias_term: false
+    kernel_size: 1
+    weight_filler {
+      type: "msra"
+    }
   }
 }
 layer {
-  name: "conv_10/expand__mbox_loc-__flat"
-  type: "Flatten"
-  bottom: "conv_10/expand__mbox_loc-__perm"
-  top: "conv_10/expand__mbox_loc-__flat"
-  flatten_param {
-    axis: 1
+  name: "layer_19_2_5/bn"
+  type: "BatchNorm"
+  bottom: "layer_19_2_5"
+  top: "layer_19_2_5"
+  batch_norm_param {
+    eps: 0.001
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
   }
 }
 layer {
-  name: "conv_10/expand__mbox_conf-_"
+  name: "layer_19_2_5/scale"
+  type: "Scale"
+  bottom: "layer_19_2_5"
+  top: "layer_19_2_5"
+  param {
+    lr_mult: 1.0
+    decay_mult: 0.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "layer_19_2_5/relu"
+  type: "ReLU"
+  bottom: "layer_19_2_5"
+  top: "layer_19_2_5"
+}
+layer {
+  name: "conv_10/expand__mbox_loc_"
   type: "Convolution"
   bottom: "conv_10/expand_"
-  top: "conv_10/expand__mbox_conf-_"
+  top: "conv_10/expand__mbox_loc_"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -4354,10 +4515,10 @@ layer {
   }
 }
 layer {
-  name: "conv_10/expand__mbox_conf-__perm"
+  name: "conv_10/expand__mbox_loc__perm"
   type: "Permute"
-  bottom: "conv_10/expand__mbox_conf-_"
-  top: "conv_10/expand__mbox_conf-__perm"
+  bottom: "conv_10/expand__mbox_loc_"
+  top: "conv_10/expand__mbox_loc__perm"
   permute_param {
     order: 0
     order: 2
@@ -4366,10 +4527,57 @@ layer {
   }
 }
 layer {
-  name: "conv_10/expand__mbox_conf-__flat"
+  name: "conv_10/expand__mbox_loc__flat"
   type: "Flatten"
-  bottom: "conv_10/expand__mbox_conf-__perm"
-  top: "conv_10/expand__mbox_conf-__flat"
+  bottom: "conv_10/expand__mbox_loc__perm"
+  top: "conv_10/expand__mbox_loc__flat"
+  flatten_param {
+    axis: 1
+  }
+}
+layer {
+  name: "conv_10/expand__mbox_conf_"
+  type: "Convolution"
+  bottom: "conv_10/expand_"
+  top: "conv_10/expand__mbox_conf_"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  convolution_param {
+    num_output: 4
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "conv_10/expand__mbox_conf__perm"
+  type: "Permute"
+  bottom: "conv_10/expand__mbox_conf_"
+  top: "conv_10/expand__mbox_conf__perm"
+  permute_param {
+    order: 0
+    order: 2
+    order: 3
+    order: 1
+  }
+}
+layer {
+  name: "conv_10/expand__mbox_conf__flat"
+  type: "Flatten"
+  bottom: "conv_10/expand__mbox_conf__perm"
+  top: "conv_10/expand__mbox_conf__flat"
   flatten_param {
     axis: 1
   }
@@ -4381,8 +4589,7 @@ layer {
   bottom: "data"
   top: "conv_10/expand__mbox_priorbox"
   prior_box_param {
-    min_size: 16.0
-    min_size: 32.0
+    min_size: 64.0
     aspect_ratio: 0.4
     flip: false
     clip: false
@@ -4390,15 +4597,14 @@ layer {
     variance: 0.1
     variance: 0.2
     variance: 0.2
-    step: 8.0
     offset: 0.5
   }
 }
 layer {
-  name: "Conv_1_mbox_loc-_"
+  name: "Conv_1_mbox_loc_"
   type: "Convolution"
   bottom: "Conv_1"
-  top: "Conv_1_mbox_loc-_"
+  top: "Conv_1_mbox_loc_"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -4408,7 +4614,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 8
+    num_output: 12
     pad: 1
     kernel_size: 3
     weight_filler {
@@ -4421,10 +4627,10 @@ layer {
   }
 }
 layer {
-  name: "Conv_1_mbox_loc-__perm"
+  name: "Conv_1_mbox_loc__perm"
   type: "Permute"
-  bottom: "Conv_1_mbox_loc-_"
-  top: "Conv_1_mbox_loc-__perm"
+  bottom: "Conv_1_mbox_loc_"
+  top: "Conv_1_mbox_loc__perm"
   permute_param {
     order: 0
     order: 2
@@ -4433,19 +4639,19 @@ layer {
   }
 }
 layer {
-  name: "Conv_1_mbox_loc-__flat"
+  name: "Conv_1_mbox_loc__flat"
   type: "Flatten"
-  bottom: "Conv_1_mbox_loc-__perm"
-  top: "Conv_1_mbox_loc-__flat"
+  bottom: "Conv_1_mbox_loc__perm"
+  top: "Conv_1_mbox_loc__flat"
   flatten_param {
     axis: 1
   }
 }
 layer {
-  name: "Conv_1_mbox_conf-_"
+  name: "Conv_1_mbox_conf_"
   type: "Convolution"
   bottom: "Conv_1"
-  top: "Conv_1_mbox_conf-_"
+  top: "Conv_1_mbox_conf_"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -4455,7 +4661,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 4
+    num_output: 6
     pad: 1
     kernel_size: 3
     weight_filler {
@@ -4468,10 +4674,10 @@ layer {
   }
 }
 layer {
-  name: "Conv_1_mbox_conf-__perm"
+  name: "Conv_1_mbox_conf__perm"
   type: "Permute"
-  bottom: "Conv_1_mbox_conf-_"
-  top: "Conv_1_mbox_conf-__perm"
+  bottom: "Conv_1_mbox_conf_"
+  top: "Conv_1_mbox_conf__perm"
   permute_param {
     order: 0
     order: 2
@@ -4480,10 +4686,10 @@ layer {
   }
 }
 layer {
-  name: "Conv_1_mbox_conf-__flat"
+  name: "Conv_1_mbox_conf__flat"
   type: "Flatten"
-  bottom: "Conv_1_mbox_conf-__perm"
-  top: "Conv_1_mbox_conf-__flat"
+  bottom: "Conv_1_mbox_conf__perm"
+  top: "Conv_1_mbox_conf__flat"
   flatten_param {
     axis: 1
   }
@@ -4495,7 +4701,8 @@ layer {
   bottom: "data"
   top: "Conv_1_mbox_priorbox"
   prior_box_param {
-    min_size: 64.0
+    min_size: 112.0
+    max_size: 160.0
     aspect_ratio: 0.4
     flip: false
     clip: false
@@ -4503,15 +4710,14 @@ layer {
     variance: 0.1
     variance: 0.2
     variance: 0.2
-    step: 16.0
     offset: 0.5
   }
 }
 layer {
-  name: "layer_19_2_2_mbox_loc-_"
+  name: "layer_19_2_2_mbox_loc_"
   type: "Convolution"
   bottom: "layer_19_2_2"
-  top: "layer_19_2_2_mbox_loc-_"
+  top: "layer_19_2_2_mbox_loc_"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -4521,7 +4727,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 8
+    num_output: 12
     pad: 1
     kernel_size: 3
     weight_filler {
@@ -4534,10 +4740,10 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_2_mbox_loc-__perm"
+  name: "layer_19_2_2_mbox_loc__perm"
   type: "Permute"
-  bottom: "layer_19_2_2_mbox_loc-_"
-  top: "layer_19_2_2_mbox_loc-__perm"
+  bottom: "layer_19_2_2_mbox_loc_"
+  top: "layer_19_2_2_mbox_loc__perm"
   permute_param {
     order: 0
     order: 2
@@ -4546,19 +4752,19 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_2_mbox_loc-__flat"
+  name: "layer_19_2_2_mbox_loc__flat"
   type: "Flatten"
-  bottom: "layer_19_2_2_mbox_loc-__perm"
-  top: "layer_19_2_2_mbox_loc-__flat"
+  bottom: "layer_19_2_2_mbox_loc__perm"
+  top: "layer_19_2_2_mbox_loc__flat"
   flatten_param {
     axis: 1
   }
 }
 layer {
-  name: "layer_19_2_2_mbox_conf-_"
+  name: "layer_19_2_2_mbox_conf_"
   type: "Convolution"
   bottom: "layer_19_2_2"
-  top: "layer_19_2_2_mbox_conf-_"
+  top: "layer_19_2_2_mbox_conf_"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -4568,7 +4774,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 4
+    num_output: 6
     pad: 1
     kernel_size: 3
     weight_filler {
@@ -4581,10 +4787,10 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_2_mbox_conf-__perm"
+  name: "layer_19_2_2_mbox_conf__perm"
   type: "Permute"
-  bottom: "layer_19_2_2_mbox_conf-_"
-  top: "layer_19_2_2_mbox_conf-__perm"
+  bottom: "layer_19_2_2_mbox_conf_"
+  top: "layer_19_2_2_mbox_conf__perm"
   permute_param {
     order: 0
     order: 2
@@ -4593,10 +4799,10 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_2_mbox_conf-__flat"
+  name: "layer_19_2_2_mbox_conf__flat"
   type: "Flatten"
-  bottom: "layer_19_2_2_mbox_conf-__perm"
-  top: "layer_19_2_2_mbox_conf-__flat"
+  bottom: "layer_19_2_2_mbox_conf__perm"
+  top: "layer_19_2_2_mbox_conf__flat"
   flatten_param {
     axis: 1
   }
@@ -4608,7 +4814,8 @@ layer {
   bottom: "data"
   top: "layer_19_2_2_mbox_priorbox"
   prior_box_param {
-    min_size: 128.0
+    min_size: 160.0
+    max_size: 208.0
     aspect_ratio: 0.4
     flip: false
     clip: false
@@ -4616,15 +4823,14 @@ layer {
     variance: 0.1
     variance: 0.2
     variance: 0.2
-    step: 32.0
     offset: 0.5
   }
 }
 layer {
-  name: "layer_19_2_3_mbox_loc-_"
+  name: "layer_19_2_3_mbox_loc_"
   type: "Convolution"
   bottom: "layer_19_2_3"
-  top: "layer_19_2_3_mbox_loc-_"
+  top: "layer_19_2_3_mbox_loc_"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -4634,7 +4840,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 8
+    num_output: 12
     pad: 1
     kernel_size: 3
     weight_filler {
@@ -4647,10 +4853,10 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_3_mbox_loc-__perm"
+  name: "layer_19_2_3_mbox_loc__perm"
   type: "Permute"
-  bottom: "layer_19_2_3_mbox_loc-_"
-  top: "layer_19_2_3_mbox_loc-__perm"
+  bottom: "layer_19_2_3_mbox_loc_"
+  top: "layer_19_2_3_mbox_loc__perm"
   permute_param {
     order: 0
     order: 2
@@ -4659,19 +4865,19 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_3_mbox_loc-__flat"
+  name: "layer_19_2_3_mbox_loc__flat"
   type: "Flatten"
-  bottom: "layer_19_2_3_mbox_loc-__perm"
-  top: "layer_19_2_3_mbox_loc-__flat"
+  bottom: "layer_19_2_3_mbox_loc__perm"
+  top: "layer_19_2_3_mbox_loc__flat"
   flatten_param {
     axis: 1
   }
 }
 layer {
-  name: "layer_19_2_3_mbox_conf-_"
+  name: "layer_19_2_3_mbox_conf_"
   type: "Convolution"
   bottom: "layer_19_2_3"
-  top: "layer_19_2_3_mbox_conf-_"
+  top: "layer_19_2_3_mbox_conf_"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -4681,7 +4887,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 4
+    num_output: 6
     pad: 1
     kernel_size: 3
     weight_filler {
@@ -4694,10 +4900,10 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_3_mbox_conf-__perm"
+  name: "layer_19_2_3_mbox_conf__perm"
   type: "Permute"
-  bottom: "layer_19_2_3_mbox_conf-_"
-  top: "layer_19_2_3_mbox_conf-__perm"
+  bottom: "layer_19_2_3_mbox_conf_"
+  top: "layer_19_2_3_mbox_conf__perm"
   permute_param {
     order: 0
     order: 2
@@ -4706,10 +4912,10 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_3_mbox_conf-__flat"
+  name: "layer_19_2_3_mbox_conf__flat"
   type: "Flatten"
-  bottom: "layer_19_2_3_mbox_conf-__perm"
-  top: "layer_19_2_3_mbox_conf-__flat"
+  bottom: "layer_19_2_3_mbox_conf__perm"
+  top: "layer_19_2_3_mbox_conf__flat"
   flatten_param {
     axis: 1
   }
@@ -4721,7 +4927,8 @@ layer {
   bottom: "data"
   top: "layer_19_2_3_mbox_priorbox"
   prior_box_param {
-    min_size: 256.0
+    min_size: 208.0
+    max_size: 256.0
     aspect_ratio: 0.4
     flip: false
     clip: false
@@ -4729,15 +4936,14 @@ layer {
     variance: 0.1
     variance: 0.2
     variance: 0.2
-    step: 64.0
     offset: 0.5
   }
 }
 layer {
-  name: "layer_19_2_4_mbox_loc-_"
+  name: "layer_19_2_4_mbox_loc_"
   type: "Convolution"
   bottom: "layer_19_2_4"
-  top: "layer_19_2_4_mbox_loc-_"
+  top: "layer_19_2_4_mbox_loc_"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -4747,7 +4953,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 8
+    num_output: 12
     pad: 1
     kernel_size: 3
     weight_filler {
@@ -4760,10 +4966,10 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_4_mbox_loc-__perm"
+  name: "layer_19_2_4_mbox_loc__perm"
   type: "Permute"
-  bottom: "layer_19_2_4_mbox_loc-_"
-  top: "layer_19_2_4_mbox_loc-__perm"
+  bottom: "layer_19_2_4_mbox_loc_"
+  top: "layer_19_2_4_mbox_loc__perm"
   permute_param {
     order: 0
     order: 2
@@ -4772,19 +4978,19 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_4_mbox_loc-__flat"
+  name: "layer_19_2_4_mbox_loc__flat"
   type: "Flatten"
-  bottom: "layer_19_2_4_mbox_loc-__perm"
-  top: "layer_19_2_4_mbox_loc-__flat"
+  bottom: "layer_19_2_4_mbox_loc__perm"
+  top: "layer_19_2_4_mbox_loc__flat"
   flatten_param {
     axis: 1
   }
 }
 layer {
-  name: "layer_19_2_4_mbox_conf-_"
+  name: "layer_19_2_4_mbox_conf_"
   type: "Convolution"
   bottom: "layer_19_2_4"
-  top: "layer_19_2_4_mbox_conf-_"
+  top: "layer_19_2_4_mbox_conf_"
   param {
     lr_mult: 1.0
     decay_mult: 1.0
@@ -4794,7 +5000,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 4
+    num_output: 6
     pad: 1
     kernel_size: 3
     weight_filler {
@@ -4807,10 +5013,10 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_4_mbox_conf-__perm"
+  name: "layer_19_2_4_mbox_conf__perm"
   type: "Permute"
-  bottom: "layer_19_2_4_mbox_conf-_"
-  top: "layer_19_2_4_mbox_conf-__perm"
+  bottom: "layer_19_2_4_mbox_conf_"
+  top: "layer_19_2_4_mbox_conf__perm"
   permute_param {
     order: 0
     order: 2
@@ -4819,10 +5025,10 @@ layer {
   }
 }
 layer {
-  name: "layer_19_2_4_mbox_conf-__flat"
+  name: "layer_19_2_4_mbox_conf__flat"
   type: "Flatten"
-  bottom: "layer_19_2_4_mbox_conf-__perm"
-  top: "layer_19_2_4_mbox_conf-__flat"
+  bottom: "layer_19_2_4_mbox_conf__perm"
+  top: "layer_19_2_4_mbox_conf__flat"
   flatten_param {
     axis: 1
   }
@@ -4834,7 +5040,8 @@ layer {
   bottom: "data"
   top: "layer_19_2_4_mbox_priorbox"
   prior_box_param {
-    min_size: 512.0
+    min_size: 256.0
+    max_size: 304.0
     aspect_ratio: 0.4
     flip: false
     clip: false
@@ -4842,32 +5049,146 @@ layer {
     variance: 0.1
     variance: 0.2
     variance: 0.2
-    step: 128.0
     offset: 0.5
   }
 }
 layer {
-  name: "mbox_loc-_"
+  name: "layer_19_2_5_mbox_loc_"
+  type: "Convolution"
+  bottom: "layer_19_2_5"
+  top: "layer_19_2_5_mbox_loc_"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  convolution_param {
+    num_output: 12
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "layer_19_2_5_mbox_loc__perm"
+  type: "Permute"
+  bottom: "layer_19_2_5_mbox_loc_"
+  top: "layer_19_2_5_mbox_loc__perm"
+  permute_param {
+    order: 0
+    order: 2
+    order: 3
+    order: 1
+  }
+}
+layer {
+  name: "layer_19_2_5_mbox_loc__flat"
+  type: "Flatten"
+  bottom: "layer_19_2_5_mbox_loc__perm"
+  top: "layer_19_2_5_mbox_loc__flat"
+  flatten_param {
+    axis: 1
+  }
+}
+layer {
+  name: "layer_19_2_5_mbox_conf_"
+  type: "Convolution"
+  bottom: "layer_19_2_5"
+  top: "layer_19_2_5_mbox_conf_"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  convolution_param {
+    num_output: 6
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "msra"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+  }
+}
+layer {
+  name: "layer_19_2_5_mbox_conf__perm"
+  type: "Permute"
+  bottom: "layer_19_2_5_mbox_conf_"
+  top: "layer_19_2_5_mbox_conf__perm"
+  permute_param {
+    order: 0
+    order: 2
+    order: 3
+    order: 1
+  }
+}
+layer {
+  name: "layer_19_2_5_mbox_conf__flat"
+  type: "Flatten"
+  bottom: "layer_19_2_5_mbox_conf__perm"
+  top: "layer_19_2_5_mbox_conf__flat"
+  flatten_param {
+    axis: 1
+  }
+}
+layer {
+  name: "layer_19_2_5_mbox_priorbox"
+  type: "PriorBox"
+  bottom: "layer_19_2_5"
+  bottom: "data"
+  top: "layer_19_2_5_mbox_priorbox"
+  prior_box_param {
+    min_size: 304.0
+    max_size: 320.0
+    aspect_ratio: 0.4
+    flip: false
+    clip: false
+    variance: 0.1
+    variance: 0.1
+    variance: 0.2
+    variance: 0.2
+    offset: 0.5
+  }
+}
+layer {
+  name: "mbox_loc_"
   type: "Concat"
-  bottom: "conv_10/expand__mbox_loc-__flat"
-  bottom: "Conv_1_mbox_loc-__flat"
-  bottom: "layer_19_2_2_mbox_loc-__flat"
-  bottom: "layer_19_2_3_mbox_loc-__flat"
-  bottom: "layer_19_2_4_mbox_loc-__flat"
-  top: "mbox_loc-_"
+  bottom: "conv_10/expand__mbox_loc__flat"
+  bottom: "Conv_1_mbox_loc__flat"
+  bottom: "layer_19_2_2_mbox_loc__flat"
+  bottom: "layer_19_2_3_mbox_loc__flat"
+  bottom: "layer_19_2_4_mbox_loc__flat"
+  bottom: "layer_19_2_5_mbox_loc__flat"
+  top: "mbox_loc_"
   concat_param {
     axis: 1
   }
 }
 layer {
-  name: "mbox_conf-_"
+  name: "mbox_conf_"
   type: "Concat"
-  bottom: "conv_10/expand__mbox_conf-__flat"
-  bottom: "Conv_1_mbox_conf-__flat"
-  bottom: "layer_19_2_2_mbox_conf-__flat"
-  bottom: "layer_19_2_3_mbox_conf-__flat"
-  bottom: "layer_19_2_4_mbox_conf-__flat"
-  top: "mbox_conf-_"
+  bottom: "conv_10/expand__mbox_conf__flat"
+  bottom: "Conv_1_mbox_conf__flat"
+  bottom: "layer_19_2_2_mbox_conf__flat"
+  bottom: "layer_19_2_3_mbox_conf__flat"
+  bottom: "layer_19_2_4_mbox_conf__flat"
+  bottom: "layer_19_2_5_mbox_conf__flat"
+  top: "mbox_conf_"
   concat_param {
     axis: 1
   }
@@ -4880,6 +5201,7 @@ layer {
   bottom: "layer_19_2_2_mbox_priorbox"
   bottom: "layer_19_2_3_mbox_priorbox"
   bottom: "layer_19_2_4_mbox_priorbox"
+  bottom: "layer_19_2_5_mbox_priorbox"
   top: "mbox_priorbox"
   concat_param {
     axis: 2
@@ -4888,7 +5210,7 @@ layer {
 layer {
   name: "mbox_conf_reshape"
   type: "Reshape"
-  bottom: "mbox_conf-_"
+  bottom: "mbox_conf_"
   top: "mbox_conf_reshape"
   reshape_param {
     shape {
@@ -4916,7 +5238,7 @@ layer {
 layer {
   name: "detection_out"
   type: "DetectionOutput"
-  bottom: "mbox_loc-_"
+  bottom: "mbox_loc_"
   bottom: "mbox_conf_flatten"
   bottom: "mbox_priorbox"
   top: "detection_out"
@@ -4928,11 +5250,11 @@ layer {
     share_location: true
     background_label_id: 0
     nms_param {
-      nms_threshold: 0.3
-      top_k: 5000
+      nms_threshold: 0.45
+      top_k: 100
     }
     code_type: CENTER_SIZE
-    keep_top_k: 750
-    confidence_threshold: 0.05
+    keep_top_k: 100
+    confidence_threshold: 0.35
   }
 }

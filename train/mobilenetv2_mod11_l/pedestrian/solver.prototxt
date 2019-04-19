@@ -1,14 +1,14 @@
 train_net: "models/MobileNetV2/SFD-320x320-mod11l-fp16/Person-detection/train.prototxt"
 test_net: "models/MobileNetV2/SFD-320x320-mod11l-fp16/Person-detection/test.prototxt"
 test_iter: 3250 # 26000/8
-test_interval: 5000
+test_interval: 10000
 base_lr: 0.0003 #0.001 #0.00004
 display: 10
 max_iter: 150000
 lr_policy: "multistep"
 gamma: 0.5
 weight_decay: 0.00001
-snapshot: 20000
+snapshot: 25000
 snapshot_prefix: "models/MobileNetV2/SFD-320x320-mod11l-fp16/Person-detection/snapshots/SFD-320x320-MobilenetV2-mod11l-NVCaffe-fp16-person"
 solver_mode: GPU
 device_id: 0

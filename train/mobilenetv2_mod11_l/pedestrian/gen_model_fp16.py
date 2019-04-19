@@ -68,6 +68,7 @@ input_shape {
     mean_value: 104.0
     mean_value: 117.0
     mean_value: 123.0
+    force_color: true
     resize_param {
       prob: 1.0
       resize_mode: WARP
@@ -95,6 +96,10 @@ input_shape {
       saturation_upper: 1.5
       random_order_prob: 0.0
     }
+    expand_param {
+      prob: 0.5
+      max_expand_ratio: 4.0
+    }
   }
   data_param {
     source: "%s"
@@ -103,14 +108,18 @@ input_shape {
   }
   annotated_data_param {
     batch_sampler {
+      max_sample: 1
+      max_trials: 1
+    }
+    batch_sampler {
       sampler {
-        min_scale: 1.0
+        min_scale: 0.3
         max_scale: 1.0
-        min_aspect_ratio: 1.0
-        max_aspect_ratio: 1.0
+        min_aspect_ratio: 0.5
+        max_aspect_ratio: 2.0
       }
       sample_constraint {
-        min_object_coverage: 1.0
+        min_jaccard_overlap: 0.1
       }
       max_sample: 1
       max_trials: 50
@@ -119,11 +128,11 @@ input_shape {
       sampler {
         min_scale: 0.3
         max_scale: 1.0
-        min_aspect_ratio: 1.0
-        max_aspect_ratio: 1.0
+        min_aspect_ratio: 0.5
+        max_aspect_ratio: 2.0
       }
       sample_constraint {
-        min_object_coverage: 1.0
+        min_jaccard_overlap: 0.3
       }
       max_sample: 1
       max_trials: 50
@@ -132,11 +141,11 @@ input_shape {
       sampler {
         min_scale: 0.3
         max_scale: 1.0
-        min_aspect_ratio: 1.0
-        max_aspect_ratio: 1.0
+        min_aspect_ratio: 0.5
+        max_aspect_ratio: 2.0
       }
       sample_constraint {
-        min_object_coverage: 1.0
+        min_jaccard_overlap: 0.5
       }
       max_sample: 1
       max_trials: 50
@@ -145,11 +154,11 @@ input_shape {
       sampler {
         min_scale: 0.3
         max_scale: 1.0
-        min_aspect_ratio: 1.0
-        max_aspect_ratio: 1.0
+        min_aspect_ratio: 0.5
+        max_aspect_ratio: 2.0
       }
       sample_constraint {
-        min_object_coverage: 1.0
+        min_jaccard_overlap: 0.7
       }
       max_sample: 1
       max_trials: 50
@@ -158,11 +167,24 @@ input_shape {
       sampler {
         min_scale: 0.3
         max_scale: 1.0
-        min_aspect_ratio: 1.0
-        max_aspect_ratio: 1.0
+        min_aspect_ratio: 0.5
+        max_aspect_ratio: 2.0
       }
       sample_constraint {
-        min_object_coverage: 1.0
+        min_jaccard_overlap: 0.9
+      }
+      max_sample: 1
+      max_trials: 50
+    }
+    batch_sampler {
+      sampler {
+        min_scale: 0.3
+        max_scale: 1.0
+        min_aspect_ratio: 0.5
+        max_aspect_ratio: 2.0
+      }
+      sample_constraint {
+        max_jaccard_overlap: 1.0
       }
       max_sample: 1
       max_trials: 50
@@ -182,6 +204,7 @@ input_shape {
   layer {
   forward_type:  FLOAT
   backward_type: FLOAT
+
   name: "data"
   type: "AnnotatedData"
   top: "data"
@@ -193,6 +216,7 @@ input_shape {
     mean_value: 104.0
     mean_value: 117.0
     mean_value: 123.0
+    force_color: true
     resize_param {
       prob: 1.0
       resize_mode: WARP
@@ -242,7 +266,7 @@ layer{
 """layer {
   name: "mbox_conf_reshape"
   type: "Reshape"
-  bottom: "mbox_conf-_"
+  bottom: "mbox_conf_"
   top: "mbox_conf_reshape"
   reshape_param {
     shape {
@@ -270,7 +294,7 @@ layer {
 layer {
   name: "detection_out"
   type: "DetectionOutput"
-  bottom: "mbox_loc-_"
+  bottom: "mbox_loc_"
   bottom: "mbox_conf_flatten"
   bottom: "mbox_priorbox"
   top: "detection_out"
@@ -282,12 +306,12 @@ layer {
     share_location: true
     background_label_id: 0
     nms_param {
-      nms_threshold: 0.3
-      top_k: 5000
+      nms_threshold: 0.45
+      top_k: 100
     }
     code_type: CENTER_SIZE
-    keep_top_k: 750
-    confidence_threshold: 0.05
+    keep_top_k: 100
+    confidence_threshold: 0.35
   }
 }""" % (self.class_num, self.class_num))
 
@@ -296,7 +320,7 @@ layer {
 """layer {
   name: "mbox_conf_reshape"
   type: "Reshape"
-  bottom: "mbox_conf-_"
+  bottom: "mbox_conf_"
   top: "mbox_conf_reshape"
   reshape_param {
     shape {
@@ -324,7 +348,7 @@ layer {
 layer {
   name: "detection_out"
   type: "DetectionOutput"
-  bottom: "mbox_loc-_"
+  bottom: "mbox_loc_"
   bottom: "mbox_conf_flatten"
   bottom: "mbox_priorbox"
   top: "detection_out"
@@ -336,12 +360,12 @@ layer {
     share_location: true
     background_label_id: 0
     nms_param {
-      nms_threshold: 0.3
-      top_k: 5000
+      nms_threshold: 0.45
+      top_k: 400
     }
     code_type: CENTER_SIZE
-    keep_top_k: 750
-    confidence_threshold: 0.05
+    keep_top_k: 200
+    confidence_threshold: 0.01
   }
 }
 layer {
@@ -368,8 +392,8 @@ layer {
   backward_type: FLOAT
   name: "mbox_loss"
   type: "MultiBoxLoss"
-  bottom: "mbox_loc-_"
-  bottom: "mbox_conf-_"
+  bottom: "mbox_loc_"
+  bottom: "mbox_conf_"
   bottom: "mbox_priorbox"
   bottom: "label"
   top: "mbox_loss"
@@ -390,12 +414,12 @@ layer {
     num_classes: %d
     share_location: true
     match_type: PER_PREDICTION
-    overlap_threshold: 0.3
+    overlap_threshold: 0.5
     use_prior_for_matching: true
     background_label_id: 0
     use_difficult_gt: true
     neg_pos_ratio: 3.0
-    neg_overlap: 0.35
+    neg_overlap: 0.5
     code_type: CENTER_SIZE
     ignore_cross_boundary_bbox: false
     mining_type: MAX_NEGATIVE
@@ -403,7 +427,7 @@ layer {
 }""" % self.class_num)
 
     def concat_boxes(self, convs):
-      for layer in ["loc-_", "conf-_"]:
+      for layer in ["loc_", "conf_"]:
         bottom =""
         for cnv in convs:
           bottom += "\n  bottom: \"%s_mbox_%s_flat\"" % (cnv, layer)
@@ -566,7 +590,7 @@ layer {
 
     def conv_block(self, name, inp, t, outp, stride, sc):
       last_block = self.last
-      self.conv_expand(name + '/expand_', inp, t * inp)  ## name modified when change expand ratio
+      self.conv_expand(name + '/expand_', inp, t * inp)
       self.conv_depthwise(name + '/depthwise_', t * inp, stride)
       if sc:
          self.conv_project(name + '/project_', t * inp, outp)
@@ -658,42 +682,36 @@ layer {
 }""" % (name, name, name))
       self.last = name + "_flat"
     
-    def mbox_prior(self, name, min_size, max_size, step, aspect_ratio):
-      min_box = min_size
-      #min_box = self.input_size * min_size
+    def mbox_prior(self, name, min_size, max_size, aspect_ratio):
+      min_box = self.input_size * min_size
       max_box_str = ""
       aspect_ratio_str = ""
-      min_box_str = ""
-      step_str = ""
       if max_size is not None:
           max_box = self.input_size * max_size
           max_box_str = "\n    max_size: %.1f" % max_box
       for ar in aspect_ratio:
           aspect_ratio_str += "\n    aspect_ratio: %.1f" % ar
-      for ms in min_size:
-          min_box_str += "\n    min_size: %.1f" % ms
-      for st in step:
-          step_str += "\n    step: %.1f" % st
-      if self.stage == "deploy":
-          print(
+      if self.stage == "deploy": 
+         print(
 """layer {
   name: "%s_mbox_priorbox"
   type: "PriorBox"
   bottom: "%s"
   bottom: "data"
   top: "%s_mbox_priorbox"
-  prior_box_param {%s%s%s
+  prior_box_param {
+    min_size: %.1f%s%s
     flip: false
     clip: false
     variance: 0.1
     variance: 0.1
     variance: 0.2
-    variance: 0.2%s
+    variance: 0.2
     offset: 0.5
   }
-}""" % (name, name, name, min_box_str, max_box_str, aspect_ratio_str, step_str))
+}""" % (name, name, name, float(min_box), max_box_str, aspect_ratio_str))
       else:
-          print(
+         print(
 """layer {
   forward_type:  FLOAT
   backward_type: FLOAT
@@ -702,24 +720,27 @@ layer {
   bottom: "%s"
   bottom: "data"
   top: "%s_mbox_priorbox"
-  prior_box_param {%s%s%s
+  prior_box_param {
+    min_size: %.1f%s%s
     flip: false
     clip: false
     variance: 0.1
     variance: 0.1
     variance: 0.2
-    variance: 0.2%s
+    variance: 0.2
     offset: 0.5
   }
-}""" % (name, name, name, min_box_str, max_box_str, aspect_ratio_str, step_str))
+}""" % (name, name, name, float(min_box), max_box_str, aspect_ratio_str))
+
+
 
     def mbox_conf(self, bottom, num):
-       name = bottom + "_mbox_conf-_"
+       name = bottom + "_mbox_conf_"
        self.conv(name, num, 3, bias=True, bottom=bottom)
        self.permute(name)
        self.flatten(name)
     def mbox_loc(self, bottom, num):
-       name = bottom + "_mbox_loc-_"
+       name = bottom + "_mbox_loc_"
        self.conv(name, num, 3, bias=True, bottom=bottom)
        self.permute(name)
        self.flatten(name)
@@ -727,12 +748,12 @@ layer {
     def mbox(self, bottom, num):
        self.mbox_loc(bottom, num * 4)
        self.mbox_conf(bottom, num * self.class_num)
-       min_size, step = self.anchors[0]
+       min_size, max_size = self.anchors[0]
        if self.first_prior:
-           self.mbox_prior(bottom, min_size, None, step, [0.41]) # [2.0])
+           self.mbox_prior(bottom, min_size, None, [0.41]) #[2.0])
            self.first_prior = False
        else:
-           self.mbox_prior(bottom, min_size, None, step, [0.41]) #[2.0,3.0])
+           self.mbox_prior(bottom, min_size, max_size, [0.41])#[2.0,3.0])
        self.anchors.pop(0)
 
     def fc(self, name, output):
@@ -784,7 +805,7 @@ layer {
       self.class_num = class_num
 
       if gen_ssd:
-          self.header("MobileNetv2-SSD")
+          self.header("MobileNetv2-SSDLite")
       else:
           self.header("MobileNetv2")
       if stage == "train":
@@ -799,6 +820,7 @@ layer {
           self.data_test_ssd()
       else:
           self.data_deploy()
+
       t = 2
       t_ = 4
       self.conv_bn_relu_with_factor("Conv", 24, 3, 2)
@@ -826,14 +848,15 @@ layer {
           self.conv_ssd("layer_19", 2, 256, 256)
           self.conv_ssd("layer_19", 3, 256, 256)
           self.conv_ssd("layer_19", 4, 256, 256)
-          #self.conv_ssd("layer_19", 5, 256, 128)
-          self.mbox("conv_10/expand_", 4)
-          self.mbox("Conv_1", 2)
-          self.mbox("layer_19_2_2", 2)
-          self.mbox("layer_19_2_3", 2)
-          self.mbox("layer_19_2_4", 2)
-          #self.mbox("layer_19_2_5", 6)
-          self.concat_boxes(['conv_10/expand_', 'Conv_1', 'layer_19_2_2', 'layer_19_2_3', 'layer_19_2_4']) 
+          self.conv_ssd("layer_19", 5, 256, 256)
+          self.mbox("conv_10/expand_", 2)
+          self.mbox("Conv_1", 3)
+          self.mbox("layer_19_2_2", 3)
+          self.mbox("layer_19_2_3", 3)
+          self.mbox("layer_19_2_4", 3)
+          self.mbox("layer_19_2_5", 3)
+          self.concat_boxes(['conv_10/expand_', 'Conv_1', 'layer_19_2_2', 'layer_19_2_3', 'layer_19_2_4', 'layer_19_2_5'])
+
           if stage == "train":
              self.ssd_loss()
           elif stage == "deploy":
@@ -850,15 +873,10 @@ layer {
 def create_ssd_anchors(num_layers=6,
                        min_scale=0.2,
                        max_scale=0.95):
-  #box_specs_list = []
-  #scales = [min_scale + (max_scale - min_scale) * i / (num_layers - 1)
-  #          for i in range(num_layers)] + [1.0]
-  #return zip(scales[:-1], scales[1:])
-  scales = [[16, 32], [64], [128], [256], [512] ]
-  steps =  [[8], [16], [32], [64], [128] ]
-  #scales = [[64], [128], [256], [512] ]
-  #steps =  [[16], [32], [64], [128] ]
-  return zip(scales, steps)
+  box_specs_list = []
+  scales = [min_scale + (max_scale - min_scale) * i / (num_layers - 1)
+            for i in range(num_layers)] + [1.0]
+  return zip(scales[:-1], scales[1:])
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
@@ -871,7 +889,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '-d','--lmdb',
       type=str,
-      default=None,
+      default="",
       help='The training or testing database'
   )
   parser.add_argument(
